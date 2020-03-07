@@ -18,9 +18,9 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
         }
 
         [HttpPost]
-        public IActionResult Register([FromBody]RegisterModel request)
+        public IActionResult Register(RegisterModel request)
         {
-            return View();
+            return RedirectToAction("Index","Home");
         }
 
         [HttpGet]
@@ -30,9 +30,9 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
         }
 
         [HttpPost]
-        public IActionResult SignIn([FromBody]SignInModel request)
+        public IActionResult SignIn(SignInModel request)
         {
-            return View();
+            return RedirectToAction("Index", "Home");
         }
     }
 }
