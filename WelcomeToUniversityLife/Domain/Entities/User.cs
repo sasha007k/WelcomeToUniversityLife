@@ -5,14 +5,13 @@ using System.Text;
 
 namespace Domain.Entities
 {
-    public class User: IdentityUser<int>
+    public class User: IdentityUser<int>, IEntityBase
     {
         public string LastName { get; set; }
 
         public string MiddleName { get; set; }
         public DateTime DateOfBirth { get; set; }
         public string City { get; set; }
-        public int UserInfoID { get; set; }
-    
+        public int UserInfoID { get; set; }    
     }
 }
