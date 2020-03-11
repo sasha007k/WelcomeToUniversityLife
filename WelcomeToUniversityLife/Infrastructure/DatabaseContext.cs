@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Domain.Entities;
-using Infrastructure.Configuration;
+using Infrastructure.Configurations;
 
 namespace Infrastructure
 {
