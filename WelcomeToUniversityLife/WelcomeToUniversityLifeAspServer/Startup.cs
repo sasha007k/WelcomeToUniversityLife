@@ -39,10 +39,6 @@ namespace WelcomeToUniversityLifeAspServer
             services.AddDbContext<DatabaseContext>
                 (options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            //services.AddDbContext<DatabaseContext>(options =>
-            // options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),
-            // builder => builder.MigrationsAssembly(typeof(Startup).GetTypeInfo().Assembly.GetName().Name)));
-
            // services.AddIdentity<User, Role>()
            //.AddEntityFrameworkStores<DatabaseContext>()
            //.AddDefaultTokenProviders();
@@ -58,15 +54,6 @@ namespace WelcomeToUniversityLifeAspServer
 
             services.AddScoped<UserManager<User>>();
 
-            //---configure identity path
-            services.ConfigureApplicationCookie(configure =>
-            {
-                configure.AccessDeniedPath = "/Auth/AccessSenied";
-                configure.LoginPath = "/Auth/Login";
-            });
-
-
-            //---configuring password
             services.Configure<IdentityOptions>(options =>
             {
                 options.Password.RequireDigit = false;
