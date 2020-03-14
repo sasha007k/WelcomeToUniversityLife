@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Domain.Entities
 {
-    public class User: IdentityUser<int>, IEntityBase
+    public class User: IdentityUser<int>
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }

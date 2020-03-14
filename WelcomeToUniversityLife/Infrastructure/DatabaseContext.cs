@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Domain.Entities;
@@ -9,8 +6,14 @@ using Infrastructure.Configurations;
 
 namespace Infrastructure
 {
-    public class DatabaseContext : IdentityDbContext<User, Role, int>
+    public class DatabaseContext : IdentityDbContext<User, IdentityRole<int>, int>
     {
+        public DbSet<Document> Documents { get; set; }
+
+        public DbSet<University> Universities { get; set; }
+
+        public DbSet<Speciality> Specialities { get; set; }
+
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
         {
 

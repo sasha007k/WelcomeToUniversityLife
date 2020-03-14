@@ -1,8 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 using Application.IServices;
 using Application.Services;
 using Domain;
@@ -11,14 +7,11 @@ using Infrastructure;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 
 namespace WelcomeToUniversityLifeAspServer
 {
@@ -36,23 +29,18 @@ namespace WelcomeToUniversityLifeAspServer
         {
             services.AddControllersWithViews();
 
-            services.AddDbContext<DatabaseContext>
-                (options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<DatabaseContext>(options =>
+              options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),
+              builder => builder.MigrationsAssembly(typeof(Startup).GetTypeInfo().Assembly.GetName().Name)));
 
-           // services.AddIdentity<User, Role>()
-           //.AddEntityFrameworkStores<DatabaseContext>()
-           //.AddDefaultTokenProviders();
+            services.AddIdentity<User, IdentityRole<int>>()
+           .AddEntityFrameworkStores<DatabaseContext>()
+           .AddDefaultTokenProviders();
 
-            services.AddIdentity<User, Role>()
-                .AddEntityFrameworkStores<DatabaseContext>()
-                .AddDefaultTokenProviders();
-
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme);
+            //services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme);
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<DbContext, DatabaseContext>();
-
-            services.AddScoped<UserManager<User>>();
 
             services.Configure<IdentityOptions>(options =>
             {
@@ -70,7 +58,7 @@ namespace WelcomeToUniversityLifeAspServer
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, UserManager<User> userManager,
-            /*RoleManager<IdentityRole> roleManager,*/ DatabaseContext context)
+            RoleManager<IdentityRole<int>> roleManager, DatabaseContext context)
         {
             if (env.IsDevelopment())
             {
@@ -83,7 +71,7 @@ namespace WelcomeToUniversityLifeAspServer
                 app.UseHsts();
             }
 
-            //DataInitializer.SeedData(userManager, roleManager, context).Wait();
+            DataInitializer.SeedData(userManager, roleManager, context).Wait();
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

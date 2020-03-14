@@ -1,15 +1,12 @@
 ﻿using Domain.Entities;
 using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Infrastructure
 {
     public static class DataInitializer
     {
-        public static async Task SeedData(UserManager<User> userManager, RoleManager<IdentityRole> roleManager, DatabaseContext context)
+        public static async Task SeedData(UserManager<User> userManager, RoleManager<IdentityRole<int>> roleManager, DatabaseContext context)
         {
             await SeedRoles(roleManager);
             await SeedUsers(userManager, context);
@@ -19,7 +16,7 @@ namespace Infrastructure
         {
             string email = "siteadmin@gmail.com";
             string password = "siteadmin";
-            
+
             if (await userManager.FindByEmailAsync(email) == null)
             {
                 User user = new User();
@@ -35,7 +32,7 @@ namespace Infrastructure
             }
         }
 
-        public static async Task SeedRoles(RoleManager<IdentityRole> roleManager)
+        public static async Task SeedRoles(RoleManager<IdentityRole<int>> roleManager)
         {
             string[] roleNames = { "User", "UniversityAdmin", "SiteAdmin" };
             IdentityResult roleResult;
@@ -44,7 +41,7 @@ namespace Infrastructure
                 var roleExist = await roleManager.RoleExistsAsync(role);
                 if (roleExist == false)
                 {
-                    roleResult = await roleManager.CreateAsync(new IdentityRole(role));
+                    roleResult = await roleManager.CreateAsync(new IdentityRole<int>(role));
                 }
             }
         }
