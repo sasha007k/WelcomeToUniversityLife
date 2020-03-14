@@ -21,6 +21,9 @@ namespace Infrastructure
             base.OnModelCreating(builder);
 
             builder.ApplyConfiguration(new UserConfiguration());
+            builder.ApplyConfiguration(new DocumentConfiguration());
+            builder.ApplyConfiguration(new SpecialityConfiguration());
+            builder.ApplyConfiguration(new UniversityConfiguration());
         }
     }
 }

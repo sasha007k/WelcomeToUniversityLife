@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Infrastructure.Configuration
+namespace Infrastructure.Configurations
 {
     public class DocumentConfiguration : IEntityTypeConfiguration<Document>
     {
@@ -15,8 +15,10 @@ namespace Infrastructure.Configuration
             builder.HasKey(u => u.Id);
             builder.Property(u => u.Name)
                 .IsRequired();
-           
-
+            builder.HasOne(u => u.User)
+                .WithMany(d => d.Documents)
+                .HasForeignKey(k => k.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

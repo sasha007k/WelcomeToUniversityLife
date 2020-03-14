@@ -5,9 +5,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Infrastructure.Configuration
+namespace Infrastructure.Configurations
 {
-    public class IssueConfiguration : IEntityTypeConfiguration<Speciality>
+    public class SpecialityConfiguration : IEntityTypeConfiguration<Speciality>
     {
         public void Configure(EntityTypeBuilder<Speciality> builder)
         {

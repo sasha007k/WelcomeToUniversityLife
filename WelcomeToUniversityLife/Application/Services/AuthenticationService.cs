@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Application.IServices;
 using Application.Models.Authentication;
 using Domain.Entities;
+using Infrastructure;
 using Microsoft.AspNetCore.Identity;
 
 namespace Application.Services
@@ -13,11 +14,13 @@ namespace Application.Services
     {
         UserManager<User> _userManager;
         SignInManager<User> _signInManager;
+        DatabaseContext _dbContext;
 
-        public AuthenticationService(UserManager<User> userManager, SignInManager<User> signInManager)
+        public AuthenticationService(UserManager<User> userManager, SignInManager<User> signInManager, DatabaseContext dbContext)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _dbContext = dbContext;
         }
 
         public async Task SignOut()
@@ -31,10 +34,11 @@ namespace Application.Services
         }
 
         public async Task<IdentityResult> Register(RegisterModel model)
-        {
+        {  
             User user = new User();
             user.Email = model.Email;
-            user.UserName = model.Email;
+            user.UserName = model.Email;            
+            
 
             IdentityResult result = await _userManager.CreateAsync(user, model.Password);
             if (result.Succeeded)

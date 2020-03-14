@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Infrastructure.Configuration
+namespace Infrastructure.Configurations
 {
     public class UniversityConfiguration : IEntityTypeConfiguration<University>
     {

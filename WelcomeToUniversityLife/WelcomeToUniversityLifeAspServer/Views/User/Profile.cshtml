@@ -1,0 +1,59 @@
+﻿@model Application.Models.User.UserProfileModel;
+
+@{
+    ViewData["Title"] = "Profile";
+}
+
+<div class="cotainer">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">Profile</div>
+                <div class="card-body">
+                    <form name="my-form" action="/User/Profile" method="post">
+                        <div class="form-group row">
+                            <div class="col-md-6">
+                                <input type="text" class="form-control elem" placeholder="Email" name="Email" value="@Model.Email" readonly required="" autofocus="" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-6">
+                                <input type="text" class="form-control elem" placeholder="Last name" name="LastName" value="@Model.LastName" required="" autofocus="" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-6">
+                                <input type="text" class="form-control elem" placeholder="First name" name="FirstName" value="@Model.FirstName" required="" autofocus="" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-6">
+                                <input type="text" class="form-control elem" placeholder="Middle name" name="MiddleName" value="@Model.MiddleName" required="" autofocus="" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-6">
+                                <input type="text" class="form-control elem" placeholder="City" name="City" value="@Model.City" required="" autofocus="" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-6">
+                                <input type="tel" class="form-control elem" placeholder="Phone" name="Phone" value="@Model.Phone" autofocus="" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="date" class="form-control elem" placeholder="Date of birth" name="DateOfBirth" value="@Model.DateOfBirth" autofocus="" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 offset-md-4">
+                            <button type="submit" class="btn btn-cyan btn-sm">Update</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

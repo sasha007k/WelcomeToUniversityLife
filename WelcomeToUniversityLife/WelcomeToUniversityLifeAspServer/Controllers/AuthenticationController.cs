@@ -28,7 +28,7 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
                 {
                     if ((await _authenticationService.Register(model)).Succeeded)
                     {
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("Profile", "User");
                     }
                 }
             }
