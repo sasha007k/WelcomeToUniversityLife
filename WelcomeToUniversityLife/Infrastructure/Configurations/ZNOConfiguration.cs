@@ -12,6 +12,7 @@ namespace Infrastructure.Configurations
         public void Configure(EntityTypeBuilder<ZNO> builder)
         {
             builder.ToTable("ZNO");
+            builder.HasKey(u => u.Id);
             //builder.HasOne(u => u.User)
             //    .WithOne(z => z.ZNO);
         }
