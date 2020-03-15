@@ -15,6 +15,8 @@ namespace Infrastructure.Configurations
             builder.Property(u => u.Email)
                 .IsRequired()
                 .HasMaxLength(40);
+            //builder.HasOne(z => z.ZNO)
+            //    .WithOne(u => u.User);
         }
     }
 }

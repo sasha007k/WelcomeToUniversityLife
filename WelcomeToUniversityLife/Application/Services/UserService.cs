@@ -44,7 +44,27 @@ namespace Application.Services
             {
                 throw new Exception("User not found");
             }
+        }
 
+        public async Task UpdateUserInfo(UserProfileModel model)
+        {
+            User user = await _userManager.FindByEmailAsync(model.Email);
+
+            if (user != null)
+            {
+                user.FirstName = model.FirstName;
+                user.LastName = model.LastName;
+                user.MiddleName = model.MiddleName;
+                user.DateOfBirth = model.DateOfBirth;
+                user.PhoneNumber = model.Phone;
+                user.City = model.City;
+
+                await _userManager.UpdateAsync(user);
+            }
+            else
+            {
+                throw new Exception("Failed when updating");
+            }
         }
     }
 }

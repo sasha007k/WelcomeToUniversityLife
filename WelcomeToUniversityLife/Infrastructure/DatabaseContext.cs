@@ -14,6 +14,8 @@ namespace Infrastructure
 
         public DbSet<Speciality> Specialities { get; set; }
 
+        //public DbSet<ZNO> ZNOs { get; set; }
+
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
         {
 
@@ -27,6 +29,7 @@ namespace Infrastructure
             builder.ApplyConfiguration(new DocumentConfiguration());
             builder.ApplyConfiguration(new SpecialityConfiguration());
             builder.ApplyConfiguration(new UniversityConfiguration());
+            //builder.ApplyConfiguration(new ZNOConfiguration());
         }
     }
 }

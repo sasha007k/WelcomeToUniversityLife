@@ -14,7 +14,7 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">UniversityStart</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -27,19 +27,19 @@
                     @if (!User.Identity.IsAuthenticated)
                     {
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Authentication" asp-action="SignIn">Sign In</a>
+                            <a class="nav-link" asp-area="" asp-controller="Authentication" asp-action="SignIn">Sign In</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Authentication" asp-action="Register">Sign Up</a>
+                            <a class="nav-link" asp-area="" asp-controller="Authentication" asp-action="Register">Sign Up</a>
                         </li>
                     }
                     @if (User.Identity.IsAuthenticated)
                     {
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Profile">Profile</a>
+                            <a class="nav-link" asp-area="" asp-controller="User" asp-action="Profile">Profile</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Authentication" asp-action="SignOut">Sign Out</a>
+                            <a class="nav-link" asp-area="" asp-controller="Authentication" asp-action="SignOut">Sign Out</a>
                         </li>
                     }
                 </ul>
@@ -52,12 +52,14 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container text-center">
-            &copy; 2020 - UniversityStart.ua
-        </div>
-    </footer>
-    <script src="~/js/jquery.min.js"></script>
+
+<footer class="border-top footer text-muted">
+    <div class="container text-center" style="color: #007BFF;">
+        &copy; 2020 - UniversityStart.ua
+    </div>
+</footer>
+
+<script src="~/js/jquery.min.js"></script>
     <script src="~/js/bootstrap.min.js"></script>
     <script src="~/js/mdb.min.js"></script>
     <script src="~/js/popper.min.js"></script>

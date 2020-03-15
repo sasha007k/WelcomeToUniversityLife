@@ -19,8 +19,16 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
         [HttpGet]
         public async Task<IActionResult> Profile()
         {
-            UserProfileModel profile = await _userService.GetUserInfo(this.User.Identity.Name).ConfigureAwait(true);
-            return this.View(profile);
+            UserProfileModel profile = await _userService.GetUserInfo(User.Identity.Name).ConfigureAwait(true);
+            return View(profile);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Profile(UserProfileModel model)
+        {
+            await _userService.UpdateUserInfo(model).ConfigureAwait(true);
+
+            return RedirectToAction("Profile", "User");
         }
     }
 }

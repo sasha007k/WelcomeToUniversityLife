@@ -43,7 +43,7 @@ namespace Application.Services
             IdentityResult result = await _userManager.CreateAsync(user, model.Password);
             if (result.Succeeded)
             {
-                //await _userManager.AddToRoleAsync(user, "User");
+                await _userManager.AddToRoleAsync(user, "User");
                 await _signInManager.PasswordSignInAsync(model.Email, model.Password, false, false);
             }
 
