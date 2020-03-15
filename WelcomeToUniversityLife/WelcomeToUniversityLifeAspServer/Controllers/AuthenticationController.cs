@@ -49,7 +49,7 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
                 var result = await _authenticationService.SignIn(model);
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Profile", "User");
                 }
                 else
                 {

@@ -9,7 +9,6 @@ namespace Application.IServices
     public interface IUserService
     {
         Task<UserProfileModel> GetUserInfo(string name);
-
         Task UpdateUserInfo(UserProfileModel model);
     }
 }

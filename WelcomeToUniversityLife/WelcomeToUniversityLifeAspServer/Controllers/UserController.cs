@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Application.IServices;
 using Application.Models.User;
+using Domain.Entities;
+using Microsoft.AspNetCore.Http;
 
 namespace WelcomeToUniversityLifeAspServer.Controllers
 {
@@ -30,5 +33,6 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
 
             return RedirectToAction("Profile", "User");
         }
+
     }
 }
