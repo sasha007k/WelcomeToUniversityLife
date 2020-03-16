@@ -35,12 +35,11 @@ namespace Application.Services
 
         public async Task<IdentityResult> Register(RegisterModel model)
         {  
-            User user = new User();
+            var user = new User();
             user.Email = model.Email;
-            user.UserName = model.Email;            
-            
+            user.UserName = model.Email;
 
-            IdentityResult result = await _userManager.CreateAsync(user, model.Password);
+            var result = await _userManager.CreateAsync(user, model.Password);
             if (result.Succeeded)
             {
                 await _userManager.AddToRoleAsync(user, "User");

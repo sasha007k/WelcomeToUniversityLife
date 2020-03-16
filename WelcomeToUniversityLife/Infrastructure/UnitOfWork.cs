@@ -11,6 +11,7 @@ namespace Infrastructure
     public class UnitOfWork : IUnitOfWork
     {
         private IUserRepository userRepository;
+        private IZNORepository znoRepository;
         public DatabaseContext _context { get; private set; }
 
         public UnitOfWork(DatabaseContext context)
@@ -37,6 +38,19 @@ namespace Infrastructure
                 }
 
                 return this.userRepository;
+            }
+        }
+
+        public IZNORepository ZnoRepository
+        {
+            get
+            {
+                if (this.znoRepository == null)
+                {
+                    znoRepository = new ZnoRepository(_context);
+                }
+
+                return this.znoRepository;
             }
         }
     }
