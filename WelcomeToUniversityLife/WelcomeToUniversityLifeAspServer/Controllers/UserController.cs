@@ -27,7 +27,7 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Profile(UserProfileModel model)
+        public async Task<IActionResult> PersonalInfo(UserProfileModel model)
         {
             await _userService.UpdateUserInfo(model).ConfigureAwait(true);
 

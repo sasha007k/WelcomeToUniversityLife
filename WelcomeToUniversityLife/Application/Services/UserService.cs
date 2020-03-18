@@ -12,12 +12,10 @@ namespace Application.Services
     public class UserService : IUserService
     {
         UserManager<User> _userManager;
-        SignInManager<User> _signInManager;
 
-        public UserService(UserManager<User> userManager, SignInManager<User> signInManager)
+        public UserService(UserManager<User> userManager)
         {
             _userManager = userManager;
-            _signInManager = signInManager;
         }
         public async Task<UserProfileModel> GetUserInfo(string name)
         {
