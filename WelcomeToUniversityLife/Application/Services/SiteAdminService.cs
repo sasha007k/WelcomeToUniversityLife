@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Text;
+using System.Linq;
 using System.Threading.Tasks;
 using Application.IServices;
 using Application.Models.SiteAdmin;
@@ -8,6 +10,7 @@ using Domain.Entities;
 using Infrastructure;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Internal;
 
 namespace Application.Services
 {
@@ -49,6 +52,21 @@ namespace Application.Services
             var saveResult = await _dbContext.SaveChangesAsync();
 
             return saveResult == 1;
+        }
+
+        public List<University> GetAllProjects()
+        {
+            var universitiesList = (from university in _dbContext.Universities
+                join user in _dbContext.Users on university.UserId equals user.Id
+                select new University()
+                {
+                    Name = university.Name,
+                    User = user
+
+                }).ToList();
+
+
+            return universitiesList;
         }
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Application.IServices;
 using Application.Models.SiteAdmin;
+using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WelcomeToUniversityLifeAspServer.Controllers
@@ -15,10 +16,10 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
         {
             _siteAdminService = siteAdminService;
         }
-        public IActionResult Universities()
+        public ActionResult Universities()
         {
-            //var universities = await _siteAdminService
-            return View();
+            var universities =  _siteAdminService.GetAllProjects();
+            return View(universities);
         }
 
         public IActionResult AddUniversity()
