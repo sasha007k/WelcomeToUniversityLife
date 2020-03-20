@@ -54,6 +54,7 @@ namespace WelcomeToUniversityLifeAspServer
             //---Applying Services
             services.AddScoped<IAuthenticationService, AuthenticationService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ISiteAdminService, SiteAdminService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -72,6 +73,7 @@ namespace WelcomeToUniversityLifeAspServer
             }
 
             //DataInitializer.SeedData(userManager, roleManager, context).Wait();
+            //DataInitializer.SeedSiteAdmin(userManager).Wait();
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

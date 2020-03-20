@@ -22,7 +22,7 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
         [HttpGet]
         public async Task<IActionResult> Profile()
         {
-            UserProfileModel profile = await _userService.GetUserInfo(User.Identity.Name).ConfigureAwait(true);
+            var profile = await _userService.GetUserInfo(User.Identity.Name).ConfigureAwait(true);
             return View(profile);
         }
 
@@ -33,6 +33,5 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
 
             return RedirectToAction("Profile", "User");
         }
-
     }
 }

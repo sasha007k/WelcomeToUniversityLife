@@ -73,25 +73,6 @@ namespace Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "University",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(maxLength: 60, nullable: false),
-                    City = table.Column<string>(nullable: false),
-                    Description = table.Column<string>(nullable: true),
-                    Address = table.Column<string>(nullable: true),
-                    DocumentId = table.Column<int>(nullable: false),
-                    Latitude = table.Column<string>(nullable: false),
-                    Longitude = table.Column<string>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_University", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "ZNO",
                 columns: table => new
                 {
@@ -278,6 +259,32 @@ namespace Infrastructure.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "University",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(maxLength: 60, nullable: false),
+                    City = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    Address = table.Column<string>(nullable: true),
+                    DocumentId = table.Column<int>(nullable: false),
+                    Latitude = table.Column<string>(nullable: true),
+                    Longitude = table.Column<string>(nullable: true),
+                    UserId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_University", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_University_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -309,6 +316,13 @@ namespace Infrastructure.Migrations
                 name: "IX_Document_UserId",
                 table: "Document",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_University_UserId",
+                table: "University",
+                column: "UserId",
+                unique: true,
+                filter: "[UserId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "EmailIndex",

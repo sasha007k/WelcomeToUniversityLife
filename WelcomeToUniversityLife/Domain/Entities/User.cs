@@ -14,6 +14,7 @@ namespace Domain.Entities
         public string City { get; set; }
         public ZNO ZNO { get; set; }
         public int? ZNOId { get; set; }
+        public University University { get; set; }
         public ICollection<Document> Documents { get; set; } = new List<Document>();
     }
 }

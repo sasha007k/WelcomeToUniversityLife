@@ -16,14 +16,10 @@ namespace Infrastructure.Configurations
             builder.Property(u => u.Name)
                 .IsRequired()
                 .HasMaxLength(60);
-            builder.Property(u => u.City)
-                .IsRequired();
-            builder.Property(u => u.Latitude)
-                .IsRequired();
-            builder.Property(u => u.Longitude)
-                   .IsRequired();
-          
-
+            builder.HasOne(u => u.User)
+                .WithOne(u => u.University)
+                .HasForeignKey<University>(u => u.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
