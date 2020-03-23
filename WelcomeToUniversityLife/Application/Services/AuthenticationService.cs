@@ -14,13 +14,11 @@ namespace Application.Services
     {
         UserManager<User> _userManager;
         SignInManager<User> _signInManager;
-        DatabaseContext _dbContext;
 
-        public AuthenticationService(UserManager<User> userManager, SignInManager<User> signInManager, DatabaseContext dbContext)
+        public AuthenticationService(UserManager<User> userManager, SignInManager<User> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            _dbContext = dbContext;
         }
 
         public async Task SignOut()
@@ -34,10 +32,8 @@ namespace Application.Services
         }
 
         public async Task<IdentityResult> Register(RegisterModel model)
-        {  
-            var user = new User();
-            user.Email = model.Email;
-            user.UserName = model.Email;
+        {
+            var user = new User {Email = model.Email, UserName = model.Email};
 
             var result = await _userManager.CreateAsync(user, model.Password);
             if (result.Succeeded)

@@ -33,5 +33,16 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
 
             return RedirectToAction("Profile", "User");
         }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangePassword(UserProfileModel model)
+        {
+            if (model.ChangePasswordModel != null && model.ChangePasswordModel.NewPassword == model.ChangePasswordModel.ConfirmNewPassword)
+            {
+                await _userService.ChangePassword(model.ChangePasswordModel).ConfigureAwait(true);
+            }
+
+            return RedirectToAction("Profile", "User");
+        }
     }
 }

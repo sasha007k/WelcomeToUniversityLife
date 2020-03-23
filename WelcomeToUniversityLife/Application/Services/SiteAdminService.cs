@@ -39,7 +39,6 @@ namespace Application.Services
             if (result.Succeeded)
             {
                 await _userManager.AddToRoleAsync(user, "UniversityAdmin");
-                await _signInManager.PasswordSignInAsync(model.Email, model.Password, false, false);
             }
 
             var university = new University()

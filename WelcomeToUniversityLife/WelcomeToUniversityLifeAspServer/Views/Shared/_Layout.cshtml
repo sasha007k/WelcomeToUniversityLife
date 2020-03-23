@@ -39,6 +39,12 @@
                             <a class="nav-link" asp-area="" asp-controller="SiteAdmin" asp-action="Universities">Universities</a>
                         </li>
                     }
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("UniversityAdmin"))
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="" asp-action="">University</a>
+                        </li>
+                    }
                     @if (User.Identity.IsAuthenticated)
                     {
                         <li class="nav-item">

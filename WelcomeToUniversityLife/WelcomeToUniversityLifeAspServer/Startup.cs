@@ -7,6 +7,7 @@ using Infrastructure;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -37,7 +38,9 @@ namespace WelcomeToUniversityLifeAspServer
            .AddEntityFrameworkStores<DatabaseContext>()
            .AddDefaultTokenProviders();
 
-            //services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme);
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme);
+
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<DbContext, DatabaseContext>();

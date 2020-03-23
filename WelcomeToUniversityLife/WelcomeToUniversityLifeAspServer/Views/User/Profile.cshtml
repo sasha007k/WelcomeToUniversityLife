@@ -11,75 +11,36 @@
                 <div class="card-header tab-card-header default-color">
                     <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist" style="background-color: #2bbbad">
                         <li class="nav-item active">
-                            <a class="nav-link active" id="one-tab" data-toggle="tab" href="#one" role="tab" aria-controls="One" aria-selected="true">Personal info</a>
+                            <a class="nav-link active" style="color: #000000" id="one-tab" data-toggle="tab" href="#one" role="tab" aria-controls="One" aria-selected="true">Personal info</a>
                         </li>
                         @if (User.IsInRole("User"))
                         {
                             <li class="nav-item">
-                                <a class="nav-link" id="two-tab" data-toggle="tab" href="#two" role="tab" aria-controls="Two" aria-selected="false">Documents</a>
+                                <a class="nav-link" style="color: #000000" id="two-tab" data-toggle="tab" href="#two" role="tab" aria-controls="Two" aria-selected="false">Documents</a>
                             </li>
                         }
+                        <li class="nav-item active">
+                            <a class="nav-link" style="color: #000000" id="three-tab" data-toggle="tab" href="#three" role="tab" aria-controls="Three" aria-selected="true">Change password</a>
+                        </li>
                     </ul>
                 </div>
 
                 <div class="tab-content" id="myTabContent">
 
                     <div class="tab-pane fade show active p-3" id="one" role="tabpanel" aria-labelledby="one-tab">
-                        <form name="my-form" action="/User/PersonalInfo" method="post">
-                            <div class="form-group row">
-                                <label for="Email" class="col-sm-2 col-form-label">Email</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control elem" placeholder="Email" name="Email" value="@Model.Email" readonly required="" />
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="LastName" class="col-sm-2 col-form-label">Last name</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control elem" placeholder="Last name" name="LastName" value="@Model.LastName" required="" />
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="FirstName" class="col-sm-2 col-form-label">First name</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control elem" placeholder="First name" name="FirstName" value="@Model.FirstName" required="" />
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="MiddleName" class="col-sm-2 col-form-label">Middle name</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control elem" placeholder="Middle name" name="MiddleName" value="@Model.MiddleName" required="" />
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="City" class="col-sm-2 col-form-label">City</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control elem" placeholder="City" name="City" value="@Model.City" required="" />
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="Phone" class="col-sm-2 col-form-label">Phone</label>
-                                <div class="col-sm-10">
-                                    <input type="tel" class="form-control elem" placeholder="Phone" name="Phone" value="@Model.Phone" />
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="DateOfBirth" class="col-sm-2 col-form-label">Date of birth</label>
-                                <div class="col-sm-10">
-                                    <input type="date" class="form-control elem" placeholder="Date of birth" name="DateOfBirth" value="@Model.DateOfBirth" />
-                                </div>
-                            </div>
-
-                            <div>
-                                <button type="submit" class="btn btn-cyan btn-sm">Update</button>
-                            </div>
-                        </form>
+                        @await Html.PartialAsync("SetPersonalInfo_Partial", Model)
                     </div>
+
                     @if (User.IsInRole("User"))
                     {
                         <div class="tab-pane fade p-3" id="two" role="tabpanel" aria-labelledby="two-tab">
 
                         </div>
                     }
+                    
+                    <div class="tab-pane fade p-3" id="three" role="tabpanel" aria-labelledby="three-tab">
+                        @await Html.PartialAsync("ChangePassword_Partial", Model)
+                    </div>
                 </div>
             </div>
         </div>

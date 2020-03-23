@@ -10,5 +10,6 @@ namespace Application.IServices
     {
         Task<UserProfileModel> GetUserInfo(string name);
         Task UpdateUserInfo(UserProfileModel model);
+        Task<bool> ChangePassword(ChangePasswordModel model);
     }
 }
