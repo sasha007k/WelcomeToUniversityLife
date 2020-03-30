@@ -1,3 +1,6 @@
 .fixer-footer {
     margin-top: 80px;
 }
+.oneline {
+    display: inline-block;
+}
