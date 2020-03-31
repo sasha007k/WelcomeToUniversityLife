@@ -61,7 +61,7 @@
             
             @if (User.IsInRole("UniversityAdmin"))
             {
-                <button class="btn btn-outline-primary waves-effect btn-sm" onclick="location.href = '@Url.Action("AddFaculty", "UniversityAdmin")'">
+                <button class="btn btn-default my-4 waves-effect z-depth-0" onclick="location.href = '@Url.Action("AddFaculty", "UniversityAdmin")'">
                     <i></i>Add Faculty
                 </button>
             }
