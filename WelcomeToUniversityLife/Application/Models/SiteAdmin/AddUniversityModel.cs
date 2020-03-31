@@ -19,5 +19,5 @@ namespace Application.Models.SiteAdmin
         [Compare(nameof(Password), ErrorMessage = "Passwords mismatch")]
         public string ConfirmPassword { get; set; }
     
-}
+    }
 }

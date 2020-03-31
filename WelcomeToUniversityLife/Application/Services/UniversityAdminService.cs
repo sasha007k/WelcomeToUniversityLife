@@ -75,8 +75,8 @@ namespace Application.Services
 
             if (user != null)
             {
-                var university = await _dbContext.Universities
-                    .SingleAsync(u => u.UserId == user.Id);
+                var university = _dbContext.Universities
+                    .Single(u => u.UserId == user.Id);
 
                 var currentUniAndFaculties = new CurrentUniversityAndFaculties();
 

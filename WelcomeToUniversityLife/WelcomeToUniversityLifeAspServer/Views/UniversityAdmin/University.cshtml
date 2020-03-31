@@ -43,7 +43,7 @@
                             @if(User.IsInRole("UniversityAdmin"))
                             {
                                 <td>
-                                    <button class="btn btn-outline-primary waves-effect btn-sm" onclick="location.href = '@Url.Action()'">
+                                    <button class="btn btn-default btn-block my-4 waves-effect z-depth-0" onclick="location.href = '@Url.Action()'">
                                         <i class="far mr-2" aria-hidden="true"></i>
                                         Edit
                                     </button>
@@ -61,7 +61,7 @@
             
             @if (User.IsInRole("UniversityAdmin"))
             {
-                <button class="btn btn-outline-primary waves-effect btn-sm" onclick="location.href = '@Url.Action("", "")'">
+                <button class="btn btn-outline-primary waves-effect btn-sm" onclick="location.href = '@Url.Action("AddFaculty", "UniversityAdmin")'">
                     <i></i>Add Faculty
                 </button>
             }
@@ -88,7 +88,7 @@
 
                         @if (User.IsInRole("UniversityAdmin"))
                         {
-                            <button class="btn btn-outline-primary waves-effect btn-sm"
+                            <button class="btn btn-default btn-block my-4 waves-effect z-depth-0"
                                     onclick="window.location.href = '@Url.Action("EditUniversityInfo", "UniversityAdmin", Model.CurrentUniversity)'; return false;">
                                 <i></i>Edit
                             </button>

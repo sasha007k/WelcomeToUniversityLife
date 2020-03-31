@@ -60,5 +60,10 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
 
             return RedirectToAction("University", "UniversityAdmin");
         }
+
+        public IActionResult AddFaculty()
+        {
+            return View();
+        }
     }
 }
