@@ -16,9 +16,9 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
         {
             _siteAdminService = siteAdminService;
         }
-        public ActionResult Universities()
+        public ActionResult AllUniversities()
         {
-            var universities =  _siteAdminService.GetAllProjects();
+            var universities =  _siteAdminService.GetAllUniversities();
             return View(universities);
         }
 
@@ -37,7 +37,7 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
                 // do smth
             }
 
-            return RedirectToAction("Universities", "SiteAdmin");
+            return RedirectToAction("AllUniversities", "SiteAdmin");
         }
     }
 }

@@ -53,12 +53,13 @@ namespace Application.Services
             return saveResult == 1;
         }
 
-        public List<University> GetAllProjects()
+        public List<University> GetAllUniversities()
         {
             var universitiesList = (from university in _dbContext.Universities
                 join user in _dbContext.Users on university.UserId equals user.Id
                 select new University()
                 {
+                    Id = university.Id,
                     Name = university.Name,
                     User = user
 

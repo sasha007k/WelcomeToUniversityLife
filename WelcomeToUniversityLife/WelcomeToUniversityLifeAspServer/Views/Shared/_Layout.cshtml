@@ -24,6 +24,9 @@
             </div>
             <div class="my-2 my-lg-0">
                 <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="SiteAdmin" asp-action="AllUniversities">All Universities</a>
+                    </li>
                     @if (!User.Identity.IsAuthenticated)
                     {
                         <li class="nav-item">
@@ -33,18 +36,13 @@
                             <a class="nav-link" asp-area="" asp-controller="Authentication" asp-action="Register">Sign Up</a>
                         </li>
                     }
-                    @if (User.Identity.IsAuthenticated && User.IsInRole("SiteAdmin"))
-                    {
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="SiteAdmin" asp-action="Universities">Universities</a>
-                        </li>
-                    }
                     @if (User.Identity.IsAuthenticated && User.IsInRole("UniversityAdmin"))
                     {
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="" asp-action="">University</a>
+                            <a class="nav-link" asp-area="" asp-controller="UniversityAdmin" asp-action="University">University</a>
                         </li>
                     }
+
                     @if (User.Identity.IsAuthenticated)
                     {
                         <li class="nav-item">
@@ -72,11 +70,11 @@
 </footer>
 
 <script src="~/js/jquery.min.js"></script>
-    <script src="~/js/bootstrap.min.js"></script>
-    <script src="~/js/mdb.min.js"></script>
-    <script src="~/js/popper.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+<script src="~/js/bootstrap.min.js"></script>
+<script src="~/js/mdb.min.js"></script>
+<script src="~/js/popper.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>

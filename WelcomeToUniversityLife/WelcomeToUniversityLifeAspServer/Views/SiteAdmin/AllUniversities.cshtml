@@ -1,0 +1,38 @@
+﻿@model List<Domain.Entities.University>;
+
+@{
+    ViewData["Title"] = "Universities";
+}
+
+@if (User.IsInRole("SiteAdmin"))
+{
+    <button class="btn btn-outline-primary waves-effect btn-sm" onclick="location.href = '@Url.Action("AddUniversity", "SiteAdmin")'">
+        <i></i>Add University
+    </button>
+}
+
+
+
+<table class="content-table table table-hover">
+    <thead>
+        <tr>
+            <th scope="col" style="text-align:center">University</th>
+            <th scope="col" style="text-align:center">Admin</th>
+        </tr>
+    </thead>
+    @foreach (var university in Model)
+    {
+        <tr style="text-align:center">
+            <td>
+                <h3>
+                    <a asp-controller="UniversityAdmin" asp-action="GetUniversity" asp-route-id="@university.Id"><b>@university.Name</b></a>
+                </h3>
+            </td>
+            <td>
+                <h3>
+                    @university.User.Email
+                </h3>
+            </td>
+        </tr>
+    }
+</table>
