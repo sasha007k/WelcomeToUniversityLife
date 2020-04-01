@@ -13,5 +13,6 @@ namespace Application.IServices
         Task<CurrentUniversityAndFacultiesModel> GetUniversityAsync(int universityId);
         Task<bool> EditUniversity(UniversityInfoModel model);
         Task<bool> AddFacultyAsync(AddFacultyModel model);
+        Task<CurrentFacultyAndSpecialitiesModel> GetFacultyAsync(int facultyId);
     }
 }

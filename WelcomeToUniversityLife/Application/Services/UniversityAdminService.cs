@@ -100,9 +100,9 @@ namespace Application.Services
                     .Where(f => f.UniversityId == university.Id).ToList();
 
                 currentUniAndFaculties.Faculties = faculties;
-            }
 
-            return currentUniAndFaculties;
+                return currentUniAndFaculties;
+            }
 
             return null;
         }
@@ -132,6 +132,27 @@ namespace Application.Services
             }
 
             return false;
+        }
+
+        public async Task<CurrentFacultyAndSpecialitiesModel> GetFacultyAsync(int facultyId)
+        {
+            var faculty = await _dbContext.Faculties.FindAsync(facultyId);
+
+            var currentFacultyAndSpecialities = new CurrentFacultyAndSpecialitiesModel();
+
+            if (faculty != null)
+            {
+                currentFacultyAndSpecialities.CurrentFaculty = faculty;
+
+                var specialities = _dbContext.Specialities
+                    .Where(f => f.FacultyId == faculty.Id).ToList();
+
+                currentFacultyAndSpecialities.Specialities = specialities;
+
+                return currentFacultyAndSpecialities;
+            }
+
+            return null;
         }
     }
 }

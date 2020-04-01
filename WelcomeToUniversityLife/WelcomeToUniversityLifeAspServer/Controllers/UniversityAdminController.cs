@@ -79,5 +79,40 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
             }
             return RedirectToAction("AddFaculty", "UniversityAdmin");
         }
+
+        public async Task<ActionResult> GetFaculty(int id)
+        {
+            var facultyAndSpecialities = await _universityAdminService.GetFacultyAsync(id);
+            if (facultyAndSpecialities == null)
+            {
+                return RedirectToAction();
+            }
+
+            return View("Faculty", facultyAndSpecialities);
+        }
+
+        public IActionResult AddSpeciality(int facultyId)
+        {
+            var speciality = new AddSpecialityModel()
+            {
+                FacultyId = facultyId
+            };
+
+            return View(speciality);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddSpeciality(AddSpecialityModel model)
+        {
+            //if (model != null)
+            //{
+            //    var result = await _universityAdminService.AddFacultyAsync(model);
+            //    if (result)
+            //    {
+            //        return RedirectToAction("University", "UniversityAdmin");
+            //    }
+            //}
+            return RedirectToAction("AddFaculty", "UniversityAdmin");
+        }
     }
 }

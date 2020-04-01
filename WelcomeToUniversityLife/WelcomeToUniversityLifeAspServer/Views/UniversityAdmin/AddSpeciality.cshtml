@@ -1,7 +1,7 @@
-﻿@model Application.Models.UniversityAdmin.AddFacultyModel;
+﻿@model Application.Models.UniversityAdmin.AddSpecialityModel;
 
 @{
-    ViewData["Title"] = "Add Faculty";
+    ViewData["Title"] = "Add Speciality";
 }
 
 <div class="container">
@@ -11,7 +11,7 @@
                 <div class="card-header tab-card-header default-color">
                     <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist" style="background-color: #2bbbad">
                         <li class="nav-item active">
-                            <a class="nav-link active" id="one-tab" data-toggle="tab" href="#one" role="tab" aria-controls="One" aria-selected="true">Add Faculty</a>
+                            <a class="nav-link active" id="one-tab" data-toggle="tab" href="#one" role="tab" aria-controls="One" aria-selected="true">Add Speciality</a>
                         </li>
                     </ul>
                 </div>
@@ -19,17 +19,11 @@
                 <div class="tab-content" id="myTabContent">
 
                     <div class="tab-pane fade show active p-3" id="one" role="tabpanel" aria-labelledby="one-tab">
-                        <form name="my-form" autocomplete="off" action="/UniversityAdmin/AddFaculty" method="post">
+                        <form name="my-form" autocomplete="off" action="/UniversityAdmin/AddSpeciality" method="post">
                             <div class="form-group row">
-                                <label for="FacultyName" class="col-sm-2 col-form-label">Faculty Name</label>
+                                <label for="SpecialityName" class="col-sm-2 col-form-label">Speciality Name</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" placeholder="Faculty name" name="FacultyName" required="" />
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="Address" class="col-sm-2 col-form-label">Address</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" placeholder="Address" name="Address" />
+                                    <input type="text" class="form-control" placeholder="Speciality name" name="SpecialityName" required="" />
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -38,7 +32,7 @@
                                     <textarea type="text" class="form-control" placeholder="Description" name="Description"></textarea>
                                 </div>
                             </div>
-                            
+
 
                             <div>
                                 <button type="submit" class="btn btn-default my-4 waves-effect z-depth-0">Submit</button>

@@ -1,4 +1,4 @@
-﻿@model Application.Models.UniversityAdmin.CurrentUniversityAndFacultiesModel;
+﻿@model Application.Models.UniversityAdmin.CurrentFacultyAndSpecialitiesModel;
 @{
     ViewData["Title"] = "University";
 }
@@ -10,27 +10,27 @@
         <div class="col-2">
             @if (User.IsInRole("UniversityAdmin"))
             {
-                <button class="btn btn-default my-4 waves-effect z-depth-0" onclick="location.href = '@Url.Action("AddFaculty", "UniversityAdmin", Model.CurrentUniversity.Id)'">
-                    <i></i>Add Faculty
+                <button class="btn btn-default my-4 waves-effect z-depth-0" onclick="location.href = '@Url.Action("AddSpeciality", "UniversityAdmin", new { facultyId = @Model.CurrentFaculty.Id})'">
+                    <i></i>Add Speciality
                 </button>
             }
         </div>
 
 
         <div class="col-7">
-            @if (Model.Faculties != null)
+            @if (Model.Specialities != null)
             {
                 <table class="table table-hover">
                     <thead>
                     <tr>
-                        <th scope="col" style="text-align: center">Faculty</th>
-                        <th scope="col" style="text-align: center">Address</th>
+                        <th scope="col" style="text-align: center">Speciality</th>
+                        <th scope="col" style="text-align: center">Description</th>
                     </tr>
                     </thead>
 
-                    @foreach (var faculty in Model.Faculties)
+                    @foreach (var faculty in Model.Specialities)
                     {
-                        <tr style="text-align: center" onclick="window.location = '@Url.Action("GetFaculty", "UniversityAdmin", new {id = faculty.Id})'">
+                        <tr style="text-align: center">
                             <td>
                                 <h5>
                                     @faculty.Name
@@ -38,7 +38,7 @@
                             </td>
                             <td>
                                 <h5>
-                                    @faculty.Address
+                                    @faculty.Description
                                 </h5>
                             </td>
                         </tr>
@@ -48,11 +48,13 @@
             }
             else
             {
-                <h1>There are no faculties yet</h1>
+                <h1>There are no specialities yet</h1>
             }
 
-        </div>
 
+
+
+        </div>
         <div class="col-3">
             <div class="card">
                 <div class="card-body">
@@ -60,22 +62,19 @@
                         <p class="h4 text-center py-4">Info</p>
 
                         <label for="" class="grey-text font-weight-light">Name</label>
-                        <input type="text" id="" class="form-control" value="@Model.CurrentUniversity.Name" readonly>
-
-                        <label for="" class="grey-text font-weight-light">City</label>
-                        <input type="text" id="" class="form-control" value="@Model.CurrentUniversity.City" readonly>
-
-                        <label for="" class="grey-text font-weight-light">Description</label>
-                        <textarea type="text" id="" class="form-control" readonly>@Model.CurrentUniversity.Description</textarea>
-
+                        <input type="text" id="" class="form-control" value="@Model.CurrentFaculty.Name" readonly>
 
                         <label for="" class="grey-text font-weight-light">Address</label>
-                        <input type="text" id="" class="form-control" value="@Model.CurrentUniversity.Address" readonly>
+                        <input type="text" id="" class="form-control" value="@Model.CurrentFaculty.Address" readonly>
+
+                        <label for="" class="grey-text font-weight-light">Description</label>
+                        <textarea type="text" id="" class="form-control" readonly>@Model.CurrentFaculty.Description</textarea>
+
 
                         @if (User.IsInRole("UniversityAdmin"))
                         {
                             <button class="btn btn-default btn-block my-4 waves-effect z-depth-0"
-                                    onclick="window.location.href = '@Url.Action("EditUniversityInfo", "UniversityAdmin", Model.CurrentUniversity)';return false;">
+                                    onclick="window.location.href = '@Url.Action()';return false;">
                                 <i></i>Edit
                             </button>
                         }
