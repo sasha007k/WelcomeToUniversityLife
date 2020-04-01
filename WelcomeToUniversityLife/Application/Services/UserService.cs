@@ -9,18 +9,23 @@ using System.Threading.Tasks;
 using Application.Models.User;
 using System.IO;
 using Microsoft.AspNetCore.Http;
+using Infrastructure;
 
 namespace Application.Services
 {
     public class UserService : IUserService
     {
         UserManager<User> _userManager;
-        IHttpContextAccessor _httpContext;
-
-        public UserService(UserManager<User> userManager, IHttpContextAccessor httpContext)
+        IHttpContextAccessor _httpContext; 
+        DatabaseContext _dbContext;
+        DocumentService _documentService;
+        public UserService(UserManager<User> userManager, IHttpContextAccessor httpContext,
+          DatabaseContext context)
         {
             _userManager = userManager;
             _httpContext = httpContext;
+            _dbContext = context;
+            _documentService = new DocumentService(_dbContext);
         }
 
         public async Task<UserProfileModel> GetUserInfo(string name)
@@ -101,14 +106,51 @@ namespace Application.Services
             }
             if (user != null)
             {
-                foreach (var item in uploads)
+                for (int i = 0; i < 3; i++)
                 {
-                    using (var fileStream = new FileStream(path +@"\"+ item.FileName, FileMode.Create))
+                    string file = path + @"\" + uploads[i].FileName;
+                    using (var fileStream = new FileStream(file, FileMode.Create))
                     {
-                        
-                        await item.CopyToAsync(fileStream);
+
+                        await uploads[i].CopyToAsync(fileStream);
                     }
                 }
+
+                Document passport = new Document() 
+                {
+                    Name = "passport",
+                    Path = path + @"\" + uploads[0].FileName,
+                    User = user,
+                    UserId = user.Id
+                };
+                Document certificate = new Document()
+                {
+                    Name = "certificate",
+                    Path = path + @"\" + uploads[1].FileName,
+                    User = user,
+                    UserId = user.Id
+                };
+                Document zno = new Document()
+                {
+                    Name = "zno",
+                    Path = path + @"\" + uploads[2].FileName,
+                    User = user,
+                    UserId = user.Id
+                };
+
+
+                await  this._documentService.Craate(passport);
+                await this._documentService.Craate(certificate);
+                await this._documentService.Craate(zno);
+
+                user.Documents.Add(passport);
+                user.Documents.Add(certificate);
+                user.Documents.Add(zno);
+
+                await _userManager.UpdateAsync(user);
+
+
+
             }
 
 
