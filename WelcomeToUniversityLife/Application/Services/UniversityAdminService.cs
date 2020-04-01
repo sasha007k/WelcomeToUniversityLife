@@ -28,7 +28,7 @@ namespace Application.Services
             _httpContext = httpContext;
         }
 
-        public async Task<bool> EditUniversity(UniversityInfo model)
+        public async Task<bool> EditUniversity(UniversityInfoModel model)
         {
             var userName = _httpContext.HttpContext.User.Identity.Name;
             var user = await _userManager.FindByNameAsync(userName);
@@ -42,12 +42,12 @@ namespace Application.Services
 
                 if (university != null)
                 {
-                    university.Name = CheckValue(university.Name, model.Name);
-                    university.City = CheckValue(university.City, model.City);
-                    university.Address = CheckValue(university.Address, model.Address);
-                    university.Description = CheckValue(university.Description, model.Description);
-                    university.Latitude = CheckValue(university.Latitude, model.Latitude);
-                    university.Longitude = CheckValue(university.Longitude, model.Longitude);
+                    university.Name = model.Name;
+                    university.City = model.City;
+                    university.Address =  model.Address;
+                    university.Description = model.Description;
+                    university.Latitude = model.Latitude;
+                    university.Longitude =  model.Longitude;
 
                     result = await _dbContext.SaveChangesAsync();
                 }
@@ -58,17 +58,7 @@ namespace Application.Services
             return false;
         }
 
-        private string CheckValue(string oldValue, string newValue)
-        {
-            if (oldValue != newValue && !string.IsNullOrWhiteSpace(newValue))
-            {
-                return newValue;
-            }
-
-            return oldValue;
-        }
-
-        public async Task<CurrentUniversityAndFaculties> GetUniversity()
+        public async Task<CurrentUniversityAndFacultiesModel> GetUniversity()
         {
             var userName = _httpContext.HttpContext.User.Identity.Name;
             var user = await _userManager.FindByNameAsync(userName);
@@ -78,7 +68,7 @@ namespace Application.Services
                 var university = _dbContext.Universities
                     .Single(u => u.UserId == user.Id);
 
-                var currentUniAndFaculties = new CurrentUniversityAndFaculties();
+                var currentUniAndFaculties = new CurrentUniversityAndFacultiesModel();
 
                 if (university != null)
                 {
@@ -96,11 +86,11 @@ namespace Application.Services
             return null;
         }
 
-        public async Task<CurrentUniversityAndFaculties> GetUniversityAsync(int universityId)
+        public async Task<CurrentUniversityAndFacultiesModel> GetUniversityAsync(int universityId)
         {
             var university = await _dbContext.Universities.FindAsync(universityId);
 
-            var currentUniAndFaculties = new CurrentUniversityAndFaculties();
+            var currentUniAndFaculties = new CurrentUniversityAndFacultiesModel();
 
             if (university != null)
             {
@@ -115,6 +105,33 @@ namespace Application.Services
             return currentUniAndFaculties;
 
             return null;
+        }
+
+        public async Task<bool> AddFacultyAsync(AddFacultyModel model)
+        {
+            var userName = _httpContext.HttpContext.User.Identity.Name;
+            var user = await _userManager.FindByNameAsync(userName);
+
+            if (user != null)
+            {
+                var university = _dbContext.Universities
+                    .Single(u => u.UserId == user.Id);
+
+                var faculty = new Faculty()
+                {
+                    Name = model.FacultyName,
+                    Address = model.Address,
+                    Description = model.Description,
+                    UniversityId = university.Id
+                };
+
+                await _dbContext.Faculties.AddAsync(faculty);
+                var result = await _dbContext.SaveChangesAsync();
+
+                return result == 1;
+            }
+
+            return false;
         }
     }
 }

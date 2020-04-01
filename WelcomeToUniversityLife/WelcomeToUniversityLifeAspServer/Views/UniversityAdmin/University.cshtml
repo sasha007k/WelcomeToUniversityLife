@@ -1,4 +1,4 @@
-﻿@model Application.Models.UniversityAdmin.CurrentUniversityAndFaculties;
+﻿@model Application.Models.UniversityAdmin.CurrentUniversityAndFacultiesModel;
 @{
     ViewData["Title"] = "University";
 }
@@ -9,46 +9,27 @@
         <div class="col-9">
             @if (Model.Faculties != null)
             {
-                <table class="content-table table table-hover">
+                <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th scope="col" style="text-align: center">Name</th>
+                            <th scope="col" style="text-align: center">Faculty</th>
                             <th scope="col" style="text-align: center">Address</th>
-                            <th scope="col" style="text-align: center">Description</th>
-                            @if (User.IsInRole("UniversityAdmin"))
-                            {
-                                <th scope="col" style="text-align: center"></th>
-                            }
                         </tr>
                     </thead>
 
                     @foreach (var faculty in Model.Faculties)
                     {
-                        <tr style="text-align: center" ;>
+                        <tr style="text-align: center" onclick="window.location='@Url.Action("GetUniversity", "UniversityAdmin", new { id = university.Id})'">
                             <td>
-                                <h3>
+                                <h5>
                                     @faculty.Name
-                                </h3>
+                                </h5>
                             </td>
                             <td>
-                                <h3>
+                                <h5>
                                     @faculty.Address
-                                </h3>
+                                </h5>
                             </td>
-                            <td>
-                                <h3>
-                                    @faculty.Description
-                                </h3>
-                            </td>
-                            @if(User.IsInRole("UniversityAdmin"))
-                            {
-                                <td>
-                                    <button class="btn btn-default btn-block my-4 waves-effect z-depth-0" onclick="location.href = '@Url.Action()'">
-                                        <i class="far mr-2" aria-hidden="true"></i>
-                                        Edit
-                                    </button>
-                                </td>
-                            }
                         </tr>
                     }
 
@@ -61,7 +42,7 @@
             
             @if (User.IsInRole("UniversityAdmin"))
             {
-                <button class="btn btn-default my-4 waves-effect z-depth-0" onclick="location.href = '@Url.Action("AddFaculty", "UniversityAdmin")'">
+                <button class="btn btn-default my-4 waves-effect z-depth-0" onclick="location.href = '@Url.Action("AddFaculty", "UniversityAdmin", Model.CurrentUniversity.Id)'">
                     <i></i>Add Faculty
                 </button>
             }

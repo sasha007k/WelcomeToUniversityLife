@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Application.Models.UniversityAdmin
 {
-    public class UniversityInfo
+    public class UniversityInfoModel
     {
         public string Name { get; set; }
         public string City { get; set; }

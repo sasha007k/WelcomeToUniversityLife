@@ -9,8 +9,9 @@ namespace Application.IServices
 {
     public interface IUniversityAdminService
     {
-        Task<CurrentUniversityAndFaculties> GetUniversity();
-        Task<CurrentUniversityAndFaculties> GetUniversityAsync(int universityId);
-        Task<bool> EditUniversity(UniversityInfo model);
+        Task<CurrentUniversityAndFacultiesModel> GetUniversity();
+        Task<CurrentUniversityAndFacultiesModel> GetUniversityAsync(int universityId);
+        Task<bool> EditUniversity(UniversityInfoModel model);
+        Task<bool> AddFacultyAsync(AddFacultyModel model);
     }
 }

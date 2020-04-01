@@ -18,24 +18,24 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
         }
         public async Task<ActionResult> University()
         {
-            var university = await _universityAdminService.GetUniversity();
-            if (university == null)
+            var universityAndFaculties = await _universityAdminService.GetUniversity();
+            if (universityAndFaculties == null)
             {
                 return RedirectToAction();
             }
 
-            return View(university);
+            return View(universityAndFaculties);
         }
 
         public async Task<ActionResult> GetUniversity(int id)
         {
-            var university = await _universityAdminService.GetUniversityAsync(id);
-            if (university == null)
+            var universityAndFaculties = await _universityAdminService.GetUniversityAsync(id);
+            if (universityAndFaculties == null)
             {
                 return RedirectToAction();
             }
 
-            return View("University", university);
+            return View("University", universityAndFaculties);
         }
 
         public IActionResult EditUniversityInfo(University currentUniversity)
@@ -44,7 +44,7 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditUniversityInfo(UniversityInfo model)
+        public async Task<IActionResult> EditUniversityInfo(UniversityInfoModel model)
         {
             var result = false;
             if (model != null)
@@ -63,7 +63,21 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
 
         public IActionResult AddFaculty()
         {
-            return View();
+            return View(new AddFacultyModel());
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddFaculty(AddFacultyModel model)
+        {
+            if (model != null)
+            {
+                var result = await _universityAdminService.AddFacultyAsync(model);
+                if (result)
+                {
+                    return RedirectToAction("University", "UniversityAdmin");
+                }
+            }
+            return RedirectToAction("AddFaculty", "UniversityAdmin");
         }
     }
 }
