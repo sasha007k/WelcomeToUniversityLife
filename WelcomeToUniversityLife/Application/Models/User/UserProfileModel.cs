@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 
 namespace Application.Models.User
 {
@@ -15,5 +17,6 @@ namespace Application.Models.User
         public string City { get; set; }
         public Dictionary<string, double> ZNOs { get; set; } = new Dictionary<string, double>();
         public ChangePasswordModel ChangePasswordModel { get; set; }
+        
     }
 }

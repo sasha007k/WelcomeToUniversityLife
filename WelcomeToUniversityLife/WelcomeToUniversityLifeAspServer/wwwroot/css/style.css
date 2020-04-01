@@ -4,3 +4,18 @@
 .oneline {
     display: inline-block;
 }
+.file-field.medium .file-path-wrapper {
+    height: 3rem;
+}
+
+    .file-field.medium .file-path-wrapper .file-path {
+        height: 2.8rem;
+    }
+
+.file-field.big-2 .file-path-wrapper {
+    height: 3.7rem;
+}
+
+    .file-field.big-2 .file-path-wrapper .file-path {
+        height: 3.5rem;
+    }
