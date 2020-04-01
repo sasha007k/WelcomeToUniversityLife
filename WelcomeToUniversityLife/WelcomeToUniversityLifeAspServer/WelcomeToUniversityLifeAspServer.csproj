@@ -34,6 +34,7 @@
 
   <ItemGroup>
     <Folder Include="Views\UniversityAdmin\" />
+    <Folder Include="wwwroot\Files\" />
   </ItemGroup>
 
 </Project>

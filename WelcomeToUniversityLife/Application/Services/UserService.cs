@@ -7,6 +7,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using Application.Models.User;
+using System.IO;
 using Microsoft.AspNetCore.Http;
 
 namespace Application.Services
@@ -88,6 +89,30 @@ namespace Application.Services
             var result = await _userManager.UpdateAsync(user);
 
             return result.Succeeded;
+        }
+
+        public async Task AddDocs(string name, IFormFileCollection uploads)
+        {
+            User user = await _userManager.FindByNameAsync(name);
+            string path = @"C:\Files";
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+            if (user != null)
+            {
+                foreach (var item in uploads)
+                {
+                    using (var fileStream = new FileStream(path +@"\"+ item.FileName, FileMode.Create))
+                    {
+                        
+                        await item.CopyToAsync(fileStream);
+                    }
+                }
+            }
+
+
+
         }
     }
 }

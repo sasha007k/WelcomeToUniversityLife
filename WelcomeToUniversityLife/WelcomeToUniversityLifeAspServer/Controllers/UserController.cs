@@ -48,12 +48,11 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
         [HttpPost]
         public async Task<IActionResult> AddDocs(IFormFileCollection uploads)
         {
-            Console.WriteLine(User.Identity.Name);
-            foreach (var item in uploads)
+          
+            if(uploads!=null)
             {
-                Console.WriteLine(item.FileName);
+                await _userService.AddDocs(User.Identity.Name,uploads);
             }
-
             return RedirectToAction("Profile", "User");
         }
     }
