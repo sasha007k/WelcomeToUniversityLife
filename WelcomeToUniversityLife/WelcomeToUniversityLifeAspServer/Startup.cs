@@ -32,7 +32,7 @@ namespace WelcomeToUniversityLifeAspServer
 
             services.AddDbContext<DatabaseContext>(options =>
               options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),
-                  b =>b.MigrationsAssembly("Infrastructure")));
+                 builder => builder.MigrationsAssembly(typeof(Startup).GetTypeInfo().Assembly.GetName().Name)));
 
             services.AddIdentity<User, IdentityRole<int>>()
            .AddEntityFrameworkStores<DatabaseContext>()
@@ -76,7 +76,7 @@ namespace WelcomeToUniversityLifeAspServer
                 app.UseHsts();
             }
 
-            //DataInitializer.SeedData(userManager, roleManager, context).Wait();
+            DataInitializer.SeedData(userManager, roleManager, context).Wait();
             //DataInitializer.SeedSiteAdmin(userManager).Wait();
 
             app.UseHttpsRedirection();
