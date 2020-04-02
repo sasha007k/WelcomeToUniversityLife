@@ -26,9 +26,12 @@ namespace Application.Services
             await _signInManager.SignOutAsync();
         }
 
-        public async Task<SignInResult> SignIn(SignInModel model)
+        public async Task<Tuple<SignInResult, string>> SignIn(SignInModel model)
         {
-            return await _signInManager.PasswordSignInAsync(model.Email, model.Password, false, false);
+            var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, false, false);
+            var user = await _userManager.FindByNameAsync(model.Email);
+            var role = await _userManager.GetRolesAsync(user);
+            return new Tuple<SignInResult, string>(result, role[0]);
         }
 
         public async Task<IdentityResult> Register(RegisterModel model)

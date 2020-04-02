@@ -1,3 +1,4 @@
+
 .fixer-footer {
     margin-top: 80px;
 }
@@ -19,3 +20,12 @@
     .file-field.big-2 .file-path-wrapper .file-path {
         height: 3.5rem;
     }
+
+.nav-link.active {
+    font-weight: bold; 
+}
+
+.chosen-select {
+    width: 350px;
+}
+

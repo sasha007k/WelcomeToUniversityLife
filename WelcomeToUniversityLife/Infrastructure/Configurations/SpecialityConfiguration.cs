@@ -17,7 +17,6 @@ namespace Infrastructure.Configurations
                 .IsRequired()
                 .HasMaxLength(60);
             builder.Property(u => u.Description)
-                .IsRequired()
                 .HasMaxLength(1000);
             builder.Property(u => u.PaidSpaces)
                   .IsRequired();
@@ -29,6 +28,8 @@ namespace Infrastructure.Configurations
                   .IsRequired();
             builder.Property(u => u.RequiredZNO3)
                   .IsRequired();
+            builder.Property(u => u.FacultyId)
+                .IsRequired();
 
         }
     }

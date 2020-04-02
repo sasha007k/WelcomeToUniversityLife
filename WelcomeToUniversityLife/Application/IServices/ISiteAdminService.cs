@@ -11,6 +11,6 @@ namespace Application.IServices
     public interface ISiteAdminService
     {
         Task<bool> AddUniversityAsync(AddUniversityModel model);
-        List<University> GetAllProjects();
+        List<University> GetAllUniversities();
     }
 }

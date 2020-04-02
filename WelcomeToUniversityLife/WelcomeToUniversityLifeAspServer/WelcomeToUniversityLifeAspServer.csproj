@@ -32,9 +32,11 @@
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
   </ItemGroup>
 
+
   <ItemGroup>
     <Folder Include="Views\UniversityAdmin\" />
     <Folder Include="wwwroot\Files\" />
   </ItemGroup>
+
 
 </Project>

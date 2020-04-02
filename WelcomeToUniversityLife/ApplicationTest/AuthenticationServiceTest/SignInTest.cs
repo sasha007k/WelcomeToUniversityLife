@@ -58,7 +58,7 @@ namespace ApplicationTest.AuthenticationServiceTest
                 var result = await service.SignIn(signInModel);
 
                 const bool expected = false;
-                Assert.Equal(expected, result.Succeeded);
+                Assert.Equal(expected, result.Item1.Succeeded);
             }
         }
     }

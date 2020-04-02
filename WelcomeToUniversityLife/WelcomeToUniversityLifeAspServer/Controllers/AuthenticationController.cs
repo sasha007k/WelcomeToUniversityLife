@@ -1,4 +1,5 @@
-﻿using Application.IServices;
+﻿using System;
+using Application.IServices;
 using Application.Models.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -41,19 +42,34 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
             return View();
         }
 
+        private IActionResult ChooseStartPage(string role)
+        {
+            switch (role)
+            {
+                case "User":
+                    return RedirectToAction("Profile", "User");
+                case "UniversityAdmin":
+                    return RedirectToAction("University", "UniversityAdmin");
+                case "SiteAdmin":
+                    return RedirectToAction("AllUniversities", "SiteAdmin");
+            }
+            return RedirectToAction();
+        }
+
         [HttpPost]
         public async Task<IActionResult> SignIn(SignInModel model)
         {
             if (ModelState.IsValid)
             {
-                var result = await _authenticationService.SignIn(model);
-                if (result.Succeeded)
+                var (signInResult, role) = await _authenticationService.SignIn(model);
+                if (signInResult.Succeeded)
                 {
-                    return RedirectToAction("Profile", "User");
+                    var route = ChooseStartPage(role);
+                    return route;
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Login or password is incorrect!!");
+                    ModelState.AddModelError("", "Login or password is incorrect!");
                 }
             }
 
