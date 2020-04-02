@@ -104,15 +104,15 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
         [HttpPost]
         public async Task<IActionResult> AddSpeciality(AddSpecialityModel model)
         {
-            //if (model != null)
-            //{
-            //    var result = await _universityAdminService.AddFacultyAsync(model);
-            //    if (result)
-            //    {
-            //        return RedirectToAction("University", "UniversityAdmin");
-            //    }
-            //}
-            return RedirectToAction("AddFaculty", "UniversityAdmin");
+            if (model != null)
+            {
+                var result = await _universityAdminService.AddSpecialityAsync(model);
+                if (result)
+                {
+                    return RedirectToAction("GetFaculty", "UniversityAdmin", model.FacultyId);
+                }
+            }
+            return RedirectToAction("AddSpeciality", "UniversityAdmin");
         }
     }
 }

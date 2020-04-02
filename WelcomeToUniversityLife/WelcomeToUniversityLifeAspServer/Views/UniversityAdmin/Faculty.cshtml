@@ -22,10 +22,12 @@
             {
                 <table class="table table-hover">
                     <thead>
-                    <tr>
-                        <th scope="col" style="text-align: center">Speciality</th>
-                        <th scope="col" style="text-align: center">Description</th>
-                    </tr>
+                        <tr>
+                            <th scope="col" style="text-align: center">Speciality</th>
+                            <th scope="col" style="text-align: center">Free Spaces</th>
+                            <th scope="col" style="text-align: center">Paid Spaces</th>
+                            <th scope="col" style="text-align: center">Required ZNO</th>
+                        </tr>
                     </thead>
 
                     @foreach (var faculty in Model.Specialities)
@@ -38,11 +40,31 @@
                             </td>
                             <td>
                                 <h5>
-                                    @faculty.Description
+                                    @faculty.FreeSpaces
                                 </h5>
                             </td>
+                            <td>
+                                <h5>
+                                    @faculty.PaidSpaces
+                                </h5>
+                            </td>
+                            <td>
+                                <table>
+                                    <tr>@faculty.RequiredZNO1</tr>
+                                    <br>
+                                    @if (!string.IsNullOrWhiteSpace(faculty.RequiredZNO2))
+                                    {
+                                        <tr>@faculty.RequiredZNO2</tr>
+                                        <br>
+                                    }
+                                    @if (!string.IsNullOrWhiteSpace(faculty.RequiredZNO3))
+                                    {
+                                        <tr>@faculty.RequiredZNO3</tr>
+                                    }
+                                </table>
+                            </td>
                         </tr>
-                    }
+                     }
 
                 </table>
             }

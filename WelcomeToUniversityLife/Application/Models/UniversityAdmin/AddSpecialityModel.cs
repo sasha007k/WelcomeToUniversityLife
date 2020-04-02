@@ -14,9 +14,7 @@ namespace Application.Models.UniversityAdmin
         public int FreeSpaces { get; set; }
         [Required]
         public int PaidSpaces { get; set; }
-        public string RequiredZNO1 { get; set; }
-        public string RequiredZNO2 { get; set; }
-        public string RequiredZNO3 { get; set; }
+        public List<string> ZNO { get; set; }
         public int FacultyId { get; set; }
     }
 }
