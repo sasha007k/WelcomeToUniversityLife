@@ -5,15 +5,18 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - WelcomeToUniversityLifeAspServer</title>
+
+
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/lib/choosen/chosen.css" />
     <link rel="stylesheet" href="~/lib/choosen/docsupport/prism.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/mdb.min.css" />
-    <link rel="stylesheet" href="~/css/style.css" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+    <link rel="stylesheet" href="~/css/style.css" />
+
 </head>
 <body>
     <header>
@@ -62,14 +65,22 @@
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
+
+
     </div>
 
 
-<footer class="border-top footer text-muted">
-    <div class="container text-center" style="color: #007BFF;">
-        &copy; 2020 - UniversityStart.ua
-    </div>
-</footer>
+    <div class="fixer-footer"></div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container text-center" style="color: #007BFF;">
+            &copy; 2020 - UniversityStart.ua
+        </div>
+    </footer>
+
+
+
+
 
 <script src="~/js/jquery.min.js"></script>
 <script src="~/js/bootstrap.min.js"></script>
@@ -78,6 +89,7 @@
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="~/js/site.js" asp-append-version="true"></script>
 <script src="~/lib/choosen/chosen.jquery.js"></script>
+
     @RenderSection("Scripts", required: false)
 </body>
 </html>

@@ -44,5 +44,16 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
 
             return RedirectToAction("Profile", "User");
         }
+
+        [HttpPost]
+        public async Task<IActionResult> AddDocs(IFormFileCollection uploads)
+        {
+          
+            if(uploads!=null)
+            {
+                await _userService.AddDocs(User.Identity.Name,uploads);
+            }
+            return RedirectToAction("Profile", "User");
+        }
     }
 }
