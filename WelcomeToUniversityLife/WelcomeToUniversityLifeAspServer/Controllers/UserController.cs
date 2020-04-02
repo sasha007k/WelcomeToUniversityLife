@@ -48,12 +48,16 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
         [HttpPost]
         public async Task<IActionResult> AddDocs(IFormFileCollection uploads)
         {
-          
-            if(uploads!=null)
+            if(uploads != null)
             {
-                await _userService.AddDocs(User.Identity.Name,uploads);
+                var result = await _userService.AddDocs(User.Identity.Name,uploads);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Profile", "User");
+                }
             }
-            return RedirectToAction("Profile", "User");
+
+            return BadRequest("Can't save documents");
         }
     }
 }

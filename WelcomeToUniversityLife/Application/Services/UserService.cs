@@ -96,7 +96,7 @@ namespace Application.Services
             return result.Succeeded;
         }
 
-        public async Task AddDocs(string name, IFormFileCollection uploads)
+        public async Task<IdentityResult> AddDocs(string name, IFormFileCollection uploads)
         {
             User user = await _userManager.FindByNameAsync(name);
             string path = @"C:\Files";
@@ -106,13 +106,13 @@ namespace Application.Services
             }
             if (user != null)
             {
-                for (int i = 0; i < 3; i++)
+                foreach (var f in uploads)
                 {
-                    string file = path + @"\" + uploads[i].FileName;
+                    string file = path + @"\" + f.FileName;
                     using (var fileStream = new FileStream(file, FileMode.Create))
                     {
 
-                        await uploads[i].CopyToAsync(fileStream);
+                        await f.CopyToAsync(fileStream);
                     }
                 }
 
@@ -139,22 +139,19 @@ namespace Application.Services
                 };
 
 
-                await  this._documentService.Craate(passport);
-                await this._documentService.Craate(certificate);
-                await this._documentService.Craate(zno);
+                await  this._documentService.Create(passport);
+                await this._documentService.Create(certificate);
+                await this._documentService.Create(zno);
 
                 user.Documents.Add(passport);
                 user.Documents.Add(certificate);
                 user.Documents.Add(zno);
 
-                await _userManager.UpdateAsync(user);
 
-
-
+                return await _userManager.UpdateAsync(user);
             }
 
-
-
+            return null;
         }
     }
 }

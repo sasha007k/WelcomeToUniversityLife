@@ -13,8 +13,6 @@ namespace Infrastructure.Configurations
         {
             builder.ToTable("Document");
             builder.HasKey(u => u.Id);
-            builder.Property(u => u.Path)
-                .IsRequired();
             builder.Property(u => u.Name)
                 .IsRequired();
             builder.HasOne(u => u.User)

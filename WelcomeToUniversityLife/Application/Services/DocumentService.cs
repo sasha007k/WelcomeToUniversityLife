@@ -17,7 +17,7 @@ namespace Application.Services
             this._dbContext = context;
 
         }
-        public async Task<bool> Craate(Document document)
+        public async Task<bool> Create(Document document)
         {
             await _dbContext.Documents.AddAsync(document);
             var saveResult = await _dbContext.SaveChangesAsync();

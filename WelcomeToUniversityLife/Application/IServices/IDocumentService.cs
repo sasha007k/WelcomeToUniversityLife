@@ -10,6 +10,6 @@ namespace Application.IServices
 {
     interface IDocumentService
     {
-        Task<bool> Craate(Document document );
+        Task<bool> Create(Document document );
     }
 }
