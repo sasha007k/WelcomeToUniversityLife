@@ -1,0 +1,7 @@
+.nav-link.active {
+    font-weight: bold; 
+}
+
+.chosen-select {
+    width: 350px;
+}

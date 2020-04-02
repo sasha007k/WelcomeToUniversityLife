@@ -22,17 +22,27 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
         [HttpGet]
         public async Task<IActionResult> Profile()
         {
-            UserProfileModel profile = await _userService.GetUserInfo(User.Identity.Name).ConfigureAwait(true);
+            var profile = await _userService.GetUserInfo(User.Identity.Name).ConfigureAwait(true);
             return View(profile);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Profile(UserProfileModel model)
+        public async Task<IActionResult> PersonalInfo(UserProfileModel model)
         {
             await _userService.UpdateUserInfo(model).ConfigureAwait(true);
 
             return RedirectToAction("Profile", "User");
         }
 
+        [HttpPost]
+        public async Task<IActionResult> ChangePassword(UserProfileModel model)
+        {
+            if (model.ChangePasswordModel != null && model.ChangePasswordModel.NewPassword == model.ChangePasswordModel.ConfirmNewPassword)
+            {
+                await _userService.ChangePassword(model.ChangePasswordModel).ConfigureAwait(true);
+            }
+
+            return RedirectToAction("Profile", "User");
+        }
     }
 }

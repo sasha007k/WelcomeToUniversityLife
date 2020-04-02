@@ -9,12 +9,11 @@ namespace Infrastructure
     public class DatabaseContext : IdentityDbContext<User, IdentityRole<int>, int>
     {
         public DbSet<Document> Documents { get; set; }
-
         public DbSet<University> Universities { get; set; }
-
         public DbSet<Speciality> Specialities { get; set; }
-
-        //public DbSet<ZNO> ZNOs { get; set; }
+        public DbSet<ZNO> ZNOs { get; set; }
+        public DbSet<Application> Applications { get; set; }
+        public DbSet<Faculty> Faculties { get; set; }
 
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
         {
@@ -29,7 +28,9 @@ namespace Infrastructure
             builder.ApplyConfiguration(new DocumentConfiguration());
             builder.ApplyConfiguration(new SpecialityConfiguration());
             builder.ApplyConfiguration(new UniversityConfiguration());
-            //builder.ApplyConfiguration(new ZNOConfiguration());
+            builder.ApplyConfiguration(new ZNOConfiguration());
+            builder.ApplyConfiguration(new ApplicationConfiguration());
+            builder.ApplyConfiguration(new FacultyConfiguration());
         }
     }
 }

@@ -13,6 +13,7 @@ using System.Threading;
 using Application;
 using Microsoft.AspNetCore.Http;
 
+
 namespace ApplicationTest.UserServiceTests
 {
     public class GetUserInfoTest
@@ -30,7 +31,7 @@ namespace ApplicationTest.UserServiceTests
                 var moq = new Mock<IUserStore<User>>();
                 moq.Setup(man => man.FindByNameAsync(It.IsAny<string>(), It.IsAny<CancellationToken>())).ReturnsAsync(default(User));
                 UserManager<User> manager = new UserManager<User>(moq.Object, null, null, null, null, null, null, null, null);
-                UserService service = new UserService(manager, context);
+                UserService service = new UserService(manager, null);
 
                 //Act
                 var result = service.GetUserInfo("somename");
@@ -46,8 +47,7 @@ namespace ApplicationTest.UserServiceTests
         void ShouldRetrieveSameInfo(string name, string email)
         {
             //Arrange
-            var options = new DbContextOptionsBuilder<DatabaseContext>()
-                
+            var options = new DbContextOptionsBuilder<DatabaseContext>()                
                 .UseInMemoryDatabase(databaseName: "Database")
                 .Options;
 
@@ -56,7 +56,7 @@ namespace ApplicationTest.UserServiceTests
                 var moq = new Mock<IUserStore<User>>();
                 moq.Setup(s => s.FindByNameAsync(name, CancellationToken.None)).ReturnsAsync(new User() { Email = email });
                 UserManager<User> manager = new UserManager<User>(moq.Object, null, null, null, null, null, null, null, null);
-                UserService service = new UserService(manager, context);
+                UserService service = new UserService(manager, null);
 
                 //Act
                 var result = service.GetUserInfo(name);
@@ -78,7 +78,7 @@ namespace ApplicationTest.UserServiceTests
             {
                 var moq = new Mock<IUserStore<User>>();
                 UserManager<User> manager = new UserManager<User>(moq.Object, null, null, null, null, null, null, null, null);
-                UserService service = new UserService(manager, context);
+                UserService service = new UserService(manager, null);
 
                 //Act
                 var result = service.GetUserInfo("mishka");

@@ -18,5 +18,6 @@ namespace Domain.Entities
         public double Biology { get; set; }
         public double Physics { get; set; }
         public double Chemistry { get; set; }
+        public User User { get; set; }
     }
 }

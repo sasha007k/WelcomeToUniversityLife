@@ -10,7 +10,7 @@ namespace Application.IServices
 {
     public interface IAuthenticationService
     {
-        Task<SignInResult> SignIn(SignInModel model);
+        Task<Tuple<SignInResult, string>> SignIn(SignInModel model);
         Task SignOut();
         Task<IdentityResult> Register(RegisterModel model);
         Task<User> FindByEmailAsync(string email);

@@ -1,0 +1,98 @@
+﻿@model Application.Models.UniversityAdmin.AddSpecialityModel;
+
+@{
+    ViewData["Title"] = "Add Speciality";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="card mt-3 tab-card">
+                <div class="card-header tab-card-header default-color">
+                    <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist" style="background-color: #2bbbad">
+                        <li class="nav-item active">
+                            <a class="nav-link active" id="one-tab" data-toggle="tab" href="#one" role="tab" aria-controls="One" aria-selected="true">Add Speciality</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="tab-content" id="myTabContent">
+
+                    <div class="tab-pane fade show active p-3" id="one" role="tabpanel" aria-labelledby="one-tab">
+                        <form name="my-form" autocomplete="off" action="/UniversityAdmin/AddSpeciality" method="post">
+                            <div class="form-group row">
+                                <label for="SpecialityName" class="col-sm-2 col-form-label">Speciality Name</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" placeholder="Speciality name" name="SpecialityName" required="" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="Description" class="col-sm-2 col-form-label">Description</label>
+                                <div class="col-sm-10">
+                                    <textarea type="text" class="form-control" placeholder="Description" name="Description"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="FreeSpaces" class="col-sm-2 col-form-label">Free Spaces</label>
+                                <div class="col-sm-10">
+                                    <input type="number" class="form-control" min="0" step="1" placeholder="Free spaces" name="FreeSpaces" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="PaidSpaces" class="col-sm-2 col-form-label">Paid Spaces</label>
+                                <div class="col-sm-10">
+                                    <input type="number" class="form-control" min="0" step="1" placeholder="Paid spaces" name="PaidSpaces" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label  class="col-sm-2 col-form-label">Required ZNO</label>
+                                <div class="col-sm-10">
+                                    <select multiple class="chosen-select" id="znoSelector">
+                                        <option selected disabled>Ukrainian</option>
+                                        <option>Math</option>
+                                        <option>Geography</option>
+                                        <option>History</option>
+                                        <option>English</option>
+                                        <option>Spanish</option>
+                                        <option>French</option>
+                                        <option>Germany</option>
+                                        <option>Biology</option>
+                                        <option>Physics</option>
+                                        <option>Chemistry</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div>
+                                <button type="submit" class="btn btn-default my-4 waves-effect z-depth-0">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+
+    <script>
+        var $chosen = $('.chosen-select').chosen({
+            max_selected_options: 3
+        });
+
+        $chosen.change(function () {
+            var $this = $(this);
+            var chosen = $this.data('chosen');
+            var search = chosen.search_container.find('input[type="text"]');
+
+            search.prop('disabled', $this.val() !== null);
+
+            if (chosen.active_field) {
+                search.focus();
+            }
+        });
+
+
+    </script>
+}

@@ -14,13 +14,11 @@ namespace Application.Services
     {
         UserManager<User> _userManager;
         SignInManager<User> _signInManager;
-        DatabaseContext _dbContext;
 
-        public AuthenticationService(UserManager<User> userManager, SignInManager<User> signInManager, DatabaseContext dbContext)
+        public AuthenticationService(UserManager<User> userManager, SignInManager<User> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            _dbContext = dbContext;
         }
 
         public async Task SignOut()
@@ -28,19 +26,19 @@ namespace Application.Services
             await _signInManager.SignOutAsync();
         }
 
-        public async Task<SignInResult> SignIn(SignInModel model)
+        public async Task<Tuple<SignInResult, string>> SignIn(SignInModel model)
         {
-            return await _signInManager.PasswordSignInAsync(model.Email, model.Password, false, false);
+            var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, false, false);
+            var user = await _userManager.FindByNameAsync(model.Email);
+            var role = await _userManager.GetRolesAsync(user);
+            return new Tuple<SignInResult, string>(result, role[0]);
         }
 
         public async Task<IdentityResult> Register(RegisterModel model)
-        {  
-            User user = new User();
-            user.Email = model.Email;
-            user.UserName = model.Email;            
-            
+        {
+            var user = new User {Email = model.Email, UserName = model.Email};
 
-            IdentityResult result = await _userManager.CreateAsync(user, model.Password);
+            var result = await _userManager.CreateAsync(user, model.Password);
             if (result.Succeeded)
             {
                 await _userManager.AddToRoleAsync(user, "User");

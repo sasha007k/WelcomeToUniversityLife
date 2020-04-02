@@ -14,5 +14,7 @@ namespace Domain.Entities
         public int DocumentId { get; set; }
         public string Latitude { get; set; }
         public string Longitude { get; set; }
+        public int? UserId { get; set; }
+        public User User { get; set; }
     }
 }

@@ -1,12 +1,26 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace WelcomeToUniversityLifeAspServer.Migrations
+namespace Infrastructure.Migrations
 {
-    public partial class Init : Migration
+    public partial class InitialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Application",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<int>(nullable: false),
+                    SpecialityId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Application", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
@@ -20,6 +34,23 @@ namespace WelcomeToUniversityLifeAspServer.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetRoles", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Faculty",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(nullable: false),
+                    Address = table.Column<string>(nullable: false),
+                    Description = table.Column<string>(nullable: true),
+                    DocumentId = table.Column<int>(nullable: false),
+                    UniversityId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Faculty", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -42,22 +73,47 @@ namespace WelcomeToUniversityLifeAspServer.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "University",
+                name: "ZNO",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(maxLength: 60, nullable: false),
-                    City = table.Column<string>(nullable: false),
-                    Description = table.Column<string>(nullable: true),
-                    Address = table.Column<string>(nullable: true),
-                    DocumentId = table.Column<int>(nullable: false),
-                    Latitude = table.Column<string>(nullable: false),
-                    Longitude = table.Column<string>(nullable: false)
+                    Math = table.Column<double>(nullable: false),
+                    Geography = table.Column<double>(nullable: false),
+                    Ukrainian = table.Column<double>(nullable: false),
+                    History = table.Column<double>(nullable: false),
+                    English = table.Column<double>(nullable: false),
+                    Spanish = table.Column<double>(nullable: false),
+                    French = table.Column<double>(nullable: false),
+                    Germany = table.Column<double>(nullable: false),
+                    Biology = table.Column<double>(nullable: false),
+                    Physics = table.Column<double>(nullable: false),
+                    Chemistry = table.Column<double>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_University", x => x.Id);
+                    table.PrimaryKey("PK_ZNO", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetRoleClaims",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    RoleId = table.Column<int>(nullable: false),
+                    ClaimType = table.Column<string>(nullable: true),
+                    ClaimValue = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetRoleClaims", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AspNetRoleClaims_AspNetRoles_RoleId",
+                        column: x => x.RoleId,
+                        principalTable: "AspNetRoles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -85,30 +141,15 @@ namespace WelcomeToUniversityLifeAspServer.Migrations
                     MiddleName = table.Column<string>(nullable: true),
                     DateOfBirth = table.Column<DateTime>(nullable: false),
                     City = table.Column<string>(nullable: true),
-                    ZNOId = table.Column<int>(nullable: false)
+                    ZNOId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "AspNetRoleClaims",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    RoleId = table.Column<int>(nullable: false),
-                    ClaimType = table.Column<string>(nullable: true),
-                    ClaimValue = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AspNetRoleClaims", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_AspNetRoleClaims_AspNetRoles_RoleId",
-                        column: x => x.RoleId,
-                        principalTable: "AspNetRoles",
+                        name: "FK_Users_ZNO_ZNOId",
+                        column: x => x.ZNOId,
+                        principalTable: "ZNO",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -218,6 +259,32 @@ namespace WelcomeToUniversityLifeAspServer.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "University",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(maxLength: 60, nullable: false),
+                    City = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    Address = table.Column<string>(nullable: true),
+                    DocumentId = table.Column<int>(nullable: false),
+                    Latitude = table.Column<string>(nullable: true),
+                    Longitude = table.Column<string>(nullable: true),
+                    UserId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_University", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_University_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -251,6 +318,13 @@ namespace WelcomeToUniversityLifeAspServer.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_University_UserId",
+                table: "University",
+                column: "UserId",
+                unique: true,
+                filter: "[UserId] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
                 name: "EmailIndex",
                 table: "Users",
                 column: "NormalizedEmail");
@@ -261,10 +335,20 @@ namespace WelcomeToUniversityLifeAspServer.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_ZNOId",
+                table: "Users",
+                column: "ZNOId",
+                unique: true,
+                filter: "[ZNOId] IS NOT NULL");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Application");
+
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
@@ -284,6 +368,9 @@ namespace WelcomeToUniversityLifeAspServer.Migrations
                 name: "Document");
 
             migrationBuilder.DropTable(
+                name: "Faculty");
+
+            migrationBuilder.DropTable(
                 name: "Speciality");
 
             migrationBuilder.DropTable(
@@ -294,6 +381,9 @@ namespace WelcomeToUniversityLifeAspServer.Migrations
 
             migrationBuilder.DropTable(
                 name: "Users");
+
+            migrationBuilder.DropTable(
+                name: "ZNO");
         }
     }
 }

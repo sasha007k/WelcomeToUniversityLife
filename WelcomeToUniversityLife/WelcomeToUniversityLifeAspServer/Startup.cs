@@ -7,6 +7,7 @@ using Infrastructure;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -31,13 +32,15 @@ namespace WelcomeToUniversityLifeAspServer
 
             services.AddDbContext<DatabaseContext>(options =>
               options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),
-              builder => builder.MigrationsAssembly(typeof(Startup).GetTypeInfo().Assembly.GetName().Name)));
+                  b =>b.MigrationsAssembly("Infrastructure")));
 
             services.AddIdentity<User, IdentityRole<int>>()
            .AddEntityFrameworkStores<DatabaseContext>()
            .AddDefaultTokenProviders();
 
-            //services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme);
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme);
+
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<DbContext, DatabaseContext>();
@@ -54,6 +57,8 @@ namespace WelcomeToUniversityLifeAspServer
             //---Applying Services
             services.AddScoped<IAuthenticationService, AuthenticationService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ISiteAdminService, SiteAdminService>();
+            services.AddScoped<IUniversityAdminService, UniversityAdminService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -72,6 +77,7 @@ namespace WelcomeToUniversityLifeAspServer
             }
 
             //DataInitializer.SeedData(userManager, roleManager, context).Wait();
+            //DataInitializer.SeedSiteAdmin(userManager).Wait();
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

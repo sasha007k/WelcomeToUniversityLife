@@ -4,20 +4,40 @@ using Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace WelcomeToUniversityLifeAspServer.Migrations
+namespace Infrastructure.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20200319222117_InitialMigration")]
+    partial class InitialMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.1.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("Domain.Entities.Application", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("SpecialityId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Application");
+                });
 
             modelBuilder.Entity("Domain.Entities.Document", b =>
                 {
@@ -38,6 +58,35 @@ namespace WelcomeToUniversityLifeAspServer.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Document");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Faculty", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("DocumentId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UniversityId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Faculty");
                 });
 
             modelBuilder.Entity("Domain.Entities.Speciality", b =>
@@ -91,7 +140,6 @@ namespace WelcomeToUniversityLifeAspServer.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("City")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
@@ -101,11 +149,9 @@ namespace WelcomeToUniversityLifeAspServer.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Latitude")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Longitude")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
@@ -113,7 +159,14 @@ namespace WelcomeToUniversityLifeAspServer.Migrations
                         .HasColumnType("nvarchar(60)")
                         .HasMaxLength(60);
 
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique()
+                        .HasFilter("[UserId] IS NOT NULL");
 
                     b.ToTable("University");
                 });
@@ -188,7 +241,7 @@ namespace WelcomeToUniversityLifeAspServer.Migrations
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
 
-                    b.Property<int>("ZNOId")
+                    b.Property<int?>("ZNOId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -201,7 +254,56 @@ namespace WelcomeToUniversityLifeAspServer.Migrations
                         .HasName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
+                    b.HasIndex("ZNOId")
+                        .IsUnique()
+                        .HasFilter("[ZNOId] IS NOT NULL");
+
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("Domain.Entities.ZNO", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<double>("Biology")
+                        .HasColumnType("float");
+
+                    b.Property<double>("Chemistry")
+                        .HasColumnType("float");
+
+                    b.Property<double>("English")
+                        .HasColumnType("float");
+
+                    b.Property<double>("French")
+                        .HasColumnType("float");
+
+                    b.Property<double>("Geography")
+                        .HasColumnType("float");
+
+                    b.Property<double>("Germany")
+                        .HasColumnType("float");
+
+                    b.Property<double>("History")
+                        .HasColumnType("float");
+
+                    b.Property<double>("Math")
+                        .HasColumnType("float");
+
+                    b.Property<double>("Physics")
+                        .HasColumnType("float");
+
+                    b.Property<double>("Spanish")
+                        .HasColumnType("float");
+
+                    b.Property<double>("Ukrainian")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ZNO");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<int>", b =>
@@ -341,6 +443,22 @@ namespace WelcomeToUniversityLifeAspServer.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Domain.Entities.University", b =>
+                {
+                    b.HasOne("Domain.Entities.User", "User")
+                        .WithOne("University")
+                        .HasForeignKey("Domain.Entities.University", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Domain.Entities.User", b =>
+                {
+                    b.HasOne("Domain.Entities.ZNO", "ZNO")
+                        .WithOne("User")
+                        .HasForeignKey("Domain.Entities.User", "ZNOId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>

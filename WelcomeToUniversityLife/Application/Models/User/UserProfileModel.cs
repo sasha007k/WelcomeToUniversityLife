@@ -14,5 +14,6 @@ namespace Application.Models.User
         public DateTime DateOfBirth { get; set; }
         public string City { get; set; }
         public Dictionary<string, double> ZNOs { get; set; } = new Dictionary<string, double>();
+        public ChangePasswordModel ChangePasswordModel { get; set; }
     }
 }

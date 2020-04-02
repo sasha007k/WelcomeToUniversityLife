@@ -10,6 +10,26 @@ namespace Infrastructure
         {
             await SeedRoles(roleManager);
             await SeedUsers(userManager, context);
+            await SeedSiteAdmin(userManager);
+        }
+
+        public static async Task SeedSiteAdmin(UserManager<User> userManager)
+        {
+            string email = "siteadmin@gmail.com";
+            string password = "12345";
+
+            if (await userManager.FindByEmailAsync(email) == null)
+            {
+                User user = new User();
+                user.Email = email;
+                user.UserName = email;
+
+                IdentityResult result = await userManager.CreateAsync(user, password);
+                if (result.Succeeded)
+                {
+                    await userManager.AddToRoleAsync(user, "SiteAdmin");
+                }
+            }
         }
 
         public static async Task SeedUsers(UserManager<User> userManager, DatabaseContext context)
@@ -21,6 +41,7 @@ namespace Infrastructure
             {
                 User user = new User();
                 user.Email = email;
+                user.UserName = email;
 
                 IdentityResult result = await userManager.CreateAsync(user, password);
                 if (result.Succeeded)

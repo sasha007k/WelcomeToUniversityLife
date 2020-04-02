@@ -18,8 +18,6 @@ namespace Infrastructure.Configurations
                 .IsRequired();
             builder.Property(u => u.Address)
                 .IsRequired();
-            //builder.Property(u => u.Description)
-            //    .IsRequired();
             builder.Property(u => u.DocumentId)
                 .IsRequired();
             builder.Property(u => u.UniversityId)

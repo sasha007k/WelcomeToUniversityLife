@@ -1,0 +1,89 @@
+﻿@model Application.Models.UniversityAdmin.CurrentUniversityAndFacultiesModel;
+@{
+    ViewData["Title"] = "University";
+}
+
+
+<div class="container-fluid">
+    <div class="row">
+        
+        <div class="col-2">
+            @if (User.IsInRole("UniversityAdmin"))
+            {
+                <button class="btn btn-default my-4 waves-effect z-depth-0" onclick="location.href = '@Url.Action("AddFaculty", "UniversityAdmin", Model.CurrentUniversity.Id)'">
+                    <i></i>Add Faculty
+                </button>
+            }
+        </div>
+
+
+        <div class="col-7">
+            @if (Model.Faculties != null)
+            {
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th scope="col" style="text-align: center">Faculty</th>
+                        <th scope="col" style="text-align: center">Address</th>
+                    </tr>
+                    </thead>
+
+                    @foreach (var faculty in Model.Faculties)
+                    {
+                        <tr style="text-align: center" onclick="window.location = '@Url.Action("GetFaculty", "UniversityAdmin", new {id = faculty.Id})'">
+                            <td>
+                                <h5>
+                                    @faculty.Name
+                                </h5>
+                            </td>
+                            <td>
+                                <h5>
+                                    @faculty.Address
+                                </h5>
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            }
+            else
+            {
+                <h1>There are no faculties yet</h1>
+            }
+
+        </div>
+
+        <div class="col-3">
+            <div class="card">
+                <div class="card-body">
+                    <form>
+                        <p class="h4 text-center py-4">Info</p>
+
+                        <label for="" class="grey-text font-weight-light">Name</label>
+                        <input type="text" id="" class="form-control" value="@Model.CurrentUniversity.Name" readonly>
+
+                        <label for="" class="grey-text font-weight-light">City</label>
+                        <input type="text" id="" class="form-control" value="@Model.CurrentUniversity.City" readonly>
+
+                        <label for="" class="grey-text font-weight-light">Description</label>
+                        <textarea type="text" id="" class="form-control" readonly>@Model.CurrentUniversity.Description</textarea>
+
+
+                        <label for="" class="grey-text font-weight-light">Address</label>
+                        <input type="text" id="" class="form-control" value="@Model.CurrentUniversity.Address" readonly>
+
+                        @if (User.IsInRole("UniversityAdmin"))
+                        {
+                            <button class="btn btn-default btn-block my-4 waves-effect z-depth-0"
+                                    onclick="window.location.href = '@Url.Action("EditUniversityInfo", "UniversityAdmin", Model.CurrentUniversity)';return false;">
+                                <i></i>Edit
+                            </button>
+                        }
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

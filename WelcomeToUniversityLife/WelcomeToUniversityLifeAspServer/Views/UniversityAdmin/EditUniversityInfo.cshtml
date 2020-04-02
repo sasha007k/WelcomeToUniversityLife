@@ -1,0 +1,69 @@
+﻿@model Domain.Entities.University;
+
+@{
+    ViewData["Title"] = "Edit University Info";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="card mt-3">
+                <div class="card-header default-color">
+                    <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist" style="background-color: #2bbbad">
+                        <li class="nav-item active">
+                            <a class="nav-link active" id="one-tab" data-toggle="tab" href="#one" role="tab" aria-controls="One" aria-selected="true">Edit University</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="tab-content" id="myTabContent">
+
+                    <div class="tab-pane fade show active p-3" id="one" role="tabpanel" aria-labelledby="one-tab">
+                        <form name="my-form" autocomplete="off" action="/UniversityAdmin/EditUniversityInfo" method="post">
+                            <div class="form-group row">
+                                <label for="Name" class="col-sm-2 col-form-label">Name</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" value="@Model.Name" placeholder="Name" name="Name"/>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="City" class="col-sm-2 col-form-label">City</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" value="@Model.City" placeholder="City" name="City" autocomplete="nope" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="Address" class="col-sm-2 col-form-label">Address</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" value="@Model.Address" placeholder="Address" name="Address" autocomplete="nope" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="Description" class="col-sm-2 col-form-label">Description</label>
+                                <div class="col-sm-10">
+                                    <textarea type="text" class="form-control" value="@Model.Description" placeholder="Description" name="Description" autocomplete="nope"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="Latitude" class="col-sm-2 col-form-label">Latitude</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="md-textarea form-control" value="@Model.Latitude" placeholder="Latitude" name="Latitude" autocomplete="nope" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="Longitude" class="col-sm-2 col-form-label">Longitude</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" value="@Model.Longitude" placeholder="Longitude" name="Longitude" autocomplete="nope" />
+                                </div>
+                            </div>
+
+                            <div>
+                                <button type="submit" class="btn btn-default my-4 waves-effect z-depth-0">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
