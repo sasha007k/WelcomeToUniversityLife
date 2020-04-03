@@ -1,4 +1,5 @@
-﻿@model Application.Models.UniversityAdmin.CurrentFacultyAndSpecialitiesModel;
+﻿@using Application.Models.UniversityAdmin
+@model Application.Models.UniversityAdmin.CurrentFacultyAndSpecialitiesModel;
 @{
     ViewData["Title"] = "University";
 }
@@ -94,9 +95,11 @@
             </div>
             @if (User.IsInRole("UniversityAdmin"))
             {
-                <button class="btn btn-default my-4 waves-effect z-depth-0" onclick="location.href = '@Url.Action("AddSpeciality", "UniversityAdmin", new { facultyId = @Model.CurrentFaculty.Id})'">
+                @*<button class="btn btn-default my-4 waves-effect z-depth-0" onclick="location.href = '@Url.Action("AddSpeciality", "UniversityAdmin", new { facultyId = @Model.CurrentFaculty.Id})'">
                     <i></i>Add Speciality
-                </button>
+                </button>*@
+
+                @await Html.PartialAsync("/Views/PopUpWindows/AddSpecialityPopUp.cshtml", new AddSpecialityModel());
             }
         </div>
     </div>
