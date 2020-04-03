@@ -48,10 +48,18 @@
         <div class="col-3 text-center">
             <div class="card">
                 <div class="card-body">
+                    <div class="row m-0 p-0">
+                        <div class="col-1 m-0 p-0">
+                            @if (User.IsInRole("UniversityAdmin"))
+                            {
+                                @await Html.PartialAsync("/Views/PopUpWindows/AddFacultyPopUp.cshtml");
+                            }
+                        </div>
+                        <div class="col-sm m-0 p-0">
+                            <p class="h4 text-center py-4">University Info</p>
+                        </div>
+                    </div>
                     <form>
-                        <p class="h4 text-center py-4">University Info</p>
-
-                        <label for="" class="grey-text font-weight-light">Name</label>
                         <input type="text" id="" class="form-control" value="@Model.CurrentUniversity.Name" readonly>
 
                         <label for="" class="grey-text font-weight-light">City</label>
@@ -63,9 +71,9 @@
 
                         <label for="" class="grey-text font-weight-light">Address</label>
                         <input type="text" id="" class="form-control" value="@Model.CurrentUniversity.Address" readonly>
-                        
+
                         <br>
-                        
+
                         <iframe src="@Model.CurrentUniversity.LocationLink" frameborder="0" style="border: 0" allowfullscreen></iframe>
 
                         @if (User.IsInRole("UniversityAdmin"))
@@ -79,10 +87,6 @@
                     </form>
                 </div>
             </div>
-            @if (User.IsInRole("UniversityAdmin"))
-            {
-                @await Html.PartialAsync("/Views/PopUpWindows/AddFacultyPopUp.cshtml");
-            }
         </div>
     </div>
 </div>

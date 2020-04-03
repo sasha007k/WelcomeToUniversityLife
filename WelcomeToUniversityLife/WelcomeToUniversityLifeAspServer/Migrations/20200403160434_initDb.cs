@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace WelcomeToUniversityLifeAspServer.Migrations
 {
-    public partial class initdb : Migration
+    public partial class initDb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -142,7 +142,8 @@ namespace WelcomeToUniversityLifeAspServer.Migrations
                     MiddleName = table.Column<string>(nullable: true),
                     DateOfBirth = table.Column<DateTime>(nullable: false),
                     City = table.Column<string>(nullable: true),
-                    ZNOId = table.Column<int>(nullable: true)
+                    ZNOId = table.Column<int>(nullable: true),
+                    NumberOfApplications = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -272,8 +273,7 @@ namespace WelcomeToUniversityLifeAspServer.Migrations
                     Description = table.Column<string>(nullable: true),
                     Address = table.Column<string>(nullable: true),
                     DocumentId = table.Column<int>(nullable: false),
-                    Latitude = table.Column<string>(nullable: true),
-                    Longitude = table.Column<string>(nullable: true),
+                    LocationLink = table.Column<string>(nullable: true),
                     UserId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
