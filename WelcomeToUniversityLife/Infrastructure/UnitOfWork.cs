@@ -1,17 +1,21 @@
 ﻿using Domain;
 using Domain.IRepositories;
 using Infrastructure.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Infrastructure
 {
+
     public class UnitOfWork : IUnitOfWork
     {
         private IUserRepository userRepository;
         private IZNORepository znoRepository;
+        private IApplicationRepository applicationRepository;
+        private IUniversityRepository universityRepository;
+        private IFacultyRepository facultyRepository;
+        private ISpecialityRepository specialityRepository;
+        private IDocumentRepository documentRepository;
+
         public DatabaseContext _context { get; private set; }
 
         public UnitOfWork(DatabaseContext context)
@@ -19,15 +23,6 @@ namespace Infrastructure
             _context = context;
         }
 
-        public Task Commit()
-        {
-            return _context.SaveChangesAsync();
-        }
-
-        public void Dispose()
-        {
-            _context.Dispose();
-        }
         public IUserRepository UserRepository
         {
             get
@@ -41,7 +36,7 @@ namespace Infrastructure
             }
         }
 
-        public IZNORepository ZnoRepository
+        public IZNORepository ZNORepository
         {
             get
             {
@@ -52,6 +47,76 @@ namespace Infrastructure
 
                 return this.znoRepository;
             }
+        }
+
+        public IApplicationRepository ApplicationRepository 
+        {
+            get
+            {
+                if (this.applicationRepository == null)
+                {
+                    this.applicationRepository = new ApplicationRepository(this._context);
+                }
+
+                return this.applicationRepository;
+            }
+        }
+
+        public IFacultyRepository FacultyRepository
+        {
+            get
+            {
+                if (this.facultyRepository == null)
+                {
+                    this.facultyRepository = new FacultyRepository(this._context);
+                }
+
+                return this.facultyRepository;
+            }
+        }
+
+        public ISpecialityRepository SpecialityRepository
+        {
+            get
+            {
+                if (this.specialityRepository == null)
+                {
+                    this.specialityRepository = new SpecialityRepository(this._context);
+                }
+
+                return this.specialityRepository;
+            }
+        }
+
+        public IUniversityRepository UniversityRepository
+        {
+            get
+            {
+                if (this.universityRepository == null)
+                {
+                    this.universityRepository = new UniversityRepository(this._context);
+                }
+
+                return this.universityRepository;
+            }
+        }
+
+        public IDocumentRepository DocumentRepository
+        {
+            get
+            {
+                if (this.documentRepository == null)
+                {
+                    this.documentRepository = new DocumentRepository(this._context);
+                }
+
+                return this.documentRepository;
+            }
+        }
+
+        public Task Commit()
+        {
+            return _context.SaveChangesAsync();
         }
     }
 }

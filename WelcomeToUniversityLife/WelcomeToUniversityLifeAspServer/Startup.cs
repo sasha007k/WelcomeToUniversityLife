@@ -1,6 +1,6 @@
 using System.Reflection;
 using Application.IServices;
-using Application.Services;
+using Infrastructure.Services;
 using Domain;
 using Domain.Entities;
 using Infrastructure;
@@ -55,6 +55,7 @@ namespace WelcomeToUniversityLifeAspServer
             });
 
             //---Applying Services
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IAuthenticationService, AuthenticationService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ISiteAdminService, SiteAdminService>();

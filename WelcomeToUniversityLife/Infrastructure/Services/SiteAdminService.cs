@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Application.IServices;
 using Application.Models.SiteAdmin;
 using Domain.Entities;
-using Infrastructure;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Internal;
 
-namespace Application.Services
+namespace Infrastructure.Services
 {
     public class SiteAdminService : ISiteAdminService
     {

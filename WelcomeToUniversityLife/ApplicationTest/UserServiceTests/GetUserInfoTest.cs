@@ -1,20 +1,4 @@
-﻿using Infrastructure;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using Xunit;
-using Moq;
-using Microsoft.AspNetCore.Identity;
-using Application.IServices;
-using Domain.Entities;
-using Application.Services;
-using System.Threading;
-using Application;
-using Microsoft.AspNetCore.Http;
-
-
-namespace ApplicationTest.UserServiceTests
+﻿namespace ApplicationTest.UserServiceTests
 {
     //public class GetUserInfoTest
     //{

@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Application.IServices;
 using Application.Models.Enum;
 using Application.Models.UniversityAdmin;
 using Domain.Entities;
-using Infrastructure;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 
-namespace Application.Services
+namespace Infrastructure.Services
 {
     public class UniversityAdminService : IUniversityAdminService
     {

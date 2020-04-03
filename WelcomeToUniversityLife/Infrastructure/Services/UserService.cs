@@ -1,17 +1,13 @@
-﻿using Application.IServices;
-using Domain.Entities;
+﻿using Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using System;
-using System.Collections.Generic;
-using System.Security.Claims;
-using System.Text;
 using System.Threading.Tasks;
-using Application.Models.User;
 using System.IO;
 using Microsoft.AspNetCore.Http;
-using Infrastructure;
+using Application.IServices;
+using Application.Models.User;
 
-namespace Application.Services
+namespace Infrastructure.Services
 {
     public class UserService : IUserService
     {
@@ -167,7 +163,7 @@ namespace Application.Services
 
                     // bool existsCheck = list1.All(x => list2.Any(y => x.SupplierId == y.SupplierId));
 
-                var application = new Domain.Entities.Application()
+                var application = new Domain.Entities.Request()
                 {
                     UserId = user.Id,
                     SpecialityId = speciality.Id
