@@ -153,5 +153,29 @@ namespace Application.Services
 
             return null;
         }
+
+        public async Task<bool> ApplyButtonExecuteAsync(int specialityId)
+        {
+            var userName = _httpContext.HttpContext.User.Identity.Name;
+            var user = await _userManager.FindByNameAsync(userName);
+
+            var speciality = await _dbContext.Specialities.FindAsync(specialityId);
+
+            if (user != null && speciality != null)
+            {
+                var userZNO = new Lazy<string>();
+
+                    // bool existsCheck = list1.All(x => list2.Any(y => x.SupplierId == y.SupplierId));
+
+                var application = new Domain.Entities.Application()
+                {
+                    UserId = user.Id,
+                    SpecialityId = speciality.Id
+                };
+
+            }
+
+            return true;
+        }
     }
 }

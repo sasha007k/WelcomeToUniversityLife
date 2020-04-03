@@ -19,42 +19,55 @@
                             <th scope="col" style="text-align: center">Free Spaces</th>
                             <th scope="col" style="text-align: center">Paid Spaces</th>
                             <th scope="col" style="text-align: center">Required ZNO</th>
+                            @if (User.IsInRole("User"))
+                            {
+                                <th scope="col" style="text-align: center"></th>
+                            }
                         </tr>
                     </thead>
 
-                    @foreach (var faculty in Model.Specialities)
+                    @foreach (var speciality in Model.Specialities)
                     {
                         <tr style="text-align: center">
                             <td>
                                 <h5>
-                                    @faculty.Name
+                                    @speciality.Name
                                 </h5>
                             </td>
                             <td>
                                 <h5>
-                                    @faculty.FreeSpaces
+                                    @speciality.FreeSpaces
                                 </h5>
                             </td>
                             <td>
                                 <h5>
-                                    @faculty.PaidSpaces
+                                    @speciality.PaidSpaces
                                 </h5>
                             </td>
                             <td>
                                 <table>
-                                    <tr>@faculty.RequiredZNO1</tr>
+                                    <tr>@speciality.RequiredZNO1</tr>
                                     <br>
-                                    @if (!string.IsNullOrWhiteSpace(faculty.RequiredZNO2))
+                                    @if (!string.IsNullOrWhiteSpace(speciality.RequiredZNO2))
                                     {
-                                        <tr>@faculty.RequiredZNO2</tr>
+                                        <tr>@speciality.RequiredZNO2</tr>
                                         <br>
                                     }
-                                    @if (!string.IsNullOrWhiteSpace(faculty.RequiredZNO3))
+                                    @if (!string.IsNullOrWhiteSpace(speciality.RequiredZNO3))
                                     {
-                                        <tr>@faculty.RequiredZNO3</tr>
+                                        <tr>@speciality.RequiredZNO3</tr>
                                     }
                                 </table>
                             </td>
+                            @if (User.IsInRole("User"))
+                            {
+                                <td>
+                                    <button class="btn btn-default btn-block my-4 waves-effect z-depth-0"
+                                            onclick="window.location.href = '@Url.Action("ApplyButtonExecute", "User", new {specialityId = speciality.Id})';return false;">
+                                        <i></i>Apply
+                                    </button>
+                                </td>
+                            }
                         </tr>
                      }
 
@@ -70,7 +83,7 @@
             <div class="card">
                 <div class="card-body">
                     <form>
-                        <p class="h4 text-center py-4">Info</p>
+                        <p class="h4 text-center py-4">Faculty Info</p>
 
                         <label for="" class="grey-text font-weight-light">Name</label>
                         <input type="text" id="" class="form-control" value="@Model.CurrentFaculty.Name" readonly>

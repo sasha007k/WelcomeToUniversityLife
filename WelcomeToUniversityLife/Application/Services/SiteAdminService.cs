@@ -61,6 +61,8 @@ namespace Application.Services
                 {
                     Id = university.Id,
                     Name = university.Name,
+                    City = university.City,
+                    Description = university.Description,
                     User = user
 
                 }).ToList();

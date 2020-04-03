@@ -151,10 +151,7 @@ namespace WelcomeToUniversityLifeAspServer.Migrations
                     b.Property<int>("DocumentId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Latitude")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Longitude")
+                    b.Property<string>("LocationLink")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
@@ -224,6 +221,9 @@ namespace WelcomeToUniversityLifeAspServer.Migrations
                     b.Property<string>("NormalizedUserName")
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
+
+                    b.Property<int>("NumberOfApplications")
+                        .HasColumnType("int");
 
                     b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");

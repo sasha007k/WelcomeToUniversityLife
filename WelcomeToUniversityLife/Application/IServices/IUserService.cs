@@ -14,5 +14,6 @@ namespace Application.IServices
         Task UpdateUserInfo(UserProfileModel model);
         Task<bool> ChangePassword(ChangePasswordModel model);
         Task<IdentityResult> AddDocs(string name, IFormFileCollection uploads);
+        Task<bool> ApplyButtonExecuteAsync(int specialityId);
     }
 }

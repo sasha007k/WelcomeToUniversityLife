@@ -47,8 +47,7 @@ namespace Application.Services
                     university.City = model.City;
                     university.Address =  model.Address;
                     university.Description = model.Description;
-                    //university.Latitude = model.Latitude;
-                    //university.Longitude =  model.Longitude;
+                    university.LocationLink = model.LocationLink;
 
                     result = await _dbContext.SaveChangesAsync();
                 }
