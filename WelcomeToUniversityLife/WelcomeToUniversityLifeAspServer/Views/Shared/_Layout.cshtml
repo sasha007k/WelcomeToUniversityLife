@@ -22,7 +22,7 @@
     <header>
         <nav class="navbar navbar-expand-sm border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">UniversityStart</a>
+                <a id="welcomelink" class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Welcome</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -31,7 +31,7 @@
             <div class="my-2 my-lg-0">
                 <ul class="navbar-nav flex-grow-1">
                     <li class="nav-item">
-                        <a class="nav-link @Html.IsSelected(actions: "AllUniversities", controllers: "SiteAdmin", cssClass: "active")" asp-area="" asp-controller="SiteAdmin" asp-action="AllUniversities">All Universities</a>
+                        <a width="50" heigth="50" class="nav-link @Html.IsSelected(actions: "AllUniversities", controllers: "SiteAdmin", cssClass: "active")" asp-area="" asp-controller="SiteAdmin" asp-action="AllUniversities">All Universities</a>
                     </li>
                     @if (!User.Identity.IsAuthenticated)
                     {
@@ -45,16 +45,22 @@
                     @if (User.Identity.IsAuthenticated && User.IsInRole("UniversityAdmin"))
                     {
                         <li class="nav-item">
-                            <a class="nav-link @Html.IsSelected(actions: "University", controllers: "UniversityAdmin", cssClass: "active")" asp-area="" asp-controller="UniversityAdmin" asp-action="University">University</a>
+                            <a class="nav-link @Html.IsSelected(actions: "University", controllers: "UniversityAdmin", cssClass: "active")" asp-area="" asp-controller="UniversityAdmin" asp-action="University">
+                                <img id="universityphoto" src="~/systemphotos/university.png"/>
+                            </a>
                         </li>
                     }
                     @if (User.Identity.IsAuthenticated)
                     {
                         <li class="nav-item">
-                            <a class="nav-link @Html.IsSelected(actions: "Profile", controllers: "User", cssClass: "active")" asp-area="" asp-controller="User" asp-action="Profile">Profile</a>
+                            <a class="nav-link @Html.IsSelected(actions: "Profile", controllers: "User", cssClass: "active")" asp-area="" asp-controller="User" asp-action="Profile">
+                                <img id="profilephoto" src="~/systemphotos/profile.png"/>
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link @Html.IsSelected(actions: "SignOut", controllers: "Authentication", cssClass: "active")" asp-area="" asp-controller="Authentication" asp-action="SignOut">Sign Out</a>
+                            <a class="nav-link @Html.IsSelected(actions: "SignOut", controllers: "Authentication", cssClass: "active")" asp-area="" asp-controller="Authentication" asp-action="SignOut">
+                                <img id="exitphoto" src="~/systemphotos/signout.png"/>
+                            </a>
                         </li>
                     }
                 </ul>

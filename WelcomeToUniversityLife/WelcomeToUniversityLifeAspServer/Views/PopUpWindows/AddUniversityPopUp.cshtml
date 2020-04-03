@@ -1,0 +1,48 @@
+﻿<button type="button" class="btn btn-default my-4 waves-effect z-depth-0" data-toggle="modal" data-target="#newUniversity">
+    Add Unversity
+</button>
+
+<div class="modal fade" id="newUniversity" tabindex="-1" role="dialog" aria-labelledby="newUniversity" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header default-color">
+                <h5 class="modal-title" id="exampleModalLongTitle">New University</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="tab-pane fade show active p-3" id="one" role="tabpanel" aria-labelledby="one-tab">
+                    <form name="my-form" autocomplete="off" action="/SiteAdmin/AddUniversity" method="post">
+                        <div class="form-group row">
+                            <div class="col-sm">
+                                <input type="text" class="form-control elem" placeholder="University name" name="UniversityName" required="" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm">
+                                <input type="email" class="form-control elem" placeholder="Email" name="Email" autocomplete="nope" required="" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm">
+                                <input type="password" class="form-control elem" placeholder="Password" name="Password" autocomplete="new-password" required="" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm">
+                                <input type="password" class="form-control elem" placeholder="Confirm password" name="ConfirmPassword" autocomplete="off" required="" />
+                            </div>
+                        </div>
+
+                        <div>
+                            <button type="submit" class="btn btn-default my-4 waves-effect z-depth-0">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer default-color">
+            </div>
+        </div>
+    </div>
+</div>

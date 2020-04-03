@@ -6,17 +6,8 @@
 
 <div class="container-fluid">
     <div class="row">
-        
         <div class="col-2">
-            @if (User.IsInRole("UniversityAdmin"))
-            {
-                <button class="btn btn-default my-4 waves-effect z-depth-0" onclick="location.href = '@Url.Action("AddSpeciality", "UniversityAdmin", new { facultyId = @Model.CurrentFaculty.Id})'">
-                    <i></i>Add Speciality
-                </button>
-            }
         </div>
-
-
         <div class="col-7">
             @if (Model.Specialities != null)
             {
@@ -73,11 +64,8 @@
                 <h1>There are no specialities yet</h1>
             }
 
-
-
-
         </div>
-        <div class="col-3">
+        <div class="col-3 text-center">
             <div class="card">
                 <div class="card-body">
                     <form>
@@ -104,6 +92,12 @@
                     </form>
                 </div>
             </div>
+            @if (User.IsInRole("UniversityAdmin"))
+            {
+                <button class="btn btn-default my-4 waves-effect z-depth-0" onclick="location.href = '@Url.Action("AddSpeciality", "UniversityAdmin", new { facultyId = @Model.CurrentFaculty.Id})'">
+                    <i></i>Add Speciality
+                </button>
+            }
         </div>
     </div>
 </div>

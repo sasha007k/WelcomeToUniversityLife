@@ -6,17 +6,9 @@
 
 <div class="container-fluid">
     <div class="row">
-        
         <div class="col-2">
-            @if (User.IsInRole("UniversityAdmin"))
-            {
-                <button class="btn btn-default my-4 waves-effect z-depth-0" onclick="location.href = '@Url.Action("AddFaculty", "UniversityAdmin", Model.CurrentUniversity.Id)'">
-                    <i></i>Add Faculty
-                </button>
-            }
+
         </div>
-
-
         <div class="col-7">
             @if (Model.Faculties != null)
             {
@@ -53,7 +45,7 @@
 
         </div>
 
-        <div class="col-3">
+        <div class="col-3 text-center">
             <div class="card">
                 <div class="card-body">
                     <form>
@@ -83,6 +75,10 @@
                     </form>
                 </div>
             </div>
+            @if (User.IsInRole("UniversityAdmin"))
+            {
+                @await Html.PartialAsync("/Views/PopUpWindows/AddFacultyPopUp.cshtml");
+            }
         </div>
     </div>
 </div>
