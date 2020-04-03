@@ -1,16 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Domain.Entities;
+﻿using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Infrastructure.Configurations
 {
-    public class ApplicationConfiguration: IEntityTypeConfiguration<Application>
+    public class ApplicationConfiguration: IEntityTypeConfiguration<Request>
     {
-        public void Configure(EntityTypeBuilder<Application> builder)
+        public void Configure(EntityTypeBuilder<Request> builder)
         {
             builder.ToTable("Application");
             builder.HasKey(u => u.Id);

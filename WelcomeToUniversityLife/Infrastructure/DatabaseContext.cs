@@ -12,7 +12,7 @@ namespace Infrastructure
         public DbSet<University> Universities { get; set; }
         public DbSet<Speciality> Specialities { get; set; }
         public DbSet<ZNO> ZNOs { get; set; }
-        public DbSet<Application> Applications { get; set; }
+        public DbSet<Request> Applications { get; set; }
         public DbSet<Faculty> Faculties { get; set; }
 
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)

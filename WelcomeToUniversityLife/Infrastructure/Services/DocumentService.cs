@@ -1,12 +1,8 @@
-﻿using Domain.Entities;
-using Application.IServices;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Application.IServices;
+using Domain.Entities;
 using System.Threading.Tasks;
-using Infrastructure;
 
-namespace Application.Services
+namespace Infrastructure.Services
 {
     class DocumentService : IDocumentService
     {

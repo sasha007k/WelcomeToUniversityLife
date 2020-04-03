@@ -15,7 +15,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Moq;
 using Xunit;
-using AuthenticationService = Application.Services.AuthenticationService;
+using AuthenticationService = Infrastructure.Services.AuthenticationService;
 
 namespace ApplicationTest.AuthenticationServiceTest
 {

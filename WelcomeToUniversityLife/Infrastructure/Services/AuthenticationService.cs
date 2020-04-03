@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using Application.IServices;
 using Application.Models.Authentication;
 using Domain.Entities;
-using Infrastructure;
 using Microsoft.AspNetCore.Identity;
 
-namespace Application.Services
+namespace Infrastructure.Services
 {
     public class AuthenticationService : IAuthenticationService
     {
