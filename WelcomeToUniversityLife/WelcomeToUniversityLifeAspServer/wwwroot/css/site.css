@@ -84,3 +84,23 @@ body {
     background-color: #d9d9d9;
     color: #000000;
 }
+
+#universityphoto{
+    width:30px;
+    height:30px;
+}
+
+#exitphoto {
+    width: 30px;
+    height: 30px;
+}
+
+#profilephoto {
+    width: 30px;
+    height: 30px;
+}
+
+#welcomelink{
+    font-weight:600;
+    text-transform:uppercase;
+}
