@@ -6,6 +6,7 @@ using Application.Models.UniversityAdmin;
 using Domain.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Services
 {
@@ -143,6 +144,10 @@ namespace Infrastructure.Services
                     .Where(f => f.FacultyId == faculty.Id).ToList();
 
                 currentFacultyAndSpecialities.Specialities = specialities;
+
+                var university = await _dbContext.Universities.FirstOrDefaultAsync(uni => uni.Id == faculty.UniversityId);
+
+                currentFacultyAndSpecialities.FacultyAdminId = university.UserId;
 
                 return currentFacultyAndSpecialities;
             }

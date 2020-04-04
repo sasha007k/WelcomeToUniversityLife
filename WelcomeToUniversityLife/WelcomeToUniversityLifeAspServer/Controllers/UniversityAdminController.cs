@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Application.IServices;
 using Application.Models.UniversityAdmin;
@@ -33,6 +35,15 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
             if (universityAndFaculties == null)
             {
                 return RedirectToAction();
+            }
+
+            ViewBag.iseditable = false;
+
+            if (User.Identity.IsAuthenticated)
+            {
+               var userId=Convert.ToInt32(User.Claims.FirstOrDefault(claim => claim.Type == ClaimTypes.NameIdentifier).Value);
+
+                ViewBag.iseditable = userId == universityAndFaculties.CurrentUniversity.UserId;        
             }
 
             return View("University", universityAndFaculties);
@@ -86,6 +97,15 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
             if (facultyAndSpecialities == null)
             {
                 return RedirectToAction();
+            }
+
+            ViewBag.iseditable = false;
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = Convert.ToInt32(User.Claims.FirstOrDefault(claim => claim.Type == ClaimTypes.NameIdentifier).Value);
+
+                ViewBag.iseditable = userId == facultyAndSpecialities.FacultyAdminId;
             }
 
             return View("Faculty", facultyAndSpecialities);

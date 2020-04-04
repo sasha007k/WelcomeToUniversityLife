@@ -50,7 +50,7 @@
                 <div class="card-body">
                     <div class="row m-0 p-0">
                         <div class="col-1 m-0 p-0">
-                            @if (User.IsInRole("UniversityAdmin"))
+                            @if (User.IsInRole("UniversityAdmin")&&ViewBag.iseditable)
                             {
                                 @await Html.PartialAsync("/Views/PopUpWindows/AddFacultyPopUp.cshtml");
                             }
@@ -76,7 +76,7 @@
 
                         <iframe src="@Model.CurrentUniversity.LocationLink" frameborder="0" style="border: 0" allowfullscreen></iframe>
 
-                        @if (User.IsInRole("UniversityAdmin"))
+                        @if (User.IsInRole("UniversityAdmin")&&ViewBag.iseditable)
                         {
                             <button class="btn btn-default btn-block my-4 waves-effect z-depth-0"
                                     onclick="window.location.href = '@Url.Action("EditUniversityInfo", "UniversityAdmin", Model.CurrentUniversity)';return false;">

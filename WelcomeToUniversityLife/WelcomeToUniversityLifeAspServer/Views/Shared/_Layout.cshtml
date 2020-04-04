@@ -30,13 +30,9 @@
             </div>
             <div class="my-2 my-lg-0">
                 <ul class="navbar-nav flex-grow-1">
-                    @if (!User.IsInRole("UniversityAdmin"))
-                    {
-                        <li class="nav-item">
-                            <a class="nav-link @Html.IsSelected(actions: "AllUniversities", controllers: "SiteAdmin", cssClass: "active")" asp-area="" asp-controller="SiteAdmin" asp-action="AllUniversities">All Universities</a>
-                        </li>
-                    }
-
+                    <li class="nav-item">
+                        <a class="nav-link @Html.IsSelected(actions: "AllUniversities", controllers: "SiteAdmin", cssClass: "active")" asp-area="" asp-controller="SiteAdmin" asp-action="AllUniversities">All Universities</a>
+                    </li>
                     @if (!User.Identity.IsAuthenticated)
                     {
                         <li class="nav-item">
