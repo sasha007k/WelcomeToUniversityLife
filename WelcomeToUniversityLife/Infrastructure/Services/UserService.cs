@@ -6,6 +6,7 @@ using System.IO;
 using Microsoft.AspNetCore.Http;
 using Application.IServices;
 using Application.Models.User;
+using Domain;
 
 namespace Infrastructure.Services
 {
@@ -15,13 +16,22 @@ namespace Infrastructure.Services
         IHttpContextAccessor _httpContext; 
         DatabaseContext _dbContext;
         DocumentService _documentService;
+        private readonly IUnitOfWork _unit;
+
         public UserService(UserManager<User> userManager, IHttpContextAccessor httpContext,
-          DatabaseContext context)
+          DatabaseContext context,IUnitOfWork unit)
         {
             _userManager = userManager;
             _httpContext = httpContext;
             _dbContext = context;
             _documentService = new DocumentService(_dbContext);
+            _unit = unit;
+
+        }
+
+        public Task<User> GetUserByIdAsync(int id)
+        {
+            return _unit.UserRepository.GetAsync(id);
         }
 
         public async Task<UserProfileModel> GetUserInfo(string name)

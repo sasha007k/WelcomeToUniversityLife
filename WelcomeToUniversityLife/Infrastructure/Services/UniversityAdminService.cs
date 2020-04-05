@@ -1,8 +1,10 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Application.IServices;
 using Application.Models.Enum;
 using Application.Models.UniversityAdmin;
+using Domain;
 using Domain.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -13,16 +15,19 @@ namespace Infrastructure.Services
     public class UniversityAdminService : IUniversityAdminService
     {
         UserManager<User> _userManager;
-        SignInManager<User> _signInManager;
         DatabaseContext _dbContext;
         IHttpContextAccessor _httpContext;
+        private readonly IUnitOfWork _unit;
+        private readonly IPhotoHelper _photoHelper;
 
-        public UniversityAdminService(UserManager<User> userManager, SignInManager<User> signInManager, DatabaseContext dbContext, IHttpContextAccessor httpContext)
+        public UniversityAdminService(UserManager<User> userManager,IUnitOfWork unit, 
+            DatabaseContext dbContext, IHttpContextAccessor httpContext,IPhotoHelper photoHelper)
         {
             _userManager = userManager;
-            _signInManager = signInManager;
             _dbContext = dbContext;
             _httpContext = httpContext;
+            _unit = unit;
+            _photoHelper = photoHelper;
         }
 
         public async Task<bool> EditUniversity(UniversityInfoModel model)
@@ -182,6 +187,23 @@ namespace Infrastructure.Services
             var result = await _dbContext.SaveChangesAsync();
 
             return result == 1;
+        }
+
+        public async Task UploadUniversityPhotoAsync(UploadPhotoModel requestedData, IFormFileCollection uploads)
+        {
+            if (uploads.Count == 0)
+                throw new Exception("File was not given!!");
+
+            var university = await _unit.UniversityRepository.GetUniversityWityUser(requestedData.id);
+
+            if (university == null || university.UserId != requestedData.requestedUserId)
+                throw new Exception("Invalid Data!!");
+
+            var photoName = await _photoHelper.UploadPhotoAsync(uploads[0], "universitiesphotos");
+
+            university.Photo = photoName;
+
+            await _unit.Commit();
         }
     }
 }

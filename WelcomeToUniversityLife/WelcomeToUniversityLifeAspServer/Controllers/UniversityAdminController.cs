@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using Application.IServices;
 using Application.Models.UniversityAdmin;
 using Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WelcomeToUniversityLifeAspServer.Controllers
@@ -142,6 +144,17 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
                 }
             }
             return RedirectToAction("AddSpeciality", "UniversityAdmin");
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> UploadUniversityPhoto([FromQuery]UploadPhotoModel requestData, IFormFileCollection uploadedFiles)
+        {
+            requestData.requestedUserId= Convert.ToInt32(User.Claims.FirstOrDefault(claim => claim.Type == ClaimTypes.NameIdentifier).Value);
+
+            await _universityAdminService.UploadUniversityPhotoAsync(requestData, uploadedFiles);
+
+            return RedirectToAction("University","UniversityAdmin");
         }
     }
 }

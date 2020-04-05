@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using Application.Models.UniversityAdmin;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Application.IServices
@@ -15,5 +16,6 @@ namespace Application.IServices
         Task<bool> AddFacultyAsync(AddFacultyModel model);
         Task<CurrentFacultyAndSpecialitiesModel> GetFacultyAsync(int facultyId);
         Task<bool> AddSpecialityAsync(AddSpecialityModel model);
+        Task UploadUniversityPhotoAsync(UploadPhotoModel requestedData, IFormFileCollection uploads);
     }
 }

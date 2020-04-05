@@ -56,6 +56,7 @@ namespace Infrastructure.Services
                 {
                     Id = university.Id,
                     Name = university.Name,
+                    Photo = university.Photo,
                     City = university.City,
                     Description = university.Description,
                     User = user

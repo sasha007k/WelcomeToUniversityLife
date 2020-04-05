@@ -55,6 +55,7 @@ namespace WelcomeToUniversityLifeAspServer
             });
 
             //---Applying Services
+            services.AddScoped<IPhotoHelper, PhotoHelper>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IAuthenticationService, AuthenticationService>();
             services.AddScoped<IUserService, UserService>();
@@ -85,6 +86,8 @@ namespace WelcomeToUniversityLifeAspServer
             app.UseRouting();
 
             app.UseAuthentication();
+
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
