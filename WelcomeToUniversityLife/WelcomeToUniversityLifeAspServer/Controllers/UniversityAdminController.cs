@@ -26,6 +26,15 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
                 return RedirectToAction();
             }
 
+            ViewBag.iseditable = false;
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = Convert.ToInt32(User.Claims.FirstOrDefault(claim => claim.Type == ClaimTypes.NameIdentifier).Value);
+
+                ViewBag.iseditable = userId == universityAndFaculties.CurrentUniversity.UserId;
+            }
+
             return View(universityAndFaculties);
         }
 
