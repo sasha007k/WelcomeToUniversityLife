@@ -15,18 +15,15 @@ namespace Infrastructure.Services
     public class UniversityAdminService : IUniversityAdminService
     {
         UserManager<User> _userManager;
-        DatabaseContext _dbContext;
         IHttpContextAccessor _httpContext;
-        private readonly IUnitOfWork _unit;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IPhotoHelper _photoHelper;
 
-        public UniversityAdminService(UserManager<User> userManager,IUnitOfWork unit, 
-            DatabaseContext dbContext, IHttpContextAccessor httpContext,IPhotoHelper photoHelper)
+        public UniversityAdminService(UserManager<User> userManager,IUnitOfWork unitOfWork, IHttpContextAccessor httpContext,IPhotoHelper photoHelper)
         {
             _userManager = userManager;
-            _dbContext = dbContext;
             _httpContext = httpContext;
-            _unit = unit;
+            _unitOfWork = unitOfWork;
             _photoHelper = photoHelper;
         }
 
@@ -37,8 +34,7 @@ namespace Infrastructure.Services
 
             if (user != null)
             {
-                var university = _dbContext.Universities
-                    .Single(u => u.UserId == user.Id);
+                var university = _unitOfWork.UniversityRepository.GetUniversityWithUserId(user.Id).Result;
 
                 var result = 0;
 
@@ -50,7 +46,7 @@ namespace Infrastructure.Services
                     university.Description = model.Description;
                     university.LocationLink = model.LocationLink;
 
-                    result = await _dbContext.SaveChangesAsync();
+                    result = await _unitOfWork.Commit();
                 }
 
                 return result == 1;
@@ -66,8 +62,7 @@ namespace Infrastructure.Services
 
             if (user != null)
             {
-                var university = _dbContext.Universities
-                    .Single(u => u.UserId == user.Id);
+                var university = _unitOfWork.UniversityRepository.GetUniversityWithUserId(user.Id).Result;
 
                 var currentUniAndFaculties = new CurrentUniversityAndFacultiesModel();
 
@@ -75,8 +70,7 @@ namespace Infrastructure.Services
                 {
                     currentUniAndFaculties.CurrentUniversity = university;
 
-                    var faculties = _dbContext.Faculties
-                        .Where(f => f.UniversityId == university.Id).ToList();
+                    var faculties = _unitOfWork.FacultyRepository.GetAllFacultiesWithUniversityId(university.Id).Result;
 
                     currentUniAndFaculties.Faculties = faculties;
                 }
@@ -89,7 +83,7 @@ namespace Infrastructure.Services
 
         public async Task<CurrentUniversityAndFacultiesModel> GetUniversityAsync(int universityId)
         {
-            var university = await _dbContext.Universities.FindAsync(universityId);
+            var university = await _unitOfWork.UniversityRepository.GetAsync(universityId);
 
             var currentUniAndFaculties = new CurrentUniversityAndFacultiesModel();
 
@@ -97,8 +91,7 @@ namespace Infrastructure.Services
             {
                 currentUniAndFaculties.CurrentUniversity = university;
 
-                var faculties = _dbContext.Faculties
-                    .Where(f => f.UniversityId == university.Id).ToList();
+                var faculties = _unitOfWork.FacultyRepository.GetAllFacultiesWithUniversityId(universityId).Result;
 
                 currentUniAndFaculties.Faculties = faculties;
 
@@ -115,8 +108,7 @@ namespace Infrastructure.Services
 
             if (user != null)
             {
-                var university = _dbContext.Universities
-                    .Single(u => u.UserId == user.Id);
+                var university = _unitOfWork.UniversityRepository.GetUniversityWithUserId(user.Id).Result;
 
                 var faculty = new Faculty()
                 {
@@ -126,8 +118,8 @@ namespace Infrastructure.Services
                     UniversityId = university.Id
                 };
 
-                await _dbContext.Faculties.AddAsync(faculty);
-                var result = await _dbContext.SaveChangesAsync();
+                await _unitOfWork.FacultyRepository.CreateAsync(faculty);
+                var result = await _unitOfWork.Commit();
 
                 return result == 1;
             }
@@ -137,7 +129,7 @@ namespace Infrastructure.Services
 
         public async Task<CurrentFacultyAndSpecialitiesModel> GetFacultyAsync(int facultyId)
         {
-            var faculty = await _dbContext.Faculties.FindAsync(facultyId);
+            var faculty = await _unitOfWork.FacultyRepository.GetAsync(facultyId);
 
             var currentFacultyAndSpecialities = new CurrentFacultyAndSpecialitiesModel();
 
@@ -145,12 +137,11 @@ namespace Infrastructure.Services
             {
                 currentFacultyAndSpecialities.CurrentFaculty = faculty;
 
-                var specialities = _dbContext.Specialities
-                    .Where(f => f.FacultyId == faculty.Id).ToList();
+                var specialities = _unitOfWork.SpecialityRepository.GetAllSpecialitiesWithFacultyId(facultyId).Result;
 
                 currentFacultyAndSpecialities.Specialities = specialities;
 
-                var university = await _dbContext.Universities.FirstOrDefaultAsync(uni => uni.Id == faculty.UniversityId);
+                var university = await _unitOfWork.UniversityRepository.GetUniversityWithId(faculty.UniversityId);
 
                 currentFacultyAndSpecialities.FacultyAdminId = university.UserId;
 
@@ -183,8 +174,8 @@ namespace Infrastructure.Services
                     break;
             }
 
-            await _dbContext.Specialities.AddAsync(speciality);
-            var result = await _dbContext.SaveChangesAsync();
+            await _unitOfWork.SpecialityRepository.CreateAsync(speciality);
+            var result = await _unitOfWork.Commit();
 
             return result == 1;
         }
@@ -194,7 +185,7 @@ namespace Infrastructure.Services
             if (uploads.Count == 0)
                 throw new Exception("File was not given!!");
 
-            var university = await _unit.UniversityRepository.GetUniversityWityUser(requestedData.id);
+            var university = await _unitOfWork.UniversityRepository.GetUniversityWithUser(requestedData.id);
 
             if (university == null || university.UserId != requestedData.requestedUserId)
                 throw new Exception("Invalid Data!!");
@@ -203,7 +194,7 @@ namespace Infrastructure.Services
 
             university.Photo = photoName;
 
-            await _unit.Commit();
+            await _unitOfWork.Commit();
         }
     }
 }

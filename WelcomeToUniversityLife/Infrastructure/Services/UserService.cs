@@ -14,24 +14,22 @@ namespace Infrastructure.Services
     {
         UserManager<User> _userManager;
         IHttpContextAccessor _httpContext; 
-        DatabaseContext _dbContext;
         DocumentService _documentService;
-        private readonly IUnitOfWork _unit;
+        private readonly IUnitOfWork _unitOfWork;
 
         public UserService(UserManager<User> userManager, IHttpContextAccessor httpContext,
-          DatabaseContext context,IUnitOfWork unit)
+          DatabaseContext context,IUnitOfWork unitOfWork)
         {
             _userManager = userManager;
             _httpContext = httpContext;
-            _dbContext = context;
-            _documentService = new DocumentService(_dbContext);
-            _unit = unit;
+            _documentService = new DocumentService(_unitOfWork);
+            _unitOfWork = unitOfWork;
 
         }
 
         public Task<User> GetUserByIdAsync(int id)
         {
-            return _unit.UserRepository.GetAsync(id);
+            return _unitOfWork.UserRepository.GetAsync(id);
         }
 
         public async Task<UserProfileModel> GetUserInfo(string name)
@@ -162,24 +160,24 @@ namespace Infrastructure.Services
 
         public async Task<bool> ApplyButtonExecuteAsync(int specialityId)
         {
-            var userName = _httpContext.HttpContext.User.Identity.Name;
-            var user = await _userManager.FindByNameAsync(userName);
+            //var userName = _httpContext.HttpContext.User.Identity.Name;
+            //var user = await _userManager.FindByNameAsync(userName);
 
-            var speciality = await _dbContext.Specialities.FindAsync(specialityId);
+            //var speciality = await _dbContext.Specialities.FindAsync(specialityId);
 
-            if (user != null && speciality != null)
-            {
-                var userZNO = new Lazy<string>();
+            //if (user != null && speciality != null)
+            //{
+            //    var userZNO = new Lazy<string>();
 
-                    // bool existsCheck = list1.All(x => list2.Any(y => x.SupplierId == y.SupplierId));
+            //        // bool existsCheck = list1.All(x => list2.Any(y => x.SupplierId == y.SupplierId));
 
-                var application = new Domain.Entities.Request()
-                {
-                    UserId = user.Id,
-                    SpecialityId = speciality.Id
-                };
+            //    var application = new Domain.Entities.Request()
+            //    {
+            //        UserId = user.Id,
+            //        SpecialityId = speciality.Id
+            //    };
 
-            }
+            //}
 
             return true;
         }

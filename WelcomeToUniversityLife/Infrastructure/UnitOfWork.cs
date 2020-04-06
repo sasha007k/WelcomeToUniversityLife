@@ -114,7 +114,7 @@ namespace Infrastructure
             }
         }
 
-        public Task Commit()
+        public Task<int> Commit()
         {
             return _context.SaveChangesAsync();
         }

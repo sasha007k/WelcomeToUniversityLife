@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Application.IServices;
 using Application.Models.SiteAdmin;
+using Domain;
 using Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore.Internal;
@@ -12,14 +13,12 @@ namespace Infrastructure.Services
     public class SiteAdminService : ISiteAdminService
     {
         UserManager<User> _userManager;
-        SignInManager<User> _signInManager;
-        DatabaseContext _dbContext;
+        IUnitOfWork _unitOfWork;
 
-        public SiteAdminService(UserManager<User> userManager, SignInManager<User> signInManager, DatabaseContext dbContext)
+        public SiteAdminService(UserManager<User> userManager, IUnitOfWork unitOfWork)
         {
             _userManager = userManager;
-            _signInManager = signInManager;
-            _dbContext = dbContext;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<bool> AddUniversityAsync(AddUniversityModel model)
@@ -42,29 +41,15 @@ namespace Infrastructure.Services
                 UserId = user.Id
             };
 
-            await _dbContext.Universities.AddAsync(university);
-            var saveResult = await _dbContext.SaveChangesAsync();
+            await _unitOfWork.UniversityRepository.CreateAsync(university);
+            var saveResult = await _unitOfWork.Commit();
 
             return saveResult == 1;
         }
 
         public List<University> GetAllUniversities()
         {
-            var universitiesList = (from university in _dbContext.Universities
-                join user in _dbContext.Users on university.UserId equals user.Id
-                select new University()
-                {
-                    Id = university.Id,
-                    Name = university.Name,
-                    Photo = university.Photo,
-                    City = university.City,
-                    Description = university.Description,
-                    User = user
-
-                }).ToList();
-
-
-            return universitiesList;
+            return _unitOfWork.UniversityRepository.GetAllUniversitities().Result;
         }
     }
 }
