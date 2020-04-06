@@ -5,24 +5,12 @@
         <div class="form-group row">
             <label for="Znos" class="col-sm-2 col-form-label">First Zno </label>
             <div class="col-sm-5">
-                <div class="dropdown oneline">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Select Zno
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item">Math</a>
-                        <a class="dropdown-item">Geography</a>
-                        <a class="dropdown-item">Ukrainian</a>
-                        <a class="dropdown-item">History</a>
-                        <a class="dropdown-item">English</a>
-                        <a class="dropdown-item">French</a>
-                        <a class="dropdown-item">Spanish</a>
-                        <a class="dropdown-item">French</a>
-                        <a class="dropdown-item">Germany</a>
-                        <a class="dropdown-item">Biology</a>
-                        <a class="dropdown-item">Physics</a>
-                        <a class="dropdown-item">Chemistry</a>
-                    </div>
+                <div class=" oneline">
+                    @Html.DropDownListFor(
+m => m.LastName,
+new SelectList(Model.ZNOs, "Value", "Key")
+)
+
                 </div>
                 <div class="col-sm-5 oneline">
                     <input type="text" class="form-control elem" placeholder="Mark" name="Zno1" value="@Model.City" required="" />
@@ -33,31 +21,21 @@
             </div>
 
 
+
+
         </div>
         <div class="form-group row">
-            <label for="Znos" class="col-sm-2 col-form-label">Second Zno</label>
+            <label for="Znos" class="col-sm-2 col-form-label">Second Zno </label>
             <div class="col-sm-5">
-                <div class="dropdown oneline">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Select Zno
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item">Math</a>
-                        <a class="dropdown-item">Geography</a>
-                        <a class="dropdown-item">Ukrainian</a>
-                        <a class="dropdown-item">History</a>
-                        <a class="dropdown-item">English</a>
-                        <a class="dropdown-item">French</a>
-                        <a class="dropdown-item">Spanish</a>
-                        <a class="dropdown-item">French</a>
-                        <a class="dropdown-item">Germany</a>
-                        <a class="dropdown-item">Biology</a>
-                        <a class="dropdown-item">Physics</a>
-                        <a class="dropdown-item">Chemistry</a>
-                    </div>
+                <div class=" oneline">
+                    @Html.DropDownListFor(
+m => m.LastName,
+new SelectList(Model.ZNOs, "Value", "Key")
+)
+
                 </div>
                 <div class="col-sm-5 oneline">
-                    <input type="text" class="form-control elem" placeholder="Mark" name="Zno2" value="@Model.City" required="" />
+                    <input type="text" class="form-control elem" placeholder="Mark" name="Zno1" value="@Model.City" required="" />
 
                 </div>
 
@@ -65,31 +43,22 @@
             </div>
 
 
+
+
         </div>
         <div class="form-group row">
-            <label for="Znos" class="col-sm-2 col-form-label">Thrid Zno </label>
+            <label for="Znos" class="col-sm-2 col-form-label">  Third Zno
+            </label>
             <div class="col-sm-5">
-                <div class="dropdown oneline">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Select Zno
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item">Math</a>
-                        <a class="dropdown-item">Geography</a>
-                        <a class="dropdown-item">Ukrainian</a>
-                        <a class="dropdown-item">History</a>
-                        <a class="dropdown-item">English</a>
-                        <a class="dropdown-item">French</a>
-                        <a class="dropdown-item">Spanish</a>
-                        <a class="dropdown-item">French</a>
-                        <a class="dropdown-item">Germany</a>
-                        <a class="dropdown-item">Biology</a>
-                        <a class="dropdown-item">Physics</a>
-                        <a class="dropdown-item">Chemistry</a>
-                    </div>
+                <div class=" oneline">
+                    @Html.DropDownListFor(
+m => m.LastName,
+new SelectList(Model.ZNOs, "Value", "Key")
+)
+
                 </div>
                 <div class="col-sm-5 oneline">
-                    <input type="text" class="form-control elem" placeholder="Mark" name="Zno3" value="@Model.City" required="" />
+                    <input type="text" class="form-control elem" placeholder="Mark" name="Zno1" value="@Model.City" required="" />
 
                 </div>
 
@@ -97,32 +66,21 @@
             </div>
 
 
+
+
         </div>
         <div class="form-group row">
-            <label for="Znos" class="col-sm-2 col-form-label">Fourh Zno</label>
+            <label for="Znos" class="col-sm-2 col-form-label">Four Zno </label>
             <div class="col-sm-5">
-                <div class="dropdown oneline">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Select Zno
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item">Math</a>
-                        <a class="dropdown-item">Geography</a>
-                        <a class="dropdown-item">Ukrainian</a>
-                        <a class="dropdown-item">History</a>
-                        <a class="dropdown-item">English</a>
-                        <a class="dropdown-item">French</a>
-                        <a class="dropdown-item">Spanish</a>
-                        <a class="dropdown-item">French</a>
-                        <a class="dropdown-item">Germany</a>
-                        <a class="dropdown-item">Biology</a>
-                        <a class="dropdown-item">Physics</a>
-                        <a class="dropdown-item">Chemistry</a>
-                        <a class="dropdown-item">None</a>
-                    </div>
+                <div class=" oneline">
+                    @Html.DropDownListFor(
+m => m.LastName,
+new SelectList(Model.ZNOs, "Value", "Key")
+)
+
                 </div>
                 <div class="col-sm-5 oneline">
-                    <input type="text" class="form-control elem" placeholder="Mark" name="Zno4" value="@Model.City" required="" />
+                    <input type="text" class="form-control elem" placeholder="Mark" name="Zno1" value="@Model.City" required="" />
 
                 </div>
 
@@ -130,8 +88,20 @@
             </div>
 
 
+
+
         </div>
+
         <div>
             <button type="submit" class="btn btn-default my-4 waves-effect z-depth-0">Update</button>
         </div>
     </form>
+
+@section Scripts{
+
+    <script>
+  $(document).ready(function() {
+$('.mdb-select').materialSelect();
+});
+    </script>
+}
