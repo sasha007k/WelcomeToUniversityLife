@@ -12,7 +12,6 @@ namespace Domain
         ISpecialityRepository SpecialityRepository { get;}
         IUniversityRepository UniversityRepository { get;}
         IDocumentRepository DocumentRepository { get;}
-
-        Task Commit();
+        Task<int> Commit();
     }
 }
