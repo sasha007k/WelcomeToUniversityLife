@@ -36,7 +36,11 @@
   <ItemGroup>
     <Folder Include="Views\UniversityAdmin\" />
     <Folder Include="wwwroot\Files\" />
+    <Folder Include="wwwroot\universitiesphotos\" />
   </ItemGroup>
+
+
+  <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="http://json.schemastore.org/azure-iot-edge-deployment-template-2.0" /></VisualStudio></ProjectExtensions>
 
 
 </Project>
