@@ -63,13 +63,16 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
         [HttpPost]
         public async Task<IActionResult> AddMarks(UserProfileModel model)
         {
-            Console.WriteLine(Request.Form);
-            Console.WriteLine("--");
-            foreach (var item in model.ZNOs)
-            {
-                Console.WriteLine(item.Key);
-                Console.WriteLine(item.Value);
-            }
+            Console.WriteLine( model.MarksModel.FirstZno.Mark);
+            Console.WriteLine(model.MarksModel.FirstZno.Name);
+
+            //Console.WriteLine(Request.Form);
+            //Console.WriteLine("--");
+            //foreach (var item in model.ZNOs)
+            //{
+            //    Console.WriteLine(item.Key);
+            //    Console.WriteLine(item.Value);
+            //}
 
             return RedirectToAction("Profile", "User");
         }

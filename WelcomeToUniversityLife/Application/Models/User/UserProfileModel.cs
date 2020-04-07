@@ -15,21 +15,7 @@ namespace Application.Models.User
         public string Phone { get; set; }
         public DateTime DateOfBirth { get; set; }
         public string City { get; set; }
-        public Dictionary<string, double> ZNOs { get; set; } = new Dictionary<string, double>()
-        { 
-            {"Math", 0 },
-            {"Geography",0 } ,
-            {"Ukrainian",0 } ,
-            {"History",0 } ,
-            {"English",0 } ,
-            {"Spanish",0 } ,
-            {"French",0 } ,
-            {"Germany",0 } ,
-            {"Biology",0 } ,
-            {"Physics",0 } ,
-            {"Chemistry",0 } ,
-
-        };
+        public AddMarksModel MarksModel {get;set;}
         public ChangePasswordModel ChangePasswordModel { get; set; }
         
     }
