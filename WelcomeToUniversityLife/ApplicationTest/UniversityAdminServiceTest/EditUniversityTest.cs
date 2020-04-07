@@ -13,7 +13,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Moq;
 using Xunit;
-using UniversityAdminService = Application.Services.UniversityAdminService;
+using UniversityAdminService = Infrastructure.Services.UniversityAdminService;
 
 namespace ApplicationTest.UniversityAdminServiceTest
 {
@@ -56,7 +56,7 @@ namespace ApplicationTest.UniversityAdminServiceTest
                     new Mock<IAuthenticationSchemeProvider>().Object);
 
                 var httpContext = new HttpContextAccessor();
-                var service = new UniversityAdminService(userManager, signInManager, context, httpContext);
+                var service = new UniversityAdminService(userManager, null, httpContext, null);
 
                 var universityInfoModel = new UniversityInfoModel
                 {

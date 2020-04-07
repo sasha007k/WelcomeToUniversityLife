@@ -4,26 +4,24 @@
 
 
     <div class="form-group row">
-        <label for="Znos" class="col-sm-2 col-form-label">First Zno </label>
-        <div class="col-sm-5">
-            <div class="oneline">
-                <select id="firstsub" asp-for="MarksModel.FirstZno.Name" name="MarksModel.FirstZno.Name">
-                    <option disabled selected="selected">Ukrainian</option>
-                </select>
-            </div>
+        <label for="ZnoModels" class="col-3 col-form-label">First zno</label>
+        <div class="col-4 oneline">
+            <select id="firstsub" asp-for="MarksModel.FirstZnoModel.Name" name="MarksModel.FirstZnoModel.Name">
+                <option disabled selected="selected">Ukrainian</option>
+            </select>
+        </div>
 
-            <div class="col-sm-5 oneline">
-                <input type="number" max="200" min="0" step="0.1" class="form-control elem" placeholder="Mark" name="MarksModel.FirstZno.Mark"  required="" />
-            </div>
+        <div class="col-4 oneline">
+            <input type="number" max="200" min="0" step="0.1" class="form-control" placeholder="Mark" name="MarksModel.FirstZnoModel.Mark"  required="" />
         </div>
     </div>
 
     <div class="form-group row">
-        <label for="Znos" class="col-sm-2 col-form-label">Second Zno </label>
-        <div class="col-sm-5">
-            <div class=" oneline">
-                <select required="" onchange="doSomething(this)" asp-for="MarksModel.SecondZno.Name" name="MarksModel.SecondZno.Name" id="MarksModel.SecondZno.Name">
-                    <option disabled selected> -- select an option -- </option>
+        <label for="ZnoModels" class="col-3 col-form-label">Second zno</label>
+        <div class="col-8">
+            <div class="col-4 oneline">
+                <select required="" onchange="doSomething(this)" asp-for="MarksModel.SecondZnoModel.Name" name="MarksModel.SecondZnoModel.Name" id="MarksModel.SecondZno.Name">
+                    <option disabled selected> -- select zno -- </option>
                     <option name='1'>Math</option>
                     <option name='2'>Geography</option>
                     <option name='3'>History</option>
@@ -37,20 +35,18 @@
                 </select>
             </div>
 
-            <div class="col-sm-5 oneline">
-                <input type="number" max="200" min="0" step="0.1" class="form-control elem" placeholder="Mark" name="MarksModel.SecondZno.Mark" required="" />
+            <div class="col-4 oneline">
+                <input type="number" max="200" min="0" step="0.1" class="form-control elem" placeholder="Mark" name="MarksModel.SecondZnoModel.Mark" required="" />
             </div>
         </div>
     </div>
 
     <div class="form-group row">
-        <label for="Znos" class="col-sm-2 col-form-label">
-            Third Zno
-        </label>
-        <div class="col-sm-5">
-            <div class=" oneline">
-                <select required="" onchange="doSomething(this)" asp-for="MarksModel.ThreedZno.Name" name="MarksModel.ThreedZno.Name" id="MarksModel.ThreedZno.Name">
-                    <option disabled selected> -- select an option -- </option>
+        <label for="ZnoModels" class="col-3 col-form-label">Third zno</label>
+        <div class="col-8">
+            <div class="col-4 oneline">
+                <select required="" onchange="doSomething(this)" asp-for="MarksModel.ThirdZnoModel.Name" name="MarksModel.ThirdZnoModel.Name" id="MarksModel.ThreedZno.Name">
+                    <option disabled selected> -- select zno -- </option>
                     <option name='1'> Math</option>
                     <option name='2'>Geography</option>
                     <option name='3'>History</option>
@@ -64,18 +60,18 @@
                 </select>
             </div>
 
-            <div class="col-sm-5 oneline">
-                <input type="number" max="200" min="0" step="0.1" class="form-control elem" placeholder="Mark" name="MarksModel.ThreedZno.Mark"  required="" />
+            <div class="col-4 oneline">
+                <input type="number" max="200" min="0" step="0.1" class="form-control elem" placeholder="Mark" name="MarksModel.ThirdZnoModel.Mark"  required="" />
 
             </div>
         </div>
     </div>
 
     <div class="form-group row">
-        <label for="Znos" class="col-sm-2 col-form-label">Four Zno </label>
-        <div class="col-sm-5">
-            <div class=" oneline">
-                <select required="" onchange="doSomething(this)" asp-for="MarksModel.FourZno.Name" name="MarksModel.FourZno.Name" id="MarksModel.FourZno.Name">
+        <label for="ZnoModels" class="col-3 col-form-label">Four zno</label>
+        <div class="col-8">
+            <div class="col-4 oneline">
+                <select required="" onchange="doSomething(this)" asp-for="MarksModel.FourZnoModel.Name" name="MarksModel.FourZnoModel.Name" id="MarksModel.FourZno.Name">
                     <option name='1'> Math</option>
                     <option name='2'>Geography</option>
                     <option name='3'>History</option>
@@ -89,8 +85,8 @@
                     <option name='11' selected> None</option>
                 </select>
             </div>
-            <div class="col-sm-5 oneline">
-                <input type="number" max="200" min="0" step="0.1" class="form-control elem" placeholder="Mark" name="MarksModel.FourZno.Mark"  required="" />
+            <div class="col-4 oneline">
+                <input type="number" max="200" min="0" step="0.1" value="0" class="form-control" placeholder="Mark" name="MarksModel.FourZnoModel.Mark"  required="" />
             </div>
         </div>
     </div>

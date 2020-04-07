@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Application.Models.User
 {
-  public  class Zno
+  public  class ZnoModel
     {
       public  string Name { get; set; }
        public string Mark { get; set; }
@@ -12,10 +12,10 @@ namespace Application.Models.User
 
    public class AddMarksModel
     {
-        public Zno FirstZno { get; set; }
-        public Zno SecondZno { get; set; }
-        public Zno ThreedZno { get; set; }
-        public Zno FourZno { get; set; }
+        public ZnoModel FirstZnoModel { get; set; }
+        public ZnoModel SecondZnoModel { get; set; }
+        public ZnoModel ThirdZnoModel { get; set; }
+        public ZnoModel FourZnoModel { get; set; }
 
     }
 }

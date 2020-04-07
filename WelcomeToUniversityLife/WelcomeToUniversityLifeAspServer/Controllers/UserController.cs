@@ -76,9 +76,10 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
         [HttpPost]
         public async Task<IActionResult> AddMarks(UserProfileModel model)
         {
+            model.MarksModel.FirstZnoModel.Name = "Ukrainian";
             if (model.MarksModel != null)
             {
-                _znoService.
+                 await _znoService.SaveZNOMarks(model.MarksModel);
             }
 
             return RedirectToAction("Profile", "User");

@@ -13,7 +13,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Moq;
 using Xunit;
-using SiteAdminService = Application.Services.SiteAdminService;
+using SiteAdminService = Infrastructure.Services.SiteAdminService;
 
 namespace ApplicationTest.SiteAdminServiceTest
 {
@@ -48,7 +48,7 @@ namespace ApplicationTest.SiteAdminServiceTest
                     new Mock<IOptions<IdentityOptions>>().Object,
                     new Mock<ILogger<SignInManager<User>>>().Object,
                     new Mock<IAuthenticationSchemeProvider>().Object);
-                var service = new SiteAdminService(userManager, signInManager, context);
+                var service = new SiteAdminService(userManager, null);
 
                 var addUniversityModel = new AddUniversityModel
                 {

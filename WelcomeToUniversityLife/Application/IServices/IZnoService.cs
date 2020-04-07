@@ -10,6 +10,6 @@ namespace Application.IServices
 {
     public interface IZnoService
     {
-        Task<bool> Create(User user, AddMarksModel model);
+        Task<bool> SaveZNOMarks(AddMarksModel model);
     }
 }
