@@ -17,17 +17,17 @@ namespace Application.Models.User
         public string City { get; set; }
         public Dictionary<string, double> ZNOs { get; set; } = new Dictionary<string, double>()
         { 
-            { "Math", 2 },
-            {"Geography",3 } ,
-            {" Ukrainian",3 } ,
-            {"History",3 } ,
-            {"English",3 } ,
-            {"Spanish",3 } ,
-            {"French",3 } ,
-            {"Germany",3 } ,
-            {"Biology",3 } ,
-            {"Physics",3 } ,
-             {"Chemistry",3 } ,
+            {"Math", 0 },
+            {"Geography",0 } ,
+            {"Ukrainian",0 } ,
+            {"History",0 } ,
+            {"English",0 } ,
+            {"Spanish",0 } ,
+            {"French",0 } ,
+            {"Germany",0 } ,
+            {"Biology",0 } ,
+            {"Physics",0 } ,
+            {"Chemistry",0 } ,
 
         };
         public ChangePasswordModel ChangePasswordModel { get; set; }

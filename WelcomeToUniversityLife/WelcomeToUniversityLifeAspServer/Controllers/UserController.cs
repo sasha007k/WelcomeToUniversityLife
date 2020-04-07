@@ -59,5 +59,19 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
 
             return BadRequest("Can't save documents");
         }
+
+        [HttpPost]
+        public async Task<IActionResult> AddMarks(UserProfileModel model)
+        {
+            Console.WriteLine(Request.Form);
+            Console.WriteLine("--");
+            foreach (var item in model.ZNOs)
+            {
+                Console.WriteLine(item.Key);
+                Console.WriteLine(item.Value);
+            }
+
+            return RedirectToAction("Profile", "User");
+        }
     }
 }

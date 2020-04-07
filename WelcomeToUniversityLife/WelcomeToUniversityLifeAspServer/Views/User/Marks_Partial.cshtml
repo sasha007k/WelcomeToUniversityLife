@@ -1,19 +1,21 @@
 ﻿@model Application.Models.User.UserProfileModel;
-    <form name="my-form" action="/User/PersonalInfo" method="post">
+    <form name="my-form" action="/User/AddMarks" method="post">
 
 
         <div class="form-group row">
             <label for="Znos" class="col-sm-2 col-form-label">First Zno </label>
             <div class="col-sm-5">
                 <div class=" oneline">
-                    @Html.DropDownListFor(
-m => m.LastName,
-new SelectList(Model.ZNOs, "Value", "Key")
-)
+
+                    <select id="firstsub" name="firstsub">
+                        <option disabled selected="selected">Ukrainian</option>
+                    </select>
+                    
+
 
                 </div>
                 <div class="col-sm-5 oneline">
-                    <input type="text" class="form-control elem" placeholder="Mark" name="Zno1" value="@Model.City" required="" />
+                    <input type="text" class="form-control elem" placeholder="Mark" name="Zno1" value="@Model.ZNOs["Ukrainian"]" required="" />
 
                 </div>
 
@@ -28,10 +30,24 @@ new SelectList(Model.ZNOs, "Value", "Key")
             <label for="Znos" class="col-sm-2 col-form-label">Second Zno </label>
             <div class="col-sm-5">
                 <div class=" oneline">
-                    @Html.DropDownListFor(
-m => m.LastName,
-new SelectList(Model.ZNOs, "Value", "Key")
-)
+
+               
+
+                    <select onchange="doSomething(this)" name="secondsub" id="secondsub">
+                        <option disabled selected > -- select an option -- </option>
+                        <option name='1'> Math</option>
+                        <option name='2'>Geography</option>
+                        <option name='3'>History</option>
+                        <option name='4'>English</option>
+                        <option name='5'>Spanish</option>
+                        <option name='6'>French</option>
+                        <option name='7'>Germany</option>
+                        <option name='8'>Biology</option>
+                        <option name='9'>Physics</option>
+                        <option name='10'>Chemistry</option>
+                    </select>
+
+
 
                 </div>
                 <div class="col-sm-5 oneline">
@@ -51,10 +67,19 @@ new SelectList(Model.ZNOs, "Value", "Key")
             </label>
             <div class="col-sm-5">
                 <div class=" oneline">
-                    @Html.DropDownListFor(
-m => m.LastName,
-new SelectList(Model.ZNOs, "Value", "Key")
-)
+                    <select onchange="doSomething(this)" name="thirdsub" id="thirdsub">
+                        <option disabled selected > -- select an option -- </option>
+                        <option name='1'> Math</option>
+                        <option name='2'>Geography</option>
+                        <option name='3'>History</option>
+                        <option name='4'>English</option>
+                        <option name='5'>Spanish</option>
+                        <option name='6'>French</option>
+                        <option name='7'>Germany</option>
+                        <option name='8'>Biology</option>
+                        <option name='9'>Physics</option>
+                        <option name='10'>Chemistry</option>
+                    </select>
 
                 </div>
                 <div class="col-sm-5 oneline">
@@ -73,11 +98,20 @@ new SelectList(Model.ZNOs, "Value", "Key")
             <label for="Znos" class="col-sm-2 col-form-label">Four Zno </label>
             <div class="col-sm-5">
                 <div class=" oneline">
-                    @Html.DropDownListFor(
-m => m.LastName,
-new SelectList(Model.ZNOs, "Value", "Key")
-)
 
+                    <select onchange="doSomething(this)" name="foursub" id="foursub">
+                        <option disabled selected > -- select an option -- </option>
+                        <option name='1'> Math</option>
+                        <option name='2'>Geography</option>
+                        <option name='3'>History</option>
+                        <option name='4'>English</option>
+                        <option name='5'>Spanish</option>
+                        <option name='6'>French</option>
+                        <option name='7'>Germany</option>
+                        <option name='8'>Biology</option>
+                        <option name='9'>Physics</option>
+                        <option name='10'>Chemistry</option>
+                    </select>
                 </div>
                 <div class="col-sm-5 oneline">
                     <input type="text" class="form-control elem" placeholder="Mark" name="Zno1" value="@Model.City" required="" />
@@ -100,8 +134,6 @@ new SelectList(Model.ZNOs, "Value", "Key")
 @section Scripts{
 
     <script>
-  $(document).ready(function() {
-$('.mdb-select').materialSelect();
-});
+
     </script>
 }
