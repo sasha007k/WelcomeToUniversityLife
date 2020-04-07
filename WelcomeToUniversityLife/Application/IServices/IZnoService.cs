@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace Application.IServices
 {
-    interface IZnoService
+    public interface IZnoService
     {
         Task<bool> Create(User user, AddMarksModel model);
     }

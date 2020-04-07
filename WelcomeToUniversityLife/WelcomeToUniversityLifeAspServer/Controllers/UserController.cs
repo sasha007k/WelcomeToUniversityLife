@@ -14,9 +14,12 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
     public class UserController : Controller
     {
         IUserService _userService;
-        public UserController(IUserService userService)
+        IZnoService _znoService;
+
+        public UserController(IUserService userService, IZnoService znoService)
         {
             _userService = userService;
+            _znoService = znoService;
         }
 
         [HttpGet]
@@ -63,26 +66,10 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
         [HttpPost]
         public async Task<IActionResult> AddMarks(UserProfileModel model)
         {
-            Console.WriteLine( model.MarksModel.FirstZno.Mark);
-            Console.WriteLine(model.MarksModel.FirstZno.Name);
-            Console.WriteLine("-------------------------");
-            Console.WriteLine(model.MarksModel.SecondZno.Mark);
-            Console.WriteLine(model.MarksModel.SecondZno.Name);
-            Console.WriteLine("-------------------------");
-            Console.WriteLine(model.MarksModel.ThreedZno.Mark);
-            Console.WriteLine(model.MarksModel.ThreedZno.Name);
-            Console.WriteLine("-------------------------");
-            Console.WriteLine(model.MarksModel.FourZno.Mark);
-            Console.WriteLine(model.MarksModel.FourZno.Name);
-            Console.WriteLine("-------------------------");
-
-            //Console.WriteLine(Request.Form);
-            //Console.WriteLine("--");
-            //foreach (var item in model.ZNOs)
-            //{
-            //    Console.WriteLine(item.Key);
-            //    Console.WriteLine(item.Value);
-            //}
+            if (model.MarksModel != null)
+            {
+                _znoService.
+            }
 
             return RedirectToAction("Profile", "User");
         }

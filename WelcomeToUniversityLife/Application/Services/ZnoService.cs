@@ -1,44 +1,37 @@
-﻿using Application.Models.User;
-using Domain.Entities;
+﻿using System.Threading.Tasks;
 using Application.IServices;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Reflection;
-using System.Threading.Tasks;
+using Application.Models.User;
+using Domain.Entities;
 
 namespace Application.Services
 {
-    class ZnoService : IZnoService
+    internal class ZnoService : IZnoService
     {
         public Task<bool> Create(User user, AddMarksModel model)
         {
-            Zno zno = new Zno();
-            PropertyInfo[] properties = typeof(Zno).GetProperties();
-            foreach (PropertyInfo property in properties)
+            var zno = new Zno();
+            var properties = typeof(Zno).GetProperties();
+            foreach (var property in properties)
             {
-                if(property.Name==model.FirstZno.Name)
+                if (property.Name == model.FirstZno.Name)
                 {
-                    
                 }
+
                 if (property.Name == model.SecondZno.Name)
                 {
-
                 }
+
                 if (property.Name == model.ThreedZno.Name)
                 {
-
                 }
-                if("None"!= model.FourZno.Name)
+
+                if ("None" != model.FourZno.Name && property.Name == model.FourZno.Name)
                 {
-                    if (property.Name == model.FourZno.Name)
-                    {
 
-                    }
                 }
-               
             }
 
+            return null;
         }
     }
 }
