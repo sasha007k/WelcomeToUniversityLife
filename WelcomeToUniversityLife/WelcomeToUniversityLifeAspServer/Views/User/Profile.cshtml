@@ -4,7 +4,7 @@
     ViewData["Title"] = "Profile";
 }
 
-<div class="container">
+<div class="container" style="width: 800px">
     <div class="row">
         <div class="col">
             <div class="card mt-3 tab-card">
@@ -18,9 +18,13 @@
                             <li class="nav-item">
                                 <a class="nav-link" style="color: #000000" id="two-tab" data-toggle="tab" href="#two" role="tab" aria-controls="Two" aria-selected="false">Documents</a>
                             </li>
+
+                            <li class="nav-item active">
+                                <a class="nav-link" style="color: #000000" id="three-tab" data-toggle="tab" href="#three" role="tab" aria-controls="Three" aria-selected="true">Marks</a>
+                            </li>
                         }
                         <li class="nav-item active">
-                            <a class="nav-link" style="color: #000000" id="three-tab" data-toggle="tab" href="#three" role="tab" aria-controls="Three" aria-selected="true">Change password</a>
+                            <a class="nav-link" style="color: #000000" id="four-tab" data-toggle="tab" href="#four" role="tab" aria-controls="Four" aria-selected="true">Change password</a>
                         </li>
                     </ul>
                 </div>
@@ -33,12 +37,17 @@
 
                     @if (User.IsInRole("User"))
                     {
-                <div class="tab-pane fade p-3" id="two" role="tabpanel" aria-labelledby="two-tab">
-                    @await Html.PartialAsync("AddDocs_Partial", Model)
-                </div>
+                        <div class="tab-pane fade p-3" id="two" role="tabpanel" aria-labelledby="two-tab">
+                            @await Html.PartialAsync("AddDocs_Partial", Model)
+                        </div>
+                        <div class="tab-pane fade p-3" id="three" role="tabpanel" aria-labelledby="three-tab">
+                            @await Html.PartialAsync("Marks_Partial", Model)
+                        </div>
                     }
-                    
-                    <div class="tab-pane fade p-3" id="three" role="tabpanel" aria-labelledby="three-tab">
+
+        
+
+                    <div class="tab-pane fade p-3" id="four" role="tabpanel" aria-labelledby="four-tab">
                         @await Html.PartialAsync("ChangePassword_Partial", Model)
                     </div>
                 </div>

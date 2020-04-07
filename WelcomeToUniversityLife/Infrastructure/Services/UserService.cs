@@ -71,6 +71,7 @@ namespace Infrastructure.Services
                 user.DateOfBirth = model.DateOfBirth;
                 user.PhoneNumber = model.Phone;
                 user.City = model.City;
+                
 
                 await _userManager.UpdateAsync(user);
             }
