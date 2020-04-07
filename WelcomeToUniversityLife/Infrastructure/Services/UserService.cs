@@ -1,31 +1,35 @@
-﻿using Application.IServices;
-using Domain.Entities;
+﻿using Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using System;
-using System.Collections.Generic;
-using System.Security.Claims;
-using System.Text;
 using System.Threading.Tasks;
-using Application.Models.User;
 using System.IO;
 using Microsoft.AspNetCore.Http;
-using Infrastructure;
+using Application.IServices;
+using Application.Models.User;
+using Domain;
 
-namespace Application.Services
+namespace Infrastructure.Services
 {
     public class UserService : IUserService
     {
         UserManager<User> _userManager;
         IHttpContextAccessor _httpContext; 
-        DatabaseContext _dbContext;
         DocumentService _documentService;
+        private readonly IUnitOfWork _unitOfWork;
+
         public UserService(UserManager<User> userManager, IHttpContextAccessor httpContext,
-          DatabaseContext context)
+          DatabaseContext context,IUnitOfWork unitOfWork)
         {
             _userManager = userManager;
             _httpContext = httpContext;
-            _dbContext = context;
-            _documentService = new DocumentService(_dbContext);
+            _documentService = new DocumentService(_unitOfWork);
+            _unitOfWork = unitOfWork;
+
+        }
+
+        public Task<User> GetUserByIdAsync(int id)
+        {
+            return _unitOfWork.UserRepository.GetAsync(id);
         }
 
         public async Task<UserProfileModel> GetUserInfo(string name)
@@ -153,6 +157,30 @@ namespace Application.Services
             }
 
             return null;
+        }
+
+        public async Task<bool> ApplyButtonExecuteAsync(int specialityId)
+        {
+            //var userName = _httpContext.HttpContext.User.Identity.Name;
+            //var user = await _userManager.FindByNameAsync(userName);
+
+            //var speciality = await _dbContext.Specialities.FindAsync(specialityId);
+
+            //if (user != null && speciality != null)
+            //{
+            //    var userZNO = new Lazy<string>();
+
+            //        // bool existsCheck = list1.All(x => list2.Any(y => x.SupplierId == y.SupplierId));
+
+            //    var application = new Domain.Entities.Request()
+            //    {
+            //        UserId = user.Id,
+            //        SpecialityId = speciality.Id
+            //    };
+
+            //}
+
+            return true;
         }
     }
 }

@@ -1,0 +1,71 @@
+﻿@model Application.Models.UniversityAdmin.AddSpecialityModel;
+
+<button type="button" class="btn btn-default my-4 waves-effect z-depth-0" data-toggle="modal" data-target="#newSpeciality">
+    Add Speciality
+</button>
+
+<div class="modal fade" id="newSpeciality" tabindex="-1" role="dialog" aria-labelledby="newSpeciality" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header default-color">
+                <h5 class="modal-title" id="exampleModalLongTitle">New Speciality</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="tab-pane fade show active p-3" id="one" role="tabpanel" aria-labelledby="one-tab">
+                    <form name="my-form" autocomplete="off" action="/UniversityAdmin/AddSpeciality" method="post">
+                        <div class="form-group row">
+                            <div class="col-sm">
+                                <input type="text" class="form-control" placeholder="Speciality name" name="SpecialityName" required="" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm">
+                                <textarea type="text" class="form-control" placeholder="Description" name="Description"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col">
+                                <div class="col-sm">
+                                    <input type="number" class="form-control" min="0" step="1" placeholder="Free spaces" name="FreeSpaces" />
+                                </div>
+                            </div>
+
+                            <div class="col">
+                                <div class="col-sm">
+                                    <input type="number" class="form-control" min="0" step="1" placeholder="Paid spaces" name="PaidSpaces" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Required ZNO</label>
+                            <div class="col-sm">
+                                <select multiple class="chosen-select" id="znoSelector" asp-for="ZNO">
+                                    <option selected disabled>Ukrainian</option>
+                                    <option>Math</option>
+                                    <option>Geography</option>
+                                    <option>History</option>
+                                    <option>English</option>
+                                    <option>Spanish</option>
+                                    <option>French</option>
+                                    <option>Germany</option>
+                                    <option>Biology</option>
+                                    <option>Physics</option>
+                                    <option>Chemistry</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div>
+                            <button type="submit" class="btn btn-default my-4 waves-effect z-depth-0">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer default-color">
+            </div>
+        </div>
+    </div>
+</div>

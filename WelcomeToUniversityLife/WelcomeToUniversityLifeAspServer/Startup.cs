@@ -1,6 +1,6 @@
 using System.Reflection;
 using Application.IServices;
-using Application.Services;
+using Infrastructure.Services;
 using Domain;
 using Domain.Entities;
 using Infrastructure;
@@ -32,7 +32,7 @@ namespace WelcomeToUniversityLifeAspServer
 
             services.AddDbContext<DatabaseContext>(options =>
               options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),
-                  b =>b.MigrationsAssembly("Infrastructure")));
+                 builder => builder.MigrationsAssembly(typeof(Startup).GetTypeInfo().Assembly.GetName().Name)));
 
             services.AddIdentity<User, IdentityRole<int>>()
            .AddEntityFrameworkStores<DatabaseContext>()
@@ -55,6 +55,8 @@ namespace WelcomeToUniversityLifeAspServer
             });
 
             //---Applying Services
+            services.AddScoped<IPhotoHelper, PhotoHelper>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IAuthenticationService, AuthenticationService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ISiteAdminService, SiteAdminService>();
@@ -77,7 +79,6 @@ namespace WelcomeToUniversityLifeAspServer
             }
 
             //DataInitializer.SeedData(userManager, roleManager, context).Wait();
-            //DataInitializer.SeedSiteAdmin(userManager).Wait();
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
@@ -85,6 +86,8 @@ namespace WelcomeToUniversityLifeAspServer
             app.UseRouting();
 
             app.UseAuthentication();
+
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

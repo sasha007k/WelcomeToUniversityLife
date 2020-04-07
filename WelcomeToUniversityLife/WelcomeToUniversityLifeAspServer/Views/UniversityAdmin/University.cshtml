@@ -6,28 +6,20 @@
 
 <div class="container-fluid">
     <div class="row">
-        
         <div class="col-2">
-            @if (User.IsInRole("UniversityAdmin"))
-            {
-                <button class="btn btn-default my-4 waves-effect z-depth-0" onclick="location.href = '@Url.Action("AddFaculty", "UniversityAdmin", Model.CurrentUniversity.Id)'">
-                    <i></i>Add Faculty
-                </button>
-            }
+
         </div>
-
-
         <div class="col-7">
             @if (Model.Faculties != null)
             {
-                <table class="table table-hover">
+                <table class="content-table table table-hover">
                     <thead>
                     <tr>
                         <th scope="col" style="text-align: center">Faculty</th>
                         <th scope="col" style="text-align: center">Address</th>
                     </tr>
                     </thead>
-
+                    <tbody>
                     @foreach (var faculty in Model.Faculties)
                     {
                         <tr style="text-align: center" onclick="window.location = '@Url.Action("GetFaculty", "UniversityAdmin", new {id = faculty.Id})'">
@@ -43,7 +35,7 @@
                             </td>
                         </tr>
                     }
-
+                    </tbody>
                 </table>
             }
             else
@@ -53,13 +45,33 @@
 
         </div>
 
-        <div class="col-3">
+        <div class="col-3 text-center">
             <div class="card">
                 <div class="card-body">
-                    <form>
-                        <p class="h4 text-center py-4">Info</p>
+                    <div class="row m-0 p-0">
+                        <div class="col-sm m-0 p-0">
+                            @if (Model.CurrentUniversity.Photo != null)
+                            {
+                                <img class="universityphoto p-0" src="~/universitiesphotos/@Model.CurrentUniversity.Photo" />
+                            }
+                            else if (User.IsInRole("UniversityAdmin") && ViewBag.iseditable)
+                            {
+                                <a onclick="uploadphotoclicked()">
+                                    <img class="uploadphoto" src="~/systemphotos/upload.png" />
+                                </a>
 
-                        <label for="" class="grey-text font-weight-light">Name</label>
+                                <form id="photoform" name="my-form" autocomplete="nope" action="/UniversityAdmin/UploadUniversityPhoto?id=@Model.CurrentUniversity.Id" method="post" enctype="multipart/form-data">
+                                    <input type="file" name="uploadedFiles" class="photoupload" id="fileinputid"
+                                           aria-describedby="inputGroupFileAddon01" accept="image/*">
+                                </form>
+                            }
+                            else
+                            {
+                                <p class="h4 text-center py-4">University Info</p>
+                            }
+                        </div>
+                    </div>
+                    <form>
                         <input type="text" id="" class="form-control" value="@Model.CurrentUniversity.Name" readonly>
 
                         <label for="" class="grey-text font-weight-light">City</label>
@@ -72,15 +84,30 @@
                         <label for="" class="grey-text font-weight-light">Address</label>
                         <input type="text" id="" class="form-control" value="@Model.CurrentUniversity.Address" readonly>
 
-                        @if (User.IsInRole("UniversityAdmin"))
-                        {
-                            <button class="btn btn-default btn-block my-4 waves-effect z-depth-0"
-                                    onclick="window.location.href = '@Url.Action("EditUniversityInfo", "UniversityAdmin", Model.CurrentUniversity)';return false;">
-                                <i></i>Edit
-                            </button>
-                        }
+                        <br>
 
+                        @if (Model.CurrentUniversity.LocationLink != null)
+                        {
+                            <iframe src="@Model.CurrentUniversity.LocationLink" frameborder="0" style="border: 0" allowfullscreen></iframe>
+                        }
                     </form>
+                    @if (User.IsInRole("UniversityAdmin") && ViewBag.iseditable)
+                    {
+                        @*<button class="btn btn-default btn-block my-4 waves-effect z-depth-0"
+                                onclick="window.location.href = '@Url.Action("EditUniversityInfo", "UniversityAdmin", Model.CurrentUniversity)';return false;">
+                            <i></i>Edit
+                        </button>*@
+
+                        <div class="col-1 m-0 p-0">
+
+                            @await Html.PartialAsync("/Views/PopUpWindows/EditUniversityPopUp.cshtml", Model.CurrentUniversity)
+                        </div>
+
+                        <div class="col-1 m-0 p-0">
+
+                            @await Html.PartialAsync("/Views/PopUpWindows/AddFacultyPopUp.cshtml")
+                        </div>
+                    }
                 </div>
             </div>
         </div>

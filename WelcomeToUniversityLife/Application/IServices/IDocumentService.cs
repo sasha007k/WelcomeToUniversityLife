@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace Application.IServices
 {
-    interface IDocumentService
+    public interface IDocumentService
     {
         Task<bool> Create(Document document );
     }

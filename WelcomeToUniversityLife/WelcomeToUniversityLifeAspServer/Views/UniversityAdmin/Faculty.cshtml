@@ -1,4 +1,5 @@
-﻿@model Application.Models.UniversityAdmin.CurrentFacultyAndSpecialitiesModel;
+﻿@using Application.Models.UniversityAdmin
+@model Application.Models.UniversityAdmin.CurrentFacultyAndSpecialitiesModel;
 @{
     ViewData["Title"] = "University";
 }
@@ -6,66 +7,70 @@
 
 <div class="container-fluid">
     <div class="row">
-        
         <div class="col-2">
-            @if (User.IsInRole("UniversityAdmin"))
-            {
-                <button class="btn btn-default my-4 waves-effect z-depth-0" onclick="location.href = '@Url.Action("AddSpeciality", "UniversityAdmin", new { facultyId = @Model.CurrentFaculty.Id})'">
-                    <i></i>Add Speciality
-                </button>
-            }
         </div>
-
-
         <div class="col-7">
             @if (Model.Specialities != null)
             {
-                <table class="table table-hover">
+                <table class="content-table table table-hover">
                     <thead>
                         <tr>
                             <th scope="col" style="text-align: center">Speciality</th>
                             <th scope="col" style="text-align: center">Free Spaces</th>
                             <th scope="col" style="text-align: center">Paid Spaces</th>
                             <th scope="col" style="text-align: center">Required ZNO</th>
+                            @if (User.IsInRole("User"))
+                            {
+                                <th scope="col" style="text-align: center"></th>
+                            }
                         </tr>
                     </thead>
-
-                    @foreach (var faculty in Model.Specialities)
-                    {
-                        <tr style="text-align: center">
-                            <td>
-                                <h5>
-                                    @faculty.Name
-                                </h5>
-                            </td>
-                            <td>
-                                <h5>
-                                    @faculty.FreeSpaces
-                                </h5>
-                            </td>
-                            <td>
-                                <h5>
-                                    @faculty.PaidSpaces
-                                </h5>
-                            </td>
-                            <td>
-                                <table>
-                                    <tr>@faculty.RequiredZNO1</tr>
-                                    <br>
-                                    @if (!string.IsNullOrWhiteSpace(faculty.RequiredZNO2))
-                                    {
-                                        <tr>@faculty.RequiredZNO2</tr>
+                    <tbody>
+                        @foreach (var speciality in Model.Specialities)
+                        {
+                            <tr style="text-align: center">
+                                <td>
+                                    <h5>
+                                        @speciality.Name
+                                    </h5>
+                                </td>
+                                <td>
+                                    <h5>
+                                        @speciality.FreeSpaces
+                                    </h5>
+                                </td>
+                                <td>
+                                    <h5>
+                                        @speciality.PaidSpaces
+                                    </h5>
+                                </td>
+                                <td>
+                                    <table>
+                                        <tr>@speciality.RequiredZNO1</tr>
                                         <br>
-                                    }
-                                    @if (!string.IsNullOrWhiteSpace(faculty.RequiredZNO3))
-                                    {
-                                        <tr>@faculty.RequiredZNO3</tr>
-                                    }
-                                </table>
-                            </td>
-                        </tr>
-                     }
-
+                                        @if (!string.IsNullOrWhiteSpace(speciality.RequiredZNO2))
+                                        {
+                                            <tr>@speciality.RequiredZNO2</tr>
+                                            <br>
+                                        }
+                                        @if (!string.IsNullOrWhiteSpace(speciality.RequiredZNO3))
+                                        {
+                                            <tr>@speciality.RequiredZNO3</tr>
+                                        }
+                                    </table>
+                                </td>
+                                @if (User.IsInRole("User"))
+                                {
+                                    <td>
+                                        <button class="btn btn-default btn-block my-4 waves-effect z-depth-0"
+                                                onclick="window.location.href = '@Url.Action("ApplyButtonExecute", "User", new {specialityId = speciality.Id})';return false;">
+                                            <i></i>Apply
+                                        </button>
+                                    </td>
+                                }
+                            </tr>
+                        }
+                    </tbody>
                 </table>
             }
             else
@@ -73,15 +78,12 @@
                 <h1>There are no specialities yet</h1>
             }
 
-
-
-
         </div>
-        <div class="col-3">
+        <div class="col-3 text-center">
             <div class="card">
                 <div class="card-body">
                     <form>
-                        <p class="h4 text-center py-4">Info</p>
+                        <p class="h4 text-center py-4">Faculty Info</p>
 
                         <label for="" class="grey-text font-weight-light">Name</label>
                         <input type="text" id="" class="form-control" value="@Model.CurrentFaculty.Name" readonly>
@@ -93,7 +95,7 @@
                         <textarea type="text" id="" class="form-control" readonly>@Model.CurrentFaculty.Description</textarea>
 
 
-                        @if (User.IsInRole("UniversityAdmin"))
+                        @if (User.IsInRole("UniversityAdmin") && ViewBag.iseditable)
                         {
                             <button class="btn btn-default btn-block my-4 waves-effect z-depth-0"
                                     onclick="window.location.href = '@Url.Action()';return false;">
@@ -104,7 +106,32 @@
                     </form>
                 </div>
             </div>
+            @if (User.IsInRole("UniversityAdmin") && ViewBag.iseditable)
+            {
+                @*<button class="btn btn-default my-4 waves-effect z-depth-0" onclick="location.href = '@Url.Action("AddSpeciality", "UniversityAdmin", new { facultyId = @Model.CurrentFaculty.Id})'">
+                        <i></i>Add Speciality
+                    </button>*@
+                @await Html.PartialAsync("/Views/PopUpWindows/AddSpecialityPopUp.cshtml", new AddSpecialityModel());
+            }
         </div>
     </div>
 </div>
 
+@section Scripts{
+
+    <script>
+        var $chosen = $('.chosen-select').chosen({
+            max_selected_options: 3
+        });
+        $chosen.change(function () {
+            var $this = $(this);
+            var chosen = $this.data('chosen');
+            var search = chosen.search_container.find('input[type="text"]');
+            search.prop('disabled', $this.val() !== null);
+            if (chosen.active_field) {
+                search.focus();
+            }
+        });
+    </script>
+
+}

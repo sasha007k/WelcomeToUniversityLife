@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace Infrastructure.Migrations
+namespace WelcomeToUniversityLifeAspServer.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20200402112800_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20200403160434_initDb")]
+    partial class initDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -153,10 +153,7 @@ namespace Infrastructure.Migrations
                     b.Property<int>("DocumentId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Latitude")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Longitude")
+                    b.Property<string>("LocationLink")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
@@ -226,6 +223,9 @@ namespace Infrastructure.Migrations
                     b.Property<string>("NormalizedUserName")
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
+
+                    b.Property<int>("NumberOfApplications")
+                        .HasColumnType("int");
 
                     b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");

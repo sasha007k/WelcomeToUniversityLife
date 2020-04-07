@@ -63,6 +63,16 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
             return BadRequest("Can't save documents");
         }
 
+        public async Task<IActionResult> ApplyButtonExecute(int specialityId)
+        {
+            if (specialityId != 0)
+            {
+                await _userService.ApplyButtonExecuteAsync(specialityId);
+            }
+
+            return null;
+        }
+
         [HttpPost]
         public async Task<IActionResult> AddMarks(UserProfileModel model)
         {

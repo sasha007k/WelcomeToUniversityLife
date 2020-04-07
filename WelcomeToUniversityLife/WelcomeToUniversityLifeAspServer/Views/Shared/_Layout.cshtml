@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - WelcomeToUniversityLifeAspServer</title>
 
-
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/lib/choosen/chosen.css" />
     <link rel="stylesheet" href="~/lib/choosen/docsupport/prism.css" />
@@ -26,11 +25,12 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.15.0/css/mdb.min.css" rel="stylesheet">
 
 </head>
+
 <body>
     <header>
         <nav class="navbar navbar-expand-sm border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">UniversityStart</a>
+                <a id="welcomelink" class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Welcome</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -53,16 +53,22 @@
                     @if (User.Identity.IsAuthenticated && User.IsInRole("UniversityAdmin"))
                     {
                         <li class="nav-item">
-                            <a class="nav-link @Html.IsSelected(actions: "University", controllers: "UniversityAdmin", cssClass: "active")" asp-area="" asp-controller="UniversityAdmin" asp-action="University">University</a>
+                            <a class="nav-link @Html.IsSelected(actions: "University", controllers: "UniversityAdmin", cssClass: "active")" asp-area="" asp-controller="UniversityAdmin" asp-action="University">
+                                <img id="universityphoto" src="~/systemphotos/university.png" title="University" />
+                            </a>
                         </li>
                     }
                     @if (User.Identity.IsAuthenticated)
                     {
                         <li class="nav-item">
-                            <a class="nav-link @Html.IsSelected(actions: "Profile", controllers: "User", cssClass: "active")" asp-area="" asp-controller="User" asp-action="Profile">Profile</a>
+                            <a class="nav-link @Html.IsSelected(actions: "Profile", controllers: "User", cssClass: "active")" asp-area="" asp-controller="User" asp-action="Profile">
+                                <img id="profilephoto" src="~/systemphotos/profile.png" title="Profile" />
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link @Html.IsSelected(actions: "SignOut", controllers: "Authentication", cssClass: "active")" asp-area="" asp-controller="Authentication" asp-action="SignOut">Sign Out</a>
+                            <a class="nav-link @Html.IsSelected(actions: "SignOut", controllers: "Authentication", cssClass: "active")" asp-area="" asp-controller="Authentication" asp-action="SignOut">
+                                <img id="exitphoto" src="~/systemphotos/signout.png" title="Sign Out" />
+                            </a>
                         </li>
                     }
                 </ul>
@@ -87,6 +93,15 @@
     </footer>
 
 
+    <script src="~/js/jquery.min.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+    <script src="~/js/mdb.min.js"></script>
+    <script src="~/js/popper.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/lib/choosen/chosen.jquery.js"></script>
+    <script src="~/lib/choosen/chosen.proto.js"></script>
+    <script src="~/lib/choosen/docsupport/prism.js"></script>
 
 
 
@@ -108,5 +123,6 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.15.0/js/mdb.min.js"></script>
 
     @RenderSection("Scripts", required: false)
-</body>
+
+    </body>
 </html>

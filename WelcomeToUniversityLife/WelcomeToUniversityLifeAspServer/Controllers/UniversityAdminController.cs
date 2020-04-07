@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Application.IServices;
 using Application.Models.UniversityAdmin;
 using Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WelcomeToUniversityLifeAspServer.Controllers
@@ -24,6 +28,15 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
                 return RedirectToAction();
             }
 
+            ViewBag.iseditable = false;
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = Convert.ToInt32(User.Claims.FirstOrDefault(claim => claim.Type == ClaimTypes.NameIdentifier).Value);
+
+                ViewBag.iseditable = userId == universityAndFaculties.CurrentUniversity.UserId;
+            }
+
             return View(universityAndFaculties);
         }
 
@@ -33,6 +46,15 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
             if (universityAndFaculties == null)
             {
                 return RedirectToAction();
+            }
+
+            ViewBag.iseditable = false;
+
+            if (User.Identity.IsAuthenticated)
+            {
+               var userId=Convert.ToInt32(User.Claims.FirstOrDefault(claim => claim.Type == ClaimTypes.NameIdentifier).Value);
+
+                ViewBag.iseditable = userId == universityAndFaculties.CurrentUniversity.UserId;        
             }
 
             return View("University", universityAndFaculties);
@@ -88,6 +110,15 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
                 return RedirectToAction();
             }
 
+            ViewBag.iseditable = false;
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = Convert.ToInt32(User.Claims.FirstOrDefault(claim => claim.Type == ClaimTypes.NameIdentifier).Value);
+
+                ViewBag.iseditable = userId == facultyAndSpecialities.FacultyAdminId;
+            }
+
             return View("Faculty", facultyAndSpecialities);
         }
 
@@ -113,6 +144,17 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
                 }
             }
             return RedirectToAction("AddSpeciality", "UniversityAdmin");
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> UploadUniversityPhoto([FromQuery]UploadPhotoModel requestData, IFormFileCollection uploadedFiles)
+        {
+            requestData.requestedUserId= Convert.ToInt32(User.Claims.FirstOrDefault(claim => claim.Type == ClaimTypes.NameIdentifier).Value);
+
+            await _universityAdminService.UploadUniversityPhotoAsync(requestData, uploadedFiles);
+
+            return RedirectToAction("University","UniversityAdmin");
         }
     }
 }
