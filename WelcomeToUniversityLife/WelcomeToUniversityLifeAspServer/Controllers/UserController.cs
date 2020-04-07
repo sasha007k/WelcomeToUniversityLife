@@ -65,6 +65,16 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
         {
             Console.WriteLine( model.MarksModel.FirstZno.Mark);
             Console.WriteLine(model.MarksModel.FirstZno.Name);
+            Console.WriteLine("-------------------------");
+            Console.WriteLine(model.MarksModel.SecondZno.Mark);
+            Console.WriteLine(model.MarksModel.SecondZno.Name);
+            Console.WriteLine("-------------------------");
+            Console.WriteLine(model.MarksModel.ThreedZno.Mark);
+            Console.WriteLine(model.MarksModel.ThreedZno.Name);
+            Console.WriteLine("-------------------------");
+            Console.WriteLine(model.MarksModel.FourZno.Mark);
+            Console.WriteLine(model.MarksModel.FourZno.Name);
+            Console.WriteLine("-------------------------");
 
             //Console.WriteLine(Request.Form);
             //Console.WriteLine("--");
