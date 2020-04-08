@@ -26,22 +26,22 @@
                         </tr>
                     </thead>
                     <tbody>
-                    @foreach (var faculty in Model.Faculties)
-                    {
-                        <tr style="text-align: center" onclick="window.location = '@Url.Action("GetFaculty", "UniversityAdmin", new {id = faculty.Id})'">
-                            <td>
-                                <h5>
-                                    @faculty.Name
-                                </h5>
-                            </td>
-                            <td>
-                                <h5>
-                                    @faculty.Address
-                                </h5>
-                            </td>
-                            <td></td>
-                        </tr>
-                    }
+                        @foreach (var faculty in Model.Faculties)
+                        {
+                            <tr style="text-align: center" onclick="window.location = '@Url.Action("GetFaculty", "UniversityAdmin", new {id = faculty.Id})'">
+                                <td>
+                                    <h5>
+                                        @faculty.Name
+                                    </h5>
+                                </td>
+                                <td>
+                                    <h5>
+                                        @faculty.Address
+                                    </h5>
+                                </td>
+                                <td></td>
+                            </tr>
+                        }
                     </tbody>
                 </table>
             }
@@ -57,10 +57,11 @@
             <div class="card">
                 <div class="card-body">
                     <div class="row m-0 p-0">
-                        <div class="col-sm m-0 p-0">
-                            @if (Model.CurrentUniversity.Photo != null)
+                        <div class="col-sm m-0 p-0" id="photodiv">
+                            @if (!String.IsNullOrEmpty(Model.CurrentUniversity.Photo))
                             {
                                 <img class="universityphoto p-0" src="~/universitiesphotos/@Model.CurrentUniversity.Photo" />
+                                <a asp-controller="UniversityAdmin" asp-action="DeleteUniversityPhoto"><img id="deleteicon" src="~/systemphotos/delete.png" /> </a>
                             }
                             else if (User.IsInRole("UniversityAdmin") && ViewBag.iseditable)
                             {
@@ -113,3 +114,16 @@
     </div>
 </div>
 
+
+@section Scripts{
+<script>
+  function uploadphotoclicked() {
+    let fileinput = document.getElementById("fileinputid");
+
+    fileinput.onchange = function (e) {
+    document.getElementById("photoform").submit();
+    }
+    fileinput.click();
+  }
+</script>
+}
