@@ -11,6 +11,7 @@ namespace Infrastructure
         public DbSet<Document> Documents { get; set; }
         public DbSet<University> Universities { get; set; }
         public DbSet<Speciality> Specialities { get; set; }
+        public DbSet<Сampaign> Campaigns { get; set; }
         public DbSet<ZNO> ZNOs { get; set; }
         public DbSet<Request> Applications { get; set; }
         public DbSet<Faculty> Faculties { get; set; }
@@ -31,6 +32,7 @@ namespace Infrastructure
             builder.ApplyConfiguration(new ZNOConfiguration());
             builder.ApplyConfiguration(new ApplicationConfiguration());
             builder.ApplyConfiguration(new FacultyConfiguration());
+            builder.ApplyConfiguration(new CampaignConfiguration());
         }
     }
 }
