@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Threading.Tasks;
 using Application.IServices;
 using Application.Models.Enum;
@@ -8,7 +7,6 @@ using Domain;
 using Domain.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Services
 {
@@ -219,6 +217,20 @@ namespace Infrastructure.Services
             var photoName = await _photoHelper.UploadPhotoAsync(uploads[0], "universitiesphotos");
 
             university.Photo = photoName;
+
+            await _unitOfWork.Commit();
+        }
+
+        public async Task DeleteUniversityPhotoAsync(int userId)
+        {
+            var user = await _unitOfWork.UserRepository.GetUserWithUniversityAsync(userId);
+
+            if (user.University == null)
+                throw new Exception("User is not university admin!!");
+
+            _photoHelper.DeletePhotoAsync(user.University.Photo, "universitiesphotos");
+
+            user.University.Photo = string.Empty;
 
             await _unitOfWork.Commit();
         }

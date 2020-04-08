@@ -179,3 +179,20 @@ body {
     height: 100px;
     width:300px;
 }
+
+#deleteicon {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: -5px;
+    right: -8px;
+}
+
+#deleteicon:hover {
+    width: 25px;
+    height: 25px;
+}
+
+#photodiv{
+    position:relative;
+}

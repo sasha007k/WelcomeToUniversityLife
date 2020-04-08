@@ -127,7 +127,7 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "UniversityAdmin")]
         public async Task<IActionResult> UploadUniversityPhoto([FromQuery]UploadPhotoModel requestData, IFormFileCollection uploadedFiles)
         {
             requestData.requestedUserId= Convert.ToInt32(User.Claims.FirstOrDefault(claim => claim.Type == ClaimTypes.NameIdentifier).Value);
@@ -135,6 +135,17 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
             await _universityAdminService.UploadUniversityPhotoAsync(requestData, uploadedFiles);
 
             return RedirectToAction("University","UniversityAdmin");
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "UniversityAdmin")]
+        public async Task<IActionResult> DeleteUniversityPhoto()
+        {
+            var userId = Convert.ToInt32(User.Claims.FirstOrDefault(claim => claim.Type == ClaimTypes.NameIdentifier).Value);
+
+            await _universityAdminService.DeleteUniversityPhotoAsync(userId);
+
+            return RedirectToAction("University", "UniversityAdmin");
         }
 
         [HttpPost]

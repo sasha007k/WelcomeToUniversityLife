@@ -42,5 +42,15 @@ namespace Infrastructure.Services
                 throw new Exception("Given extension is incorrect!!");
             }
         }
+
+        public void DeletePhotoAsync(string name, string folder)
+        {
+            var path = $"{_env.WebRootPath}\\{folder}\\{name}";
+
+            if (File.Exists(path))
+            {
+                File.Delete(path);
+            }
+        }
     }
 }

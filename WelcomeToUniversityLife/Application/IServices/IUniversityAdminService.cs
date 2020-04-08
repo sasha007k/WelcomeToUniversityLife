@@ -19,5 +19,6 @@ namespace Application.IServices
         Task<CurrentFacultyAndSpecialitiesModel> GetFacultyAsync(int facultyId);
         Task<bool> AddSpecialityAsync(AddSpecialityModel model);
         Task UploadUniversityPhotoAsync(UploadPhotoModel requestedData, IFormFileCollection uploads);
+        Task DeleteUniversityPhotoAsync(int userId);
     }
 }
