@@ -79,31 +79,34 @@
                             }
                         </div>
                     </div>
-                        <input type="text" id="" class="form-control" value="@Model.CurrentUniversity.Name" readonly>
+                    <input type="text" id="" class="form-control" value="@Model.CurrentUniversity.Name" readonly>
 
-                        <label for="" class="grey-text font-weight-light">City</label>
-                        <input type="text" id="" class="form-control" value="@Model.CurrentUniversity.City" readonly>
+                    <label for="" class="grey-text font-weight-light">City</label>
+                    <input type="text" id="" class="form-control" value="@Model.CurrentUniversity.City" readonly>
 
+                    @if (Model.CurrentUniversity.Description != null)
+                    {
                         <label for="" class="grey-text font-weight-light">Description</label>
                         <textarea type="text" id="" class="form-control" readonly>@Model.CurrentUniversity.Description</textarea>
+                    }
 
 
-                        <label for="" class="grey-text font-weight-light">Address</label>
-                        <input type="text" id="" class="form-control" value="@Model.CurrentUniversity.Address" readonly>
+                    <label for="" class="grey-text font-weight-light">Address</label>
+                    <input type="text" id="" class="form-control" value="@Model.CurrentUniversity.Address" readonly>
 
-                        <br>
+                    <br>
 
-                        @if (Model.CurrentUniversity.LocationLink != null)
-                        {
-                            <iframe src="@Model.CurrentUniversity.LocationLink" frameborder="0" style="border: 0" allowfullscreen></iframe>
-                        }
+                    @if (Model.CurrentUniversity.LocationLink != null)
+                    {
+                        <iframe src="@Model.CurrentUniversity.LocationLink" frameborder="0" style="border: 0" allowfullscreen></iframe>
+                    }
 
-                        @if (User.IsInRole("UniversityAdmin") && ViewBag.iseditable)
-                        {
-                            <div class="col-1 m-0 p-0">
-                                @await Html.PartialAsync("/Views/PopUpWindows/EditUniversityPopUp.cshtml", Model.CurrentUniversity)
-                            </div>
-                        }
+                    @if (User.IsInRole("UniversityAdmin") && ViewBag.iseditable)
+                    {
+                        <div class="col-1 m-0 p-0">
+                            @await Html.PartialAsync("/Views/PopUpWindows/EditUniversityPopUp.cshtml", Model.CurrentUniversity)
+                        </div>
+                    }
                 </div>
             </div>
         </div>
