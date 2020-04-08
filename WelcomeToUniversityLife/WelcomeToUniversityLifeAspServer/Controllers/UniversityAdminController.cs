@@ -69,7 +69,6 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
                 result = await _universityAdminService.EditUniversity(model).ConfigureAwait(true);
             }
 
-
             if (!result)
             {
                 // do smth
@@ -113,16 +112,6 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
             return View("Faculty", facultyAndSpecialities);
         }
 
-        public IActionResult AddSpeciality(int facultyId)
-        {
-            var speciality = new AddSpecialityModel()
-            {
-                FacultyId = facultyId
-            };
-
-            return View(speciality);
-        }
-
         [HttpPost]
         public async Task<IActionResult> AddSpeciality(AddSpecialityModel model)
         {
@@ -149,21 +138,20 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditFacultyInfo(FacultyInfoModel model)
+        public async Task<IActionResult> EditFacultyInfo(Faculty model)
         {
             var result = false;
             if (model != null)
             {
-                result = await _universityAdminService.EditUniversity(null).ConfigureAwait(true);
+                result = await _universityAdminService.EditFaculty(model).ConfigureAwait(true);
             }
-
 
             if (!result)
             {
                 // do smth
             }
 
-            return RedirectToAction("University", "UniversityAdmin");
+            return RedirectToAction("GetFaculty", "UniversityAdmin", new { id = model.Id });
         }
     }
 }

@@ -39,7 +39,10 @@
                                     @faculty.Address
                                 </h5>
                             </td>
-                            <td></td>
+                            @if (User.IsInRole("UniversityAdmin") && ViewBag.iseditable)
+                            {
+                                <td></td>
+                            }
                         </tr>
                     }
                     </tbody>

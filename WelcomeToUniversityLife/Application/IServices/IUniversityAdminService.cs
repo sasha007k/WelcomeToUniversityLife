@@ -15,6 +15,7 @@ namespace Application.IServices
         Task<CurrentUniversityAndFacultiesModel> GetUniversityAsync(int universityId);
         Task<bool> EditUniversity(University model);
         Task<bool> AddFacultyAsync(AddFacultyModel model);
+        Task<bool> EditFaculty(Faculty model);
         Task<CurrentFacultyAndSpecialitiesModel> GetFacultyAsync(int facultyId);
         Task<bool> AddSpecialityAsync(AddSpecialityModel model);
         Task UploadUniversityPhotoAsync(UploadPhotoModel requestedData, IFormFileCollection uploads);

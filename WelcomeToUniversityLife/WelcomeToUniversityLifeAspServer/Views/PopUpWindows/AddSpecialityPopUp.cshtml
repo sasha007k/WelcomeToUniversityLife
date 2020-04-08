@@ -1,8 +1,13 @@
 ﻿@model Application.Models.UniversityAdmin.AddSpecialityModel;
 
-<button type="button" class="btn btn-default my-4 waves-effect z-depth-0" data-toggle="modal" data-target="#newSpeciality">
+<a id="newitemlink" data-toggle="modal" data-target="#newSpeciality">
+    <img id="newitemphoto" src="~/systemphotos/plus.png" />
+</a>
+
+
+@*<button type="button" class="btn btn-default my-4 waves-effect z-depth-0" data-toggle="modal" data-target="#newSpeciality">
     Add Speciality
-</button>
+</button>*@
 
 <div class="modal fade" id="newSpeciality" tabindex="-1" role="dialog" aria-labelledby="newSpeciality" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -23,7 +28,7 @@
                         </div>
                         <div class="form-group row">
                             <div class="col-sm">
-                                <input type="text" class="form-control" placeholder="Speciality name" name="SpecialityName" required=""/>
+                                <input type="text" class="form-control" placeholder="Speciality name" name="SpecialityName" required="" />
                             </div>
                         </div>
                         <div class="form-group row">
@@ -34,17 +39,17 @@
                         <div class="form-group row">
                             <div class="col">
                                 <div class="col-sm">
-                                    <input type="number" class="form-control" min="0" step="1" placeholder="Free spaces" name="FreeSpaces"/>
+                                    <input type="number" class="form-control" min="0" step="1" placeholder="Free spaces" name="FreeSpaces" />
                                 </div>
                             </div>
 
                             <div class="col">
                                 <div class="col-sm">
-                                    <input type="number" class="form-control" min="0" step="1" placeholder="Paid spaces" name="PaidSpaces"/>
+                                    <input type="number" class="form-control" min="0" step="1" placeholder="Paid spaces" name="PaidSpaces" />
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group row">                            
+                        <div class="form-group row">
                             <div class="col-sm">
                                 <label>Required ZNO</label>
                                 <select multiple class="chosen-select" id="znoSelector" asp-for="ZNO">

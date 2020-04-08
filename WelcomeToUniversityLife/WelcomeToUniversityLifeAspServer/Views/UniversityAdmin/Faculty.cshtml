@@ -19,6 +19,12 @@
                             <th scope="col" style="text-align: center">Free Spaces</th>
                             <th scope="col" style="text-align: center">Paid Spaces</th>
                             <th scope="col" style="text-align: center">Required ZNO</th>
+                            <th scope="col" style="text-align: center; width: 10%;">
+                                @if (User.IsInRole("UniversityAdmin") && ViewBag.iseditable)
+                                {
+                                    @await Html.PartialAsync("/Views/PopUpWindows/AddSpecialityPopUp.cshtml", new AddSpecialityModel() { FacultyId = Model.CurrentFaculty.Id} );
+                                }
+                            </th>
                             @if (User.IsInRole("User"))
                             {
                                 <th scope="col" style="text-align: center"></th>
@@ -28,47 +34,48 @@
                     <tbody>
                         @foreach (var speciality in Model.Specialities)
                         {
-                            <tr style="text-align: center">
-                                <td>
-                                    <h5>
-                                        @speciality.Name
-                                    </h5>
-                                </td>
-                                <td>
-                                    <h5>
-                                        @speciality.FreeSpaces
-                                    </h5>
-                                </td>
-                                <td>
-                                    <h5>
-                                        @speciality.PaidSpaces
-                                    </h5>
-                                </td>
-                                <td>
-                                    <table>
-                                        <tr>@speciality.RequiredZNO1</tr>
+                        <tr style="text-align: center">
+                            <td>
+                                <h5>
+                                    @speciality.Name
+                                </h5>
+                            </td>
+                            <td>
+                                <h5>
+                                    @speciality.FreeSpaces
+                                </h5>
+                            </td>
+                            <td>
+                                <h5>
+                                    @speciality.PaidSpaces
+                                </h5>
+                            </td>
+                            <td>
+                                <table>
+                                    <tr>@speciality.RequiredZNO1</tr>
+                                    <br>
+                                    @if (!string.IsNullOrWhiteSpace(speciality.RequiredZNO2))
+                                    {
+                                        <tr>@speciality.RequiredZNO2</tr>
                                         <br>
-                                        @if (!string.IsNullOrWhiteSpace(speciality.RequiredZNO2))
-                                        {
-                                            <tr>@speciality.RequiredZNO2</tr>
-                                            <br>
-                                        }
-                                        @if (!string.IsNullOrWhiteSpace(speciality.RequiredZNO3))
-                                        {
-                                            <tr>@speciality.RequiredZNO3</tr>
-                                        }
-                                    </table>
+                                    }
+                                    @if (!string.IsNullOrWhiteSpace(speciality.RequiredZNO3))
+                                    {
+                                        <tr>@speciality.RequiredZNO3</tr>
+                                    }
+                                </table>
+                            </td>
+                            <td></td>
+                            @if (User.IsInRole("User"))
+                            {
+                                <td>
+                                    <button class="btn btn-default btn-block my-4 waves-effect z-depth-0"
+                                            onclick="window.location.href = '@Url.Action("ApplyButtonExecute", "User", new {specialityId = speciality.Id})';return false;">
+                                        <i></i>Apply
+                                    </button>
                                 </td>
-                                @if (User.IsInRole("User"))
-                                {
-                                    <td>
-                                        <button class="btn btn-default btn-block my-4 waves-effect z-depth-0"
-                                                onclick="window.location.href = '@Url.Action("ApplyButtonExecute", "User", new {specialityId = speciality.Id})';return false;">
-                                            <i></i>Apply
-                                        </button>
-                                    </td>
-                                }
-                            </tr>
+                            }
+                        </tr>
                         }
                     </tbody>
                 </table>
@@ -97,23 +104,12 @@
                     @if (User.IsInRole("UniversityAdmin") && ViewBag.iseditable)
                     {
                         <div class="col-1 m-0 p-0">
-
                             @await Html.PartialAsync("/Views/PopUpWindows/EditFacultyPopUp.cshtml", Model.CurrentFaculty)
                         </div>
                     }
 
                 </div>
             </div>
-            @if (User.IsInRole("UniversityAdmin") && ViewBag.iseditable)
-            {
-                @*<button class="btn btn-default my-4 waves-effect z-depth-0" onclick="location.href = '@Url.Action("AddSpeciality", "UniversityAdmin", new { facultyId = @Model.CurrentFaculty.Id})'">
-                <i></i>Add Speciality
-            </button>*@
-
-                @await Html.PartialAsync("/Views/PopUpWindows/AddSpecialityPopUp.cshtml", new AddSpecialityModel() { FacultyId = Model.CurrentFaculty.Id} );
-
-
-            }
         </div>
     </div>
 </div>

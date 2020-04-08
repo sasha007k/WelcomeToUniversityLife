@@ -81,6 +81,32 @@ namespace Infrastructure.Services
             return null;
         }
 
+        public async Task<bool> EditFaculty(Faculty model)
+        {
+            var userName = _httpContext.HttpContext.User.Identity.Name;
+            var user = await _userManager.FindByNameAsync(userName);
+
+            if (user != null)
+            {
+                var faculty = _unitOfWork.FacultyRepository.GetAsync(model.Id).Result;
+
+                var result = 0;
+
+                if (faculty != null)
+                {
+                    faculty.Name = model.Name;
+                    faculty.Address = model.Address;
+                    faculty.Description = model.Description;
+
+                    result = await _unitOfWork.Commit();
+                }
+
+                return result == 1;
+            }
+
+            return false;
+        }
+
         public async Task<CurrentUniversityAndFacultiesModel> GetUniversityAsync(int universityId)
         {
             var university = await _unitOfWork.UniversityRepository.GetAsync(universityId);
