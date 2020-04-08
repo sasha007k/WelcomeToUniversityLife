@@ -93,10 +93,15 @@
                     </form>
                     @if (User.IsInRole("UniversityAdmin") && ViewBag.iseditable)
                     {
-                        <button class="btn btn-default btn-block my-4 waves-effect z-depth-0"
+                        @*<button class="btn btn-default btn-block my-4 waves-effect z-depth-0"
                                 onclick="window.location.href = '@Url.Action("EditUniversityInfo", "UniversityAdmin", Model.CurrentUniversity)';return false;">
                             <i></i>Edit
-                        </button>
+                        </button>*@
+
+                        <div class="col-1 m-0 p-0">
+
+                            @await Html.PartialAsync("/Views/PopUpWindows/EditUniversityPopUp.cshtml", Model.CurrentUniversity)
+                        </div>
 
                         <div class="col-1 m-0 p-0">
 

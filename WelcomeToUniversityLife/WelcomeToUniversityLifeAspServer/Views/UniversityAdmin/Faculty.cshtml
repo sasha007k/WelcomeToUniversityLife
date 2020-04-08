@@ -26,51 +26,51 @@
                         </tr>
                     </thead>
                     <tbody>
-                    @foreach (var speciality in Model.Specialities)
-                    {
-                        <tr style="text-align: center">
-                            <td>
-                                <h5>
-                                    @speciality.Name
-                                </h5>
-                            </td>
-                            <td>
-                                <h5>
-                                    @speciality.FreeSpaces
-                                </h5>
-                            </td>
-                            <td>
-                                <h5>
-                                    @speciality.PaidSpaces
-                                </h5>
-                            </td>
-                            <td>
-                                <table>
-                                    <tr>@speciality.RequiredZNO1</tr>
-                                    <br>
-                                    @if (!string.IsNullOrWhiteSpace(speciality.RequiredZNO2))
-                                    {
-                                        <tr>@speciality.RequiredZNO2</tr>
-                                        <br>
-                                    }
-                                    @if (!string.IsNullOrWhiteSpace(speciality.RequiredZNO3))
-                                    {
-                                        <tr>@speciality.RequiredZNO3</tr>
-                                    }
-                                </table>
-                            </td>
-                            @if (User.IsInRole("User"))
-                            {
+                        @foreach (var speciality in Model.Specialities)
+                        {
+                            <tr style="text-align: center">
                                 <td>
-                                    <button class="btn btn-default btn-block my-4 waves-effect z-depth-0"
-                                            onclick="window.location.href = '@Url.Action("ApplyButtonExecute", "User", new {specialityId = speciality.Id})';return false;">
-                                        <i></i>Apply
-                                    </button>
+                                    <h5>
+                                        @speciality.Name
+                                    </h5>
                                 </td>
-                            }
-                        </tr>
-                     }
-                        </tbody>
+                                <td>
+                                    <h5>
+                                        @speciality.FreeSpaces
+                                    </h5>
+                                </td>
+                                <td>
+                                    <h5>
+                                        @speciality.PaidSpaces
+                                    </h5>
+                                </td>
+                                <td>
+                                    <table>
+                                        <tr>@speciality.RequiredZNO1</tr>
+                                        <br>
+                                        @if (!string.IsNullOrWhiteSpace(speciality.RequiredZNO2))
+                                        {
+                                            <tr>@speciality.RequiredZNO2</tr>
+                                            <br>
+                                        }
+                                        @if (!string.IsNullOrWhiteSpace(speciality.RequiredZNO3))
+                                        {
+                                            <tr>@speciality.RequiredZNO3</tr>
+                                        }
+                                    </table>
+                                </td>
+                                @if (User.IsInRole("User"))
+                                {
+                                    <td>
+                                        <button class="btn btn-default btn-block my-4 waves-effect z-depth-0"
+                                                onclick="window.location.href = '@Url.Action("ApplyButtonExecute", "User", new {specialityId = speciality.Id})';return false;">
+                                            <i></i>Apply
+                                        </button>
+                                    </td>
+                                }
+                            </tr>
+                        }
+                    </tbody>
                 </table>
             }
             else
@@ -95,7 +95,7 @@
                         <textarea type="text" id="" class="form-control" readonly>@Model.CurrentFaculty.Description</textarea>
 
 
-                        @if (User.IsInRole("UniversityAdmin")&& ViewBag.iseditable)
+                        @if (User.IsInRole("UniversityAdmin") && ViewBag.iseditable)
                         {
                             <button class="btn btn-default btn-block my-4 waves-effect z-depth-0"
                                     onclick="window.location.href = '@Url.Action()';return false;">
@@ -106,11 +106,32 @@
                     </form>
                 </div>
             </div>
-            @if (User.IsInRole("UniversityAdmin")&& ViewBag.iseditable)
+            @if (User.IsInRole("UniversityAdmin") && ViewBag.iseditable)
             {
+                @*<button class="btn btn-default my-4 waves-effect z-depth-0" onclick="location.href = '@Url.Action("AddSpeciality", "UniversityAdmin", new { facultyId = @Model.CurrentFaculty.Id})'">
+                        <i></i>Add Speciality
+                    </button>*@
                 @await Html.PartialAsync("/Views/PopUpWindows/AddSpecialityPopUp.cshtml", new AddSpecialityModel());
             }
         </div>
     </div>
 </div>
 
+
+@section Scripts{
+
+    <script>
+        var $chosen = $('.chosen-select').chosen({
+            max_selected_options: 4
+        });
+        $chosen.change(function () {
+            var $this = $(this);
+            var chosen = $this.data('chosen');
+            var search = chosen.search_container.find('input[type="text"]');
+            search.prop('disabled', $this.val() !== null);
+            if (chosen.active_field) {
+                search.focus();
+            }
+        });
+    </script>
+}

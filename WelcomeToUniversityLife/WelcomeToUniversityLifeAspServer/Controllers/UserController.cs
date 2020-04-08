@@ -14,9 +14,12 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
     public class UserController : Controller
     {
         IUserService _userService;
-        public UserController(IUserService userService)
+        IZnoService _znoService;
+
+        public UserController(IUserService userService, IZnoService znoService)
         {
             _userService = userService;
+            _znoService = znoService;
         }
 
         [HttpGet]
@@ -68,6 +71,18 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
             }
 
             return null;
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddMarks(UserProfileModel model)
+        {
+            model.MarksModel.FirstZnoModel.Name = "Ukrainian";
+            if (model.MarksModel != null)
+            {
+                 await _znoService.SaveZNOMarks(model.MarksModel);
+            }
+
+            return RedirectToAction("Profile", "User");
         }
     }
 }

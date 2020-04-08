@@ -27,16 +27,20 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <div class="col-sm">
-                                <input type="number" class="form-control" min="0" step="1" placeholder="Free spaces" name="FreeSpaces" />
+                            <div class="col">
+                                <div class="col-sm">
+                                    <input type="number" class="form-control" min="0" step="1" placeholder="Free spaces" name="FreeSpaces" />
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group" row>
-                            <div class="col-sm">
-                                <input type="number" class="form-control" min="0" step="1" placeholder="Paid spaces" name="PaidSpaces" />
+
+                            <div class="col">
+                                <div class="col-sm">
+                                    <input type="number" class="form-control" min="0" step="1" placeholder="Paid spaces" name="PaidSpaces" />
+                                </div>
                             </div>
                         </div>
                         <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Required ZNO</label>
                             <div class="col-sm">
                                 <select multiple class="chosen-select" id="znoSelector" asp-for="ZNO">
                                     <option selected disabled>Ukrainian</option>
@@ -53,6 +57,7 @@
                                 </select>
                             </div>
                         </div>
+
                         <div>
                             <button type="submit" class="btn btn-default my-4 waves-effect z-depth-0">Submit</button>
                         </div>
@@ -64,26 +69,3 @@
         </div>
     </div>
 </div>
-
-@section Scripts{
-
-    <script>
-        var $chosen = $('.chosen-select').chosen({
-            max_selected_options: 3
-        });
-
-        $chosen.change(function () {
-            var $this = $(this);
-            var chosen = $this.data('chosen');
-            var search = chosen.search_container.find('input[type="text"]');
-
-            search.prop('disabled', $this.val() !== null);
-
-            if (chosen.active_field) {
-                search.focus();
-            }
-        });
-
-
-    </script>
-}
