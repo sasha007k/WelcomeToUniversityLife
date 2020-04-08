@@ -14,10 +14,16 @@
             {
                 <table class="content-table table table-hover">
                     <thead>
-                    <tr>
-                        <th scope="col" style="text-align: center">Faculty</th>
-                        <th scope="col" style="text-align: center">Address</th>
-                    </tr>
+                        <tr>
+                            <th scope="col" style="text-align: center"><h3>Faculty</h3></th>
+                            <th scope="col" style="text-align: center"><h3>Address</h3></th>
+                            <th scope="col" style="text-align: center; width: 10%;">
+                                @if (User.IsInRole("UniversityAdmin") && ViewBag.iseditable)
+                                {
+                                    @await Html.PartialAsync("/Views/PopUpWindows/AddFacultyPopUp.cshtml")
+                                }
+                            </th>
+                        </tr>
                     </thead>
                     <tbody>
                     @foreach (var faculty in Model.Faculties)
@@ -33,6 +39,7 @@
                                     @faculty.Address
                                 </h5>
                             </td>
+                            <td></td>
                         </tr>
                     }
                     </tbody>
@@ -44,6 +51,7 @@
             }
 
         </div>
+
 
         <div class="col-3 text-center">
             <div class="card">
@@ -71,7 +79,6 @@
                             }
                         </div>
                     </div>
-                    <form>
                         <input type="text" id="" class="form-control" value="@Model.CurrentUniversity.Name" readonly>
 
                         <label for="" class="grey-text font-weight-light">City</label>
@@ -90,24 +97,13 @@
                         {
                             <iframe src="@Model.CurrentUniversity.LocationLink" frameborder="0" style="border: 0" allowfullscreen></iframe>
                         }
-                    </form>
-                    @if (User.IsInRole("UniversityAdmin") && ViewBag.iseditable)
-                    {
-                        @*<button class="btn btn-default btn-block my-4 waves-effect z-depth-0"
-                                onclick="window.location.href = '@Url.Action("EditUniversityInfo", "UniversityAdmin", Model.CurrentUniversity)';return false;">
-                            <i></i>Edit
-                        </button>*@
 
-                        <div class="col-1 m-0 p-0">
-
-                            @await Html.PartialAsync("/Views/PopUpWindows/EditUniversityPopUp.cshtml", Model.CurrentUniversity)
-                        </div>
-
-                        <div class="col-1 m-0 p-0">
-
-                            @await Html.PartialAsync("/Views/PopUpWindows/AddFacultyPopUp.cshtml")
-                        </div>
-                    }
+                        @if (User.IsInRole("UniversityAdmin") && ViewBag.iseditable)
+                        {
+                            <div class="col-1 m-0 p-0">
+                                @await Html.PartialAsync("/Views/PopUpWindows/EditUniversityPopUp.cshtml", Model.CurrentUniversity)
+                            </div>
+                        }
                 </div>
             </div>
         </div>

@@ -58,7 +58,7 @@ namespace ApplicationTest.UniversityAdminServiceTest
                 var httpContext = new HttpContextAccessor();
                 var service = new UniversityAdminService(userManager, null, httpContext, null);
 
-                var universityInfoModel = new UniversityInfoModel
+                var universityInfoModel = new University()
                 {
                     Name = universityName,
                     City = city

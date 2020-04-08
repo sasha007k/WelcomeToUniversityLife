@@ -82,36 +82,37 @@
         <div class="col-3 text-center">
             <div class="card">
                 <div class="card-body">
-                    <form>
-                        <p class="h4 text-center py-4">Faculty Info</p>
+                    <p class="h4 text-center py-4">Faculty Info</p>
 
-                        <label for="" class="grey-text font-weight-light">Name</label>
-                        <input type="text" id="" class="form-control" value="@Model.CurrentFaculty.Name" readonly>
+                    <label for="" class="grey-text font-weight-light">Name</label>
+                    <input type="text" id="" class="form-control" value="@Model.CurrentFaculty.Name" readonly>
 
-                        <label for="" class="grey-text font-weight-light">Address</label>
-                        <input type="text" id="" class="form-control" value="@Model.CurrentFaculty.Address" readonly>
+                    <label for="" class="grey-text font-weight-light">Address</label>
+                    <input type="text" id="" class="form-control" value="@Model.CurrentFaculty.Address" readonly>
 
-                        <label for="" class="grey-text font-weight-light">Description</label>
-                        <textarea type="text" id="" class="form-control" readonly>@Model.CurrentFaculty.Description</textarea>
+                    <label for="" class="grey-text font-weight-light">Description</label>
+                    <textarea type="text" id="" class="form-control" readonly>@Model.CurrentFaculty.Description</textarea>
 
 
-                        @if (User.IsInRole("UniversityAdmin") && ViewBag.iseditable)
-                        {
-                            <button class="btn btn-default btn-block my-4 waves-effect z-depth-0"
-                                    onclick="window.location.href = '@Url.Action()';return false;">
-                                <i></i>Edit
-                            </button>
-                        }
+                    @if (User.IsInRole("UniversityAdmin") && ViewBag.iseditable)
+                    {
+                        <div class="col-1 m-0 p-0">
 
-                    </form>
+                            @await Html.PartialAsync("/Views/PopUpWindows/EditFacultyPopUp.cshtml", Model.CurrentFaculty)
+                        </div>
+                    }
+
                 </div>
             </div>
             @if (User.IsInRole("UniversityAdmin") && ViewBag.iseditable)
             {
                 @*<button class="btn btn-default my-4 waves-effect z-depth-0" onclick="location.href = '@Url.Action("AddSpeciality", "UniversityAdmin", new { facultyId = @Model.CurrentFaculty.Id})'">
-                        <i></i>Add Speciality
-                    </button>*@
-                @await Html.PartialAsync("/Views/PopUpWindows/AddSpecialityPopUp.cshtml", new AddSpecialityModel());
+                <i></i>Add Speciality
+            </button>*@
+
+                @await Html.PartialAsync("/Views/PopUpWindows/AddSpecialityPopUp.cshtml", new AddSpecialityModel() { FacultyId = Model.CurrentFaculty.Id} );
+
+
             }
         </div>
     </div>
@@ -124,6 +125,10 @@
         var $chosen = $('.chosen-select').chosen({
             max_selected_options: 4
         });
+
+        var selector = document.getElementById("znoSelector_chosen");
+        selector.style.width = "100%";
+
         $chosen.change(function () {
             var $this = $(this);
             var chosen = $this.data('chosen');

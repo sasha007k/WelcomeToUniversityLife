@@ -18,7 +18,12 @@
                     <form name="my-form" autocomplete="off" action="/UniversityAdmin/AddSpeciality" method="post">
                         <div class="form-group row">
                             <div class="col-sm">
-                                <input type="text" class="form-control" placeholder="Speciality name" name="SpecialityName" required="" />
+                                <input type="hidden" class="form-control" name="FacultyId" value="@Model.FacultyId" required="" />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm">
+                                <input type="text" class="form-control" placeholder="Speciality name" name="SpecialityName" required=""/>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -29,19 +34,19 @@
                         <div class="form-group row">
                             <div class="col">
                                 <div class="col-sm">
-                                    <input type="number" class="form-control" min="0" step="1" placeholder="Free spaces" name="FreeSpaces" />
+                                    <input type="number" class="form-control" min="0" step="1" placeholder="Free spaces" name="FreeSpaces"/>
                                 </div>
                             </div>
 
                             <div class="col">
                                 <div class="col-sm">
-                                    <input type="number" class="form-control" min="0" step="1" placeholder="Paid spaces" name="PaidSpaces" />
+                                    <input type="number" class="form-control" min="0" step="1" placeholder="Paid spaces" name="PaidSpaces"/>
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">Required ZNO</label>
+                        <div class="form-group row">                            
                             <div class="col-sm">
+                                <label>Required ZNO</label>
                                 <select multiple class="chosen-select" id="znoSelector" asp-for="ZNO">
                                     <option selected disabled>Ukrainian</option>
                                     <option>Math</option>

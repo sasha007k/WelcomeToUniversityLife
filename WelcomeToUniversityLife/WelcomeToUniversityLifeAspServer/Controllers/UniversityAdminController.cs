@@ -60,13 +60,8 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
             return View("University", universityAndFaculties);
         }
 
-        public IActionResult EditUniversityInfo(University currentUniversity)
-        {
-            return View(currentUniversity);
-        }
-
         [HttpPost]
-        public async Task<IActionResult> EditUniversityInfo(UniversityInfoModel model)
+        public async Task<IActionResult> EditUniversityInfo(University model)
         {
             var result = false;
             if (model != null)
@@ -83,10 +78,6 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
             return RedirectToAction("University", "UniversityAdmin");
         }
 
-        public IActionResult AddFaculty()
-        {
-            return View(new AddFacultyModel());
-        }
 
         [HttpPost]
         public async Task<IActionResult> AddFaculty(AddFacultyModel model)
@@ -140,7 +131,7 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
                 var result = await _universityAdminService.AddSpecialityAsync(model);
                 if (result)
                 {
-                    return RedirectToAction("GetFaculty", "UniversityAdmin", model.FacultyId);
+                    return RedirectToAction("GetFaculty", "UniversityAdmin", new { id = model.FacultyId });
                 }
             }
             return RedirectToAction("AddSpeciality", "UniversityAdmin");
@@ -155,6 +146,24 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
             await _universityAdminService.UploadUniversityPhotoAsync(requestData, uploadedFiles);
 
             return RedirectToAction("University","UniversityAdmin");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditFacultyInfo(FacultyInfoModel model)
+        {
+            var result = false;
+            if (model != null)
+            {
+                result = await _universityAdminService.EditUniversity(null).ConfigureAwait(true);
+            }
+
+
+            if (!result)
+            {
+                // do smth
+            }
+
+            return RedirectToAction("University", "UniversityAdmin");
         }
     }
 }

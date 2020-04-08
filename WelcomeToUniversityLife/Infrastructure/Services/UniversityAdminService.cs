@@ -27,7 +27,7 @@ namespace Infrastructure.Services
             _photoHelper = photoHelper;
         }
 
-        public async Task<bool> EditUniversity(UniversityInfoModel model)
+        public async Task<bool> EditUniversity(University model)
         {
             var userName = _httpContext.HttpContext.User.Identity.Name;
             var user = await _userManager.FindByNameAsync(userName);
