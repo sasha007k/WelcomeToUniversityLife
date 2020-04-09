@@ -10,15 +10,19 @@ using Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace WelcomeToUniversityLifeAspServer.Controllers
 {
     public class UniversityAdminController : Controller
     {
         IUniversityAdminService _universityAdminService;
-        public UniversityAdminController(IUniversityAdminService universityAdminService)
+        ILogger<UniversityAdminController> _log;
+        public UniversityAdminController(IUniversityAdminService universityAdminService, ILogger<UniversityAdminController> log)
         {
             _universityAdminService = universityAdminService;
+            _log = log;
+
         }
         public async Task<ActionResult> University()
         {
@@ -37,6 +41,8 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
                 ViewBag.iseditable = userId == universityAndFaculties.CurrentUniversity.UserId;
             }
 
+
+            _log.LogInformation("Show university");
             return View(universityAndFaculties);
         }
 
@@ -57,6 +63,7 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
                 ViewBag.iseditable = userId == universityAndFaculties.CurrentUniversity.UserId;        
             }
 
+            _log.LogInformation("Show university");
             return View("University", universityAndFaculties);
         }
 
@@ -74,6 +81,7 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
                 // do smth
             }
 
+            _log.LogInformation("Show edit university info");
             return RedirectToAction("University", "UniversityAdmin");
         }
 
@@ -89,6 +97,8 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
                     return RedirectToAction("University", "UniversityAdmin");
                 }
             }
+
+            _log.LogInformation("Show add faculty info");
             return RedirectToAction("AddFaculty", "UniversityAdmin");
         }
 
