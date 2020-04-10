@@ -98,7 +98,7 @@
                     <input type="text" id="" class="form-control" value="@Model.CurrentFaculty.Address" readonly>
 
                     <label for="" class="grey-text font-weight-light">Description</label>
-                    <textarea type="text" id="" class="form-control" readonly>@Model.CurrentFaculty.Description</textarea>
+                    <textarea type="text" id="" class="form-control" style="resize: none" readonly>@Model.CurrentFaculty.Description</textarea>
 
 
                     @if (User.IsInRole("UniversityAdmin") && ViewBag.iseditable)

@@ -17,12 +17,12 @@
                         <tr>
                             <th scope="col" style="text-align: center"><h3>Faculty</h3></th>
                             <th scope="col" style="text-align: center"><h3>Address</h3></th>
-                            <th scope="col" style="text-align: center; width: 10%;">
-                                @if (User.IsInRole("UniversityAdmin") && ViewBag.iseditable)
-                                {
+                            @if (User.IsInRole("UniversityAdmin") && ViewBag.iseditable)
+                            {
+                                <th scope="col" style="text-align: center; width: 10%;">
                                     @await Html.PartialAsync("/Views/PopUpWindows/AddFacultyPopUp.cshtml")
-                                }
-                            </th>
+                                </th>
+                            }
                         </tr>
                     </thead>
                     <tbody>
