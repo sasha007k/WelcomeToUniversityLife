@@ -14,26 +14,27 @@
             {
                 <table class="content-table table table-hover">
                     <thead>
-                        <tr>
-                            <th scope="col" style="text-align: center">Speciality</th>
-                            <th scope="col" style="text-align: center">Free Spaces</th>
-                            <th scope="col" style="text-align: center">Paid Spaces</th>
-                            <th scope="col" style="text-align: center">Required ZNO</th>
-                            <th scope="col" style="text-align: center; width: 10%;">
-                                @if (User.IsInRole("UniversityAdmin") && ViewBag.iseditable)
-                                {
-                                    @await Html.PartialAsync("/Views/PopUpWindows/AddSpecialityPopUp.cshtml", new AddSpecialityModel() { FacultyId = Model.CurrentFaculty.Id} );
-                                }
-                            </th>
-                            @if (User.IsInRole("User"))
+                    <tr>
+                        <th scope="col" style="text-align: center">Speciality</th>
+                        <th scope="col" style="text-align: center">Free Spaces</th>
+                        <th scope="col" style="text-align: center">Paid Spaces</th>
+                        <th scope="col" style="text-align: center">Required ZNO</th>
+                        <th scope="col" style="text-align: center; width: 10%;">
+                            @if (User.IsInRole("UniversityAdmin") && ViewBag.iseditable)
                             {
-                                <th scope="col" style="text-align: center"></th>
+                                @await Html.PartialAsync("/Views/PopUpWindows/AddSpecialityPopUp.cshtml", new AddSpecialityModel {FacultyId = Model.CurrentFaculty.Id})
+                                ;
                             }
-                        </tr>
+                        </th>
+                        @if (User.IsInRole("User"))
+                        {
+                            <th scope="col" style="text-align: center"></th>
+                        }
+                    </tr>
                     </thead>
                     <tbody>
-                        @foreach (var speciality in Model.Specialities)
-                        {
+                    @foreach (var speciality in Model.Specialities)
+                    {
                         <tr style="text-align: center">
                             <td>
                                 <h5>
@@ -76,7 +77,7 @@
                                 </td>
                             }
                         </tr>
-                        }
+                    }
                     </tbody>
                 </table>
             }
@@ -125,7 +126,7 @@
         var selector = document.getElementById("znoSelector_chosen");
         selector.style.width = "100%";
 
-        $chosen.change(function () {
+        $chosen.change(function() {
             var $this = $(this);
             var chosen = $this.data('chosen');
             var search = chosen.search_container.find('input[type="text"]');

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading;
+﻿using System.Threading;
 using Application.Models.Authentication;
 using Domain.Entities;
 using Infrastructure;
@@ -24,7 +21,7 @@ namespace ApplicationTest.AuthenticationServiceTest
         public async void ShouldAuthenticateValidUser(string email, string password)
         {
             var options = new DbContextOptionsBuilder<DatabaseContext>()
-                .UseInMemoryDatabase(databaseName: "Database")
+                .UseInMemoryDatabase("Database")
                 .Options;
 
             using (var context = new DatabaseContext(options))
@@ -36,10 +33,10 @@ namespace ApplicationTest.AuthenticationServiceTest
                 });
 
                 var moq = new Mock<IUserPasswordStore<User>>();
-                moq.Setup(s => s.FindByNameAsync(email, CancellationToken.None)).ReturnsAsync(new User() { Email = email });
+                moq.Setup(s => s.FindByNameAsync(email, CancellationToken.None)).ReturnsAsync(new User {Email = email});
 
-                var userManager = new UserManager<User>(moq.Object, 
-                    null, null, null, null, null, null, null, 
+                var userManager = new UserManager<User>(moq.Object,
+                    null, null, null, null, null, null, null,
                     new Mock<ILogger<UserManager<User>>>().Object);
 
                 var signInManager = new SignInManager<User>(userManager,

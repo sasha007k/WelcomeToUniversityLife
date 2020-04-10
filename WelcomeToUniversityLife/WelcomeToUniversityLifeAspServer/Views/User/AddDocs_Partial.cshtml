@@ -1,47 +1,46 @@
 ﻿@model Application.Models.User.UserProfileModel;
 
 
-  
-    <form name="my-form" autocomplete="nope" action="/User/AddDocs" method="post"
-          enctype="multipart/form-data">
-       
-
-        <div class="input-group">
-            <div class="input-group-prepend">
-                <span class="input-group-text" id="inputGroupFileAddon01">Upload Passport Copy</span>
-            </div>
-            <div class="custom-file">
-                <input type="file" name="uploads" class="custom-file-input" id="inputGroupFile01"
-                       aria-describedby="inputGroupFileAddon01">
-                <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
-            </div>
-        </div>
+<form name="my-form" autocomplete="nope" action="/User/AddDocs" method="post"
+      enctype="multipart/form-data">
 
 
-        <br>
-        <div class="input-group">
-            <div class="input-group-prepend">
-                <span class="input-group-text" id="inputGroupFileAddon01">Upload School Certificate</span>
-            </div>
-            <div class="custom-file">
-                <input type="file" name="uploads" class="custom-file-input" id="inputGroupFile01"
-                       aria-describedby="inputGroupFileAddon01">
-                <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
-            </div>
+    <div class="input-group">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroupFileAddon01">Upload Passport Copy</span>
         </div>
-        <br>
-        <div class="input-group">
-            <div class="input-group-prepend">
-                <span class="input-group-text" id="inputGroupFileAddon01">Upload ZNO Certificate</span>
-            </div>
-            <div class="custom-file">
-                <input type="file" name="uploads" class="custom-file-input" id="inputGroupFile01"
-                       aria-describedby="inputGroupFileAddon01">
-                <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
-            </div>
+        <div class="custom-file">
+            <input type="file" name="uploads" class="custom-file-input" id="inputGroupFile01"
+                   aria-describedby="inputGroupFileAddon01">
+            <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
         </div>
+    </div>
 
-        <div>
-            <button type="submit" class="btn btn-default my-4 waves-effect z-depth-0">Update</button>
+
+    <br>
+    <div class="input-group">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroupFileAddon01">Upload School Certificate</span>
         </div>
-    </form>
+        <div class="custom-file">
+            <input type="file" name="uploads" class="custom-file-input" id="inputGroupFile01"
+                   aria-describedby="inputGroupFileAddon01">
+            <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+        </div>
+    </div>
+    <br>
+    <div class="input-group">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroupFileAddon01">Upload ZNO Certificate</span>
+        </div>
+        <div class="custom-file">
+            <input type="file" name="uploads" class="custom-file-input" id="inputGroupFile01"
+                   aria-describedby="inputGroupFileAddon01">
+            <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+        </div>
+    </div>
+
+    <div>
+        <button type="submit" class="btn btn-default my-4 waves-effect z-depth-0">Update</button>
+    </div>
+</form>

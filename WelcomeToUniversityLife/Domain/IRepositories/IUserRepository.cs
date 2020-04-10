@@ -1,5 +1,5 @@
-﻿using Domain.Entities;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Domain.Entities;
 
 namespace Domain.IRepositories
 {

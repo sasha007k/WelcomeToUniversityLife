@@ -2,20 +2,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>@ViewData["Title"] - WelcomeToUniversityLifeAspServer</title>
 
 
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/lib/choosen/chosen.css" />
-    <link rel="stylesheet" href="~/lib/choosen/docsupport/prism.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
-    <link rel="stylesheet" href="~/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/mdb.min.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="~/lib/choosen/chosen.css"/>
+    <link rel="stylesheet" href="~/lib/choosen/docsupport/prism.css"/>
+    <link rel="stylesheet" href="~/css/site.css"/>
+    <link rel="stylesheet" href="~/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="~/css/mdb.min.css"/>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
-    <link rel="stylesheet" href="~/css/style.css" />
+    <link rel="stylesheet" href="~/css/style.css"/>
 
     @*<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
@@ -34,91 +34,91 @@
 </head>
 
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm border-bottom box-shadow mb-3">
-            <div class="container">
-                <a id="welcomelink" class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Welcome</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-            </div>
-            <div class="my-2 my-lg-0">
-                <ul class="navbar-nav flex-grow-1">
-                    <li class="nav-item">
-                        <a class="nav-link @Html.IsSelected(actions: "AllUniversities", controllers: "SiteAdmin", cssClass: "active")" asp-area="" asp-controller="SiteAdmin" asp-action="AllUniversities">All Universities</a>
-                    </li>
-                    @if (!User.Identity.IsAuthenticated)
-                    {
-                        <li class="nav-item">
-                            <a class="nav-link @Html.IsSelected(actions: "SignIn", controllers: "Authentication", cssClass: "active")" asp-area="" asp-controller="Authentication" asp-action="SignIn">Sign In</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link @Html.IsSelected(actions: "Register", controllers: "Authentication", cssClass: "active")" asp-area="" asp-controller="Authentication" asp-action="Register">Sign Up</a>
-                        </li>
-                    }
-                    @if (User.Identity.IsAuthenticated && User.IsInRole("UniversityAdmin"))
-                    {
-                        <li class="nav-item">
-                            <a class="nav-link @Html.IsSelected(actions: "University", controllers: "UniversityAdmin", cssClass: "active")" asp-area="" asp-controller="UniversityAdmin" asp-action="University">
-                                <img id="universityphoto" src="~/systemphotos/university.png" title="University" />
-                            </a>
-                        </li>
-                    }
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        <li class="nav-item">
-                            <a class="nav-link @Html.IsSelected(actions: "Profile", controllers: "User", cssClass: "active")" asp-area="" asp-controller="User" asp-action="Profile">
-                                <img id="profilephoto" src="~/systemphotos/profile.png" title="Profile" />
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link @Html.IsSelected(actions: "SignOut", controllers: "Authentication", cssClass: "active")" asp-area="" asp-controller="Authentication" asp-action="SignOut">
-                                <img id="exitphoto" src="~/systemphotos/signout.png" title="Sign Out" />
-                            </a>
-                        </li>
-                    }
-                </ul>
-            </div>
-        </nav>
-    </header>
-    <div class="container-fluid">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-
-
-    </div>
-
-
-    <div class="fixer-footer"></div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container text-center" style="color: #007BFF;">
-            &copy; 2020 - UniversityStart.ua
+<header>
+    <nav class="navbar navbar-expand-sm border-bottom box-shadow mb-3">
+        <div class="container">
+            <a id="welcomelink" class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Welcome</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
         </div>
-    </footer>
+        <div class="my-2 my-lg-0">
+            <ul class="navbar-nav flex-grow-1">
+                <li class="nav-item">
+                    <a class="nav-link @Html.IsSelected(actions: "AllUniversities", controllers: "SiteAdmin", cssClass: "active")" asp-area="" asp-controller="SiteAdmin" asp-action="AllUniversities">All Universities</a>
+                </li>
+                @if (!User.Identity.IsAuthenticated)
+                {
+                    <li class="nav-item">
+                        <a class="nav-link @Html.IsSelected(actions: "SignIn", controllers: "Authentication", cssClass: "active")" asp-area="" asp-controller="Authentication" asp-action="SignIn">Sign In</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link @Html.IsSelected(actions: "Register", controllers: "Authentication", cssClass: "active")" asp-area="" asp-controller="Authentication" asp-action="Register">Sign Up</a>
+                    </li>
+                }
+                @if (User.Identity.IsAuthenticated && User.IsInRole("UniversityAdmin"))
+                {
+                    <li class="nav-item">
+                        <a class="nav-link @Html.IsSelected(actions: "University", controllers: "UniversityAdmin", cssClass: "active")" asp-area="" asp-controller="UniversityAdmin" asp-action="University">
+                            <img id="universityphoto" src="~/systemphotos/university.png" title="University"/>
+                        </a>
+                    </li>
+                }
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <li class="nav-item">
+                        <a class="nav-link @Html.IsSelected(actions: "Profile", controllers: "User", cssClass: "active")" asp-area="" asp-controller="User" asp-action="Profile">
+                            <img id="profilephoto" src="~/systemphotos/profile.png" title="Profile"/>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link @Html.IsSelected(actions: "SignOut", controllers: "Authentication", cssClass: "active")" asp-area="" asp-controller="Authentication" asp-action="SignOut">
+                            <img id="exitphoto" src="~/systemphotos/signout.png" title="Sign Out"/>
+                        </a>
+                    </li>
+                }
+            </ul>
+        </div>
+    </nav>
+</header>
+<div class="container-fluid">
+    <main role="main" class="pb-3">
+        @RenderBody()
+    </main>
 
-    <script src="~/js/jquery.min.js"></script>
-    <script src="~/js/bootstrap.min.js"></script>
-    <script src="~/js/mdb.min.js"></script>
-    <script src="~/js/popper.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js"></script>
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+</div>
 
-    <script src="http://code.jquery.com/jquery-3.3.1.min.js"
-            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-            crossorigin="anonymous"></script>
 
-    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-    
-    <script src="~/lib/choosen/chosen.jquery.js"></script>
+<div class="fixer-footer"></div>
 
-@RenderSection("Scripts", required: false)
+<footer class="border-top footer text-muted">
+    <div class="container text-center" style="color: #007BFF;">
+        &copy; 2020 - UniversityStart.ua
+    </div>
+</footer>
+
+<script src="~/js/jquery.min.js"></script>
+<script src="~/js/bootstrap.min.js"></script>
+<script src="~/js/mdb.min.js"></script>
+<script src="~/js/popper.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+<script src="http://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+
+<script src="~/lib/choosen/chosen.jquery.js"></script>
+
+@RenderSection("Scripts", false)
 
 </body>
 </html>

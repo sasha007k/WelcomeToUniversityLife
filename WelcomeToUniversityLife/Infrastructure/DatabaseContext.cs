@@ -1,13 +1,17 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
-using Domain.Entities;
+﻿using Domain.Entities;
 using Infrastructure.Configurations;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure
 {
     public class DatabaseContext : IdentityDbContext<User, IdentityRole<int>, int>
     {
+        public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
+        {
+        }
+
         public DbSet<Document> Documents { get; set; }
         public DbSet<University> Universities { get; set; }
         public DbSet<Speciality> Specialities { get; set; }
@@ -15,11 +19,6 @@ namespace Infrastructure
         public DbSet<ZNO> ZNOs { get; set; }
         public DbSet<Request> Applications { get; set; }
         public DbSet<Faculty> Faculties { get; set; }
-
-        public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
-        {
-
-        }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

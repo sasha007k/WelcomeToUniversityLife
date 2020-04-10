@@ -9,8 +9,8 @@ namespace Infrastructure.Services
 {
     public class AuthenticationService : IAuthenticationService
     {
-        UserManager<User> _userManager;
-        SignInManager<User> _signInManager;
+        private readonly SignInManager<User> _signInManager;
+        private readonly UserManager<User> _userManager;
 
         public AuthenticationService(UserManager<User> userManager, SignInManager<User> signInManager)
         {

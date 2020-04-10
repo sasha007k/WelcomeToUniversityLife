@@ -1,7 +1,7 @@
-﻿using Domain;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Threading.Tasks;
+using Domain;
 
 namespace Infrastructure
 {
@@ -21,7 +21,7 @@ namespace Infrastructure
 
         public async Task DeleteAsync(int id)
         {
-            TEntity entity = await _context.Set<TEntity>().FindAsync(id);
+            var entity = await _context.Set<TEntity>().FindAsync(id);
             if (entity != null)
                 _context.Set<TEntity>().Remove(entity);
         }

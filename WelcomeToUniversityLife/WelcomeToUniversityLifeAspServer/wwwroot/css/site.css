@@ -2,81 +2,75 @@
 for details on configuring this project to bundle and minify static web assets. */
 
 a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
+    text-align: center;
+    white-space: normal;
+    word-break: break-all;
 }
 
 /* Provide sufficient contrast against white background */
-a {
-  color: #0366d6;
-}
+
+a { color: #0366d6; }
 
 .btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+    color: #fff;
 }
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+    color: #fff;
 }
 
 /* Sticky footer styles
 -------------------------------------------------- */
-html {
-  font-size: 14px;
-}
+
+html { font-size: 14px; }
+
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html { font-size: 16px; }
 }
 
-.border-top {
-  border-top: 1px solid #e5e5e5;
-}
-.border-bottom {
-  border-bottom: 1px solid #e5e5e5;
-}
+.border-top { border-top: 1px solid #e5e5e5; }
 
-.box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
-}
+.border-bottom { border-bottom: 1px solid #e5e5e5; }
+
+.box-shadow { box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05); }
 
 button.accept-policy {
-  font-size: 1rem;
-  line-height: inherit;
+    font-size: 1rem;
+    line-height: inherit;
 }
 
 /* Sticky footer styles
 -------------------------------------------------- */
+
 html {
-  position: relative;
-  min-height: 100%;
+    min-height: 100%;
+    position: relative;
 }
 
 
 body {
     /* Margin bottom by footer height */
     background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpSkzOAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABZ0RVh0Q3JlYXRpb24gVGltZQAxMC8yOS8xMiKqq3kAAAAcdEVYdFNvZnR3YXJlAEFkb2JlIEZpcmV3b3JrcyBDUzVxteM2AAABHklEQVRIib2Vyw6EIAxFW5idr///Qx9sfG3pLEyJ3tAwi5EmBqRo7vHawiEEERHS6x7MTMxMVv6+z3tPMUYSkfTM/R0fEaG2bbMv+Gc4nZzn+dN4HAcREa3r+hi3bcuu68jLskhVIlW073tWaYlQ9+F9IpqmSfq+fwskhdO/AwmUTJXrOuaRQNeRkOd5lq7rXmS5InmERKoER/QMvUAPlZDHcZRhGN4CSeGY+aHMqgcks5RrHv/eeh455x5KrMq2yHQdibDO6ncG/KZWL7M8xDyS1/MIO0NJqdULLS81X6/X6aR0nqBSJcPeZnlZrzN477NKURn2Nus8sjzmEII0TfMiyxUuxphVWjpJkbx0btUnshRihVv70Bv8ItXq6Asoi/ZiCbU6YgAAAABJRU5ErkJggg==);
-    margin-bottom: 60px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    margin-bottom: 60px;
 }
+
 .footer {
-    position: absolute;
+    background-color: #d9d9d9;
     bottom: 0;
-    width: 100%;
-    white-space: nowrap;
+    color: #007BFF;
     /* Set the fixed height of the footer here */
     height: 60px;
     line-height: 60px; /* Vertically center the text there */
-    background-color: #d9d9d9;
-    color: #007BFF;
+    position: absolute;
+    white-space: nowrap;
+    width: 100%;
 }
 
 .nav {
@@ -84,35 +78,36 @@ body {
     color: #000000;
 }
 
-#universityphoto{
-    width:30px;
-    height:30px;
+#universityphoto {
+    height: 30px;
+    width: 30px;
 }
 
 #exitphoto {
-    width: 30px;
     height: 30px;
+    width: 30px;
 }
 
 #profilephoto {
-    width: 30px;
     height: 30px;
+    width: 30px;
 }
 
-#welcomelink{
-    font-weight:600;
-    text-transform:uppercase;
+#welcomelink {
+    font-weight: 600;
+    text-transform: uppercase;
 }
 
 #newitemphoto {
-    width: 35px;
-    height: 35px;
     -webkit-transition: -webkit-transform .8s ease-in-out;
+    height: 35px;
     transition: transform .8s ease-in-out;
+    width: 35px;
 }
+
 #newitemlink {
-    width: 50px;
     height: 50px;
+    width: 50px;
 }
 
 #newitemphoto:hover {
@@ -120,79 +115,67 @@ body {
     transform: rotate(360deg);
 }
 
-.content-table{
-    border-collapse:collapse;
-    margin:25px 0;
-    font-size:0.9em;
-    min-width:400px;
-    border-radius:5px 5px 0 0;
-    overflow:hidden;
-    box-shadow:0 0 20px rgba(0,0,0,15);
+.content-table {
+    border-collapse: collapse;
+    border-radius: 5px 5px 0 0;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 15);
+    font-size: 0.9em;
+    margin: 25px 0;
+    min-width: 400px;
+    overflow: hidden;
 }
 
-.content-table thead tr{
-    background-color:#009879;
-    color:#ffffff;
-    text-align:left;
-    font-weight:bold;
+.content-table thead tr {
+    background-color: #009879;
+    color: #ffffff;
+    font-weight: bold;
+    text-align: left;
 }
 
 .content-table th
-.content-table td{
-    padding:12px 15px;
+.content-table td { padding: 12px 15px; }
+
+.content-table tbody tr {
+    background-color: white;
+    border-bottom: 1px solid #dddddd;
 }
 
-.content-table tbody tr{
-    border-bottom:1px solid #dddddd;
-    background-color:white;
-}
+.content-table tbody tr:nth-last-of-type(even) { background-color: #f3f3f3; }
 
-.content-table tbody tr:nth-last-of-type(even){
-    background-color:#f3f3f3;
-}
+.content-table tbody tr:last-of-type { border-bottom: 2px solid #009879; }
 
-.content-table tbody tr:last-of-type{
-    border-bottom:2px solid #009879; 
-}
+.content-table tbody tr:hover { color: #009879; }
 
-    .content-table tbody tr:hover {
-        color: #009879;
-    }
-
-.universityphoto{
-    max-height:80px;
-    width:100%;
-    margin-bottom:8px;
+.universityphoto {
+    margin-bottom: 8px;
+    max-height: 80px;
+    width: 100%;
 }
 
 .uploadphoto {
-    width: 50px;
     max-height: 80px;
-    padding-bottom:8px;
+    padding-bottom: 8px;
+    width: 50px;
 }
 
-.photoupload{
-    display:none;
-}
+.photoupload { display: none; }
 
 .photointable {
     height: 100px;
-    width:300px;
+    width: 300px;
 }
 
 #deleteicon {
-    width: 20px;
     height: 20px;
     position: absolute;
-    top: -5px;
     right: -8px;
+    top: -5px;
+    width: 20px;
 }
 
 #deleteicon:hover {
-    width: 25px;
     height: 25px;
+    width: 25px;
 }
 
-#photodiv{
-    position:relative;
-}
+#photodiv { position: relative; }

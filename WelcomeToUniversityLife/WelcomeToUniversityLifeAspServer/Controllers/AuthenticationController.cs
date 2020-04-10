@@ -1,21 +1,22 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Application.IServices;
 using Application.Models.Authentication;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 
 namespace WelcomeToUniversityLifeAspServer.Controllers
 {
     public class AuthenticationController : Controller
     {
-        IAuthenticationService _authenticationService;
+        private readonly IAuthenticationService _authenticationService;
+
         public AuthenticationController(IAuthenticationService authenticationService)
         {
             _authenticationService = authenticationService;
         }
 
         [HttpGet]
-        public  IActionResult Register()
+        public IActionResult Register()
         {
             return View();
         }
@@ -24,15 +25,9 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
         public async Task<IActionResult> Register(RegisterModel model)
         {
             if (ModelState.IsValid)
-            {
                 if (await _authenticationService.FindByEmailAsync(model.Email) == null)
-                {
                     if ((await _authenticationService.Register(model)).Succeeded)
-                    {
                         return RedirectToAction("Profile", "User");
-                    }
-                }
-            }
             return View();
         }
 
@@ -53,6 +48,7 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
                 case "SiteAdmin":
                     return RedirectToAction("AllUniversities", "SiteAdmin");
             }
+
             return RedirectToAction();
         }
 
@@ -67,10 +63,8 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
                     var route = ChooseStartPage(role);
                     return route;
                 }
-                else
-                {
-                    ModelState.AddModelError("", "Login or password is incorrect!");
-                }
+
+                ModelState.AddModelError("", "Login or password is incorrect!");
             }
 
             return View();

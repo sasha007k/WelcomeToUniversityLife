@@ -7,11 +7,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories
 {
-    public class SpecialityRepository:Repository<Speciality,int>,ISpecialityRepository
+    public class SpecialityRepository : Repository<Speciality, int>, ISpecialityRepository
     {
-        public SpecialityRepository(DatabaseContext context):base(context)
+        public SpecialityRepository(DatabaseContext context) : base(context)
         {
         }
+
         public Task<List<Speciality>> GetAllSpecialitiesWithFacultyId(int facultyId)
         {
             return _context.Specialities

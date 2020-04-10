@@ -1,5 +1,3 @@
-using System;
-
 namespace WelcomeToUniversityLifeAspServer.Models
 {
     public class ErrorViewModel

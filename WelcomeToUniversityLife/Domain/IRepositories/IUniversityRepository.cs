@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
-using Domain.Entities;
 using System.Threading.Tasks;
+using Domain.Entities;
 
 namespace Domain.IRepositories
 {
-    public interface IUniversityRepository:IRepository<University,int>
+    public interface IUniversityRepository : IRepository<University, int>
     {
         Task<University> GetUniversityWithUser(int universityId);
         Task<List<University>> GetAllUniversitities();

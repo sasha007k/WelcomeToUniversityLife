@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Application.Models.SiteAdmin;
 using Domain.Entities;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Application.IServices
 {

@@ -7,8 +7,8 @@ namespace Infrastructure.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<int>(
-                name: "NumberOfApplications",
-                table: "Users",
+                "NumberOfApplications",
+                "Users",
                 nullable: false,
                 defaultValue: 0);
         }
@@ -16,8 +16,8 @@ namespace Infrastructure.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "NumberOfApplications",
-                table: "Users");
+                "NumberOfApplications",
+                "Users");
         }
     }
 }

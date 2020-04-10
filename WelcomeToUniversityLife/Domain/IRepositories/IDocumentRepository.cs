@@ -2,7 +2,7 @@
 
 namespace Domain.IRepositories
 {
-    public interface IDocumentRepository:IRepository<Document,int>
+    public interface IDocumentRepository : IRepository<Document, int>
     {
     }
 }

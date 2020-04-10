@@ -1,38 +1,34 @@
-﻿using Domain;
+﻿using System.Threading.Tasks;
+using Domain;
 using Domain.IRepositories;
 using Infrastructure.Repositories;
-using System.Threading.Tasks;
 
 namespace Infrastructure
 {
-
     public class UnitOfWork : IUnitOfWork
     {
-        private IUserRepository userRepository;
-        private IZNORepository znoRepository;
         private IApplicationRepository applicationRepository;
-        private IUniversityRepository universityRepository;
+        private IDocumentRepository documentRepository;
         private IFacultyRepository facultyRepository;
         private ISpecialityRepository specialityRepository;
-        private IDocumentRepository documentRepository;
-
-        public DatabaseContext _context { get; private set; }
+        private IUniversityRepository universityRepository;
+        private IUserRepository userRepository;
+        private IZNORepository znoRepository;
 
         public UnitOfWork(DatabaseContext context)
         {
             _context = context;
         }
 
+        public DatabaseContext _context { get; }
+
         public IUserRepository UserRepository
         {
             get
             {
-                if (this.userRepository == null)
-                {
-                    userRepository = new UserRepository(_context);
-                }
+                if (userRepository == null) userRepository = new UserRepository(_context);
 
-                return this.userRepository;
+                return userRepository;
             }
         }
 
@@ -40,25 +36,19 @@ namespace Infrastructure
         {
             get
             {
-                if (this.znoRepository == null)
-                {
-                    znoRepository = new ZnoRepository(_context);
-                }
+                if (znoRepository == null) znoRepository = new ZnoRepository(_context);
 
-                return this.znoRepository;
+                return znoRepository;
             }
         }
 
-        public IApplicationRepository ApplicationRepository 
+        public IApplicationRepository ApplicationRepository
         {
             get
             {
-                if (this.applicationRepository == null)
-                {
-                    this.applicationRepository = new ApplicationRepository(this._context);
-                }
+                if (applicationRepository == null) applicationRepository = new ApplicationRepository(_context);
 
-                return this.applicationRepository;
+                return applicationRepository;
             }
         }
 
@@ -66,12 +56,9 @@ namespace Infrastructure
         {
             get
             {
-                if (this.facultyRepository == null)
-                {
-                    this.facultyRepository = new FacultyRepository(this._context);
-                }
+                if (facultyRepository == null) facultyRepository = new FacultyRepository(_context);
 
-                return this.facultyRepository;
+                return facultyRepository;
             }
         }
 
@@ -79,12 +66,9 @@ namespace Infrastructure
         {
             get
             {
-                if (this.specialityRepository == null)
-                {
-                    this.specialityRepository = new SpecialityRepository(this._context);
-                }
+                if (specialityRepository == null) specialityRepository = new SpecialityRepository(_context);
 
-                return this.specialityRepository;
+                return specialityRepository;
             }
         }
 
@@ -92,12 +76,9 @@ namespace Infrastructure
         {
             get
             {
-                if (this.universityRepository == null)
-                {
-                    this.universityRepository = new UniversityRepository(this._context);
-                }
+                if (universityRepository == null) universityRepository = new UniversityRepository(_context);
 
-                return this.universityRepository;
+                return universityRepository;
             }
         }
 
@@ -105,12 +86,9 @@ namespace Infrastructure
         {
             get
             {
-                if (this.documentRepository == null)
-                {
-                    this.documentRepository = new DocumentRepository(this._context);
-                }
+                if (documentRepository == null) documentRepository = new DocumentRepository(_context);
 
-                return this.documentRepository;
+                return documentRepository;
             }
         }
 

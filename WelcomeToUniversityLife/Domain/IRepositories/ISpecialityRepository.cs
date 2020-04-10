@@ -4,7 +4,7 @@ using Domain.Entities;
 
 namespace Domain.IRepositories
 {
-    public interface ISpecialityRepository:IRepository<Speciality,int>
+    public interface ISpecialityRepository : IRepository<Speciality, int>
     {
         Task<List<Speciality>> GetAllSpecialitiesWithFacultyId(int facultyId);
     }

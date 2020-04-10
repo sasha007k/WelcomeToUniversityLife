@@ -4,48 +4,49 @@
     ViewData["Title"] = "Universities";
 }
 
-<div class="@(User.IsInRole("SiteAdmin")? "row":"container") ">
+<div class="@(User.IsInRole("SiteAdmin") ? "row" : "container") ">
     <div class="col-sm ">
         <div class="container">
             <table class="content-table table table-hover  table-fluid" id="universitytable">
                 <thead>
-                    <tr>
-                        <th scope="col" style="text-align:center">University</th>
-                        <th scope="col" style="text-align:center">City</th>
-                        @*<th scope="col" style="text-align:center"></th>*@
-                    </tr>
+                <tr>
+                    <th scope="col" style="text-align: center">University</th>
+                    <th scope="col" style="text-align: center">City</th>
+                    @*<th scope="col" style="text-align:center"></th>*@
+                </tr>
                 </thead>
                 <tbody>
-                    @foreach (var university in Model)
-                    {
-                        <tr style="text-align:center" onclick="window.location='@Url.Action("GetUniversity", "UniversityAdmin", new { id = university.Id})'">
-                            <td>
-                                <h3>
-                                    @university.Name
-                                </h3>
-                            </td>
+                @foreach (var university in Model)
+                {
+                    <tr style="text-align: center" onclick="window.location = '@Url.Action("GetUniversity", "UniversityAdmin", new {id = university.Id})'">
+                        <td>
+                            <h3>
+                                @university.Name
+                            </h3>
+                        </td>
 
-                            <td>
-                                <h3>
-                                    @university.City
-                                </h3>
-                            </td>
-                            @*<td>
+                        <td>
+                            <h3>
+                                @university.City
+                            </h3>
+                        </td>
+                        @*<td>
                             @if (university.Photo != null)
                             {
                                 <img class="photointable p-0" src="~/universitiesphotos/@university.Photo" />
                             }
                         </td>*@
-                        </tr>
-                    }
+                    </tr>
+                }
                 </tbody>
             </table>
-            </div>
         </div>
+    </div>
     <div class="col-2">
         @if (User.IsInRole("SiteAdmin"))
         {
-            @await Html.PartialAsync("/Views/PopUpWindows/AddUniversityPopUp.cshtml");
+            @await Html.PartialAsync("/Views/PopUpWindows/AddUniversityPopUp.cshtml")
+            ;
         }
     </div>
 </div>
@@ -53,9 +54,9 @@
 @section Scripts{
 
     <script>
-        $(document).ready( function () {
-    $('#universitytable').DataTable();
-} );
+        $(document).ready(function() {
+            $('#universitytable').DataTable();
+        });
     </script>
 
 }

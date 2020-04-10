@@ -1,9 +1,9 @@
 using System.Reflection;
 using Application.IServices;
-using Infrastructure.Services;
 using Domain;
 using Domain.Entities;
 using Infrastructure;
+using Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -32,12 +32,12 @@ namespace WelcomeToUniversityLifeAspServer
             services.AddControllersWithViews();
 
             services.AddDbContext<DatabaseContext>(options =>
-              options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),
-                 builder => builder.MigrationsAssembly(typeof(Startup).GetTypeInfo().Assembly.GetName().Name)));
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),
+                    builder => builder.MigrationsAssembly(typeof(Startup).GetTypeInfo().Assembly.GetName().Name)));
 
             services.AddIdentity<User, IdentityRole<int>>()
-           .AddEntityFrameworkStores<DatabaseContext>()
-           .AddDefaultTokenProviders();
+                .AddEntityFrameworkStores<DatabaseContext>()
+                .AddDefaultTokenProviders();
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme);
 
@@ -55,10 +55,7 @@ namespace WelcomeToUniversityLifeAspServer
                 options.Password.RequireLowercase = false;
             });
 
-            services.AddLogging(loggingBuilder =>
-            {
-                loggingBuilder.AddSeq(Configuration.GetSection("Seq"));
-            });
+            services.AddLogging(loggingBuilder => { loggingBuilder.AddSeq(Configuration.GetSection("Seq")); });
 
             //---Applying Services
             services.AddScoped<IPhotoHelper, PhotoHelper>();
@@ -66,7 +63,7 @@ namespace WelcomeToUniversityLifeAspServer
             services.AddScoped<IAuthenticationService, AuthenticationService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ISiteAdminService, SiteAdminService>();
-            services.AddScoped<IUniversityAdminService, UniversityAdminService>();
+            services.AddScoped<IUniversityService, UniversityService>();
             services.AddScoped<IZnoService, ZnoService>();
         }
 
@@ -99,8 +96,8 @@ namespace WelcomeToUniversityLifeAspServer
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Authentication}/{action=SignIn}/{id?}");
+                    "default",
+                    "{controller=Authentication}/{action=SignIn}/{id?}");
             });
         }
     }

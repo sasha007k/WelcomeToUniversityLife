@@ -1,24 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Application.IServices;
 using Application.Models.SiteAdmin;
-using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WelcomeToUniversityLifeAspServer.Controllers
 {
     public class SiteAdminController : Controller
     {
-        ISiteAdminService _siteAdminService;
+        private readonly ISiteAdminService _siteAdminService;
+
         public SiteAdminController(ISiteAdminService siteAdminService)
         {
             _siteAdminService = siteAdminService;
         }
+
         public ActionResult AllUniversities()
         {
-            var universities =  _siteAdminService.GetAllUniversities();
+            var universities = _siteAdminService.GetAllUniversities();
             return View(universities);
         }
 

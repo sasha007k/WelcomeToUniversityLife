@@ -1,19 +1,19 @@
-﻿using Application.IServices;
-using Domain.Entities;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Application.IServices;
 using Domain;
+using Domain.Entities;
 
 namespace Infrastructure.Services
 {
-    class DocumentService : IDocumentService
+    internal class DocumentService : IDocumentService
     {
-        IUnitOfWork _unitOfWork;
+        private readonly IUnitOfWork _unitOfWork;
 
         public DocumentService(IUnitOfWork unitOfWork)
         {
-            this._unitOfWork = unitOfWork;
-
+            _unitOfWork = unitOfWork;
         }
+
         public async Task<bool> Create(Document document)
         {
             await _unitOfWork.DocumentRepository.CreateAsync(document);

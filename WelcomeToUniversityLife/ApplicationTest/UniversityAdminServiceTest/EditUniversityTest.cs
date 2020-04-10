@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading;
-using Application.Models.UniversityAdmin;
+﻿using System.Threading;
 using Domain.Entities;
 using Infrastructure;
+using Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -13,7 +10,6 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Moq;
 using Xunit;
-using UniversityAdminService = Infrastructure.Services.UniversityAdminService;
 
 namespace ApplicationTest.UniversityAdminServiceTest
 {
@@ -24,12 +20,12 @@ namespace ApplicationTest.UniversityAdminServiceTest
         public async void ShouldEditUniversity(string email, string universityName, string city)
         {
             var options = new DbContextOptionsBuilder<DatabaseContext>()
-                .UseInMemoryDatabase(databaseName: "Database")
+                .UseInMemoryDatabase("Database")
                 .Options;
 
             using (var context = new DatabaseContext(options))
             {
-                User user = new User()
+                var user = new User
                 {
                     UserName = email,
                     Email = email
@@ -42,7 +38,7 @@ namespace ApplicationTest.UniversityAdminServiceTest
                     UserId = user.Id
                 });
                 var moq = new Mock<IUserPasswordStore<User>>();
-                moq.Setup(s => s.FindByNameAsync(email, CancellationToken.None)).ReturnsAsync(new User() { Email = email });
+                moq.Setup(s => s.FindByNameAsync(email, CancellationToken.None)).ReturnsAsync(new User {Email = email});
 
                 var userManager = new UserManager<User>(moq.Object,
                     null, null, null, null, null, null, null,
@@ -56,9 +52,9 @@ namespace ApplicationTest.UniversityAdminServiceTest
                     new Mock<IAuthenticationSchemeProvider>().Object);
 
                 var httpContext = new HttpContextAccessor();
-                var service = new UniversityAdminService(userManager, null, httpContext, null);
+                var service = new UniversityService(userManager, null, httpContext, null);
 
-                var universityInfoModel = new University()
+                var universityInfoModel = new University
                 {
                     Name = universityName,
                     City = city

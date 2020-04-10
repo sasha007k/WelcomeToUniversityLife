@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading;
+﻿using System.Threading;
 using Application.Models.SiteAdmin;
 using Domain.Entities;
 using Infrastructure;
+using Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -13,7 +11,6 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Moq;
 using Xunit;
-using SiteAdminService = Infrastructure.Services.SiteAdminService;
 
 namespace ApplicationTest.SiteAdminServiceTest
 {
@@ -21,10 +18,10 @@ namespace ApplicationTest.SiteAdminServiceTest
     {
         [Theory]
         [InlineData("test@gmail.com", "12345", "LNU")]
-        public async void ShouldAddUniversity(string email, string password,string universityName)
+        public async void ShouldAddUniversity(string email, string password, string universityName)
         {
             var options = new DbContextOptionsBuilder<DatabaseContext>()
-                .UseInMemoryDatabase(databaseName: "Database")
+                .UseInMemoryDatabase("Database")
                 .Options;
 
             using (var context = new DatabaseContext(options))
@@ -36,7 +33,7 @@ namespace ApplicationTest.SiteAdminServiceTest
                 //});
 
                 var moq = new Mock<IUserPasswordStore<User>>();
-                moq.Setup(s => s.FindByNameAsync(email, CancellationToken.None)).ReturnsAsync(new User() { Email = email });
+                moq.Setup(s => s.FindByNameAsync(email, CancellationToken.None)).ReturnsAsync(new User {Email = email});
 
                 var userManager = new UserManager<User>(moq.Object,
                     null, null, null, null, null, null, null,

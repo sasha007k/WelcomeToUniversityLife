@@ -1,9 +1,6 @@
 ﻿using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Infrastructure.Configurations
 {
@@ -19,18 +16,17 @@ namespace Infrastructure.Configurations
             builder.Property(u => u.Description)
                 .HasMaxLength(1000);
             builder.Property(u => u.PaidSpaces)
-                  .IsRequired();
+                .IsRequired();
             builder.Property(u => u.FreeSpaces)
-                  .IsRequired();
+                .IsRequired();
             builder.Property(u => u.RequiredZNO1)
-                  .IsRequired();
+                .IsRequired();
             builder.Property(u => u.RequiredZNO2)
-                  .IsRequired();
+                .IsRequired();
             builder.Property(u => u.RequiredZNO3)
-                  .IsRequired();
+                .IsRequired();
             builder.Property(u => u.FacultyId)
                 .IsRequired();
-
         }
     }
 }

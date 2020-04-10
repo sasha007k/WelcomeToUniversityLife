@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Http;
 
 namespace Application.Models.User
 {
@@ -15,8 +11,7 @@ namespace Application.Models.User
         public string Phone { get; set; }
         public DateTime DateOfBirth { get; set; }
         public string City { get; set; }
-        public AddMarksModel MarksModel {get;set;}
+        public AddMarksModel MarksModel { get; set; }
         public ChangePasswordModel ChangePasswordModel { get; set; }
-        
     }
 }

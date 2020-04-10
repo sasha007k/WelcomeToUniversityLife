@@ -5,7 +5,7 @@ namespace Infrastructure.Repositories
 {
     public class ApplicationRepository : Repository<Request, int>, IApplicationRepository
     {
-        public ApplicationRepository(DatabaseContext context):base(context)
+        public ApplicationRepository(DatabaseContext context) : base(context)
         {
         }
     }

@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using Application.Models.Authentication;
-using Domain;
 using Domain.Entities;
 using Infrastructure;
-using Infrastructure.Repositories;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -26,7 +22,7 @@ namespace ApplicationTest.AuthenticationServiceTest
         public async void ShouldRegisterUser(string email, string password)
         {
             var options = new DbContextOptionsBuilder<DatabaseContext>()
-                .UseInMemoryDatabase(databaseName: "Database")
+                .UseInMemoryDatabase("Database")
                 .Options;
 
             using (var context = new DatabaseContext(options))
@@ -39,7 +35,8 @@ namespace ApplicationTest.AuthenticationServiceTest
                 });
 
                 var moq = new Mock<IUserPasswordStore<User>>();
-                moq.Setup(man => man.FindByIdAsync("1", CancellationToken.None)).ReturnsAsync(context.Set<User>().FirstOrDefaultAsync(u => u.Id == 1).Result);
+                moq.Setup(man => man.FindByIdAsync("1", CancellationToken.None))
+                    .ReturnsAsync(context.Set<User>().FirstOrDefaultAsync(u => u.Id == 1).Result);
 
                 var userManager = new UserManager<User>(moq.Object,
                     new Mock<IOptions<IdentityOptions>>().Object,
@@ -60,7 +57,7 @@ namespace ApplicationTest.AuthenticationServiceTest
 
                 var service = new AuthenticationService(userManager, signInManager);
 
-                var registerModel = new RegisterModel()
+                var registerModel = new RegisterModel
                 {
                     Email = email,
                     Password = password

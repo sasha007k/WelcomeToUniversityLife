@@ -14,16 +14,20 @@
             {
                 <table class="content-table table table-hover">
                     <thead>
-                        <tr>
-                            <th scope="col" style="text-align: center"><h3>Faculty</h3></th>
-                            <th scope="col" style="text-align: center"><h3>Address</h3></th>
-                            @if (User.IsInRole("UniversityAdmin") && ViewBag.iseditable)
-                            {
-                                <th scope="col" style="text-align: center; width: 10%;">
-                                    @await Html.PartialAsync("/Views/PopUpWindows/AddFacultyPopUp.cshtml")
-                                </th>
-                            }
-                        </tr>
+                    <tr>
+                        <th scope="col" style="text-align: center">
+                            <h3>Faculty</h3>
+                        </th>
+                        <th scope="col" style="text-align: center">
+                            <h3>Address</h3>
+                        </th>
+                        @if (User.IsInRole("UniversityAdmin") && ViewBag.iseditable)
+                        {
+                            <th scope="col" style="text-align: center; width: 10%;">
+                                @await Html.PartialAsync("/Views/PopUpWindows/AddFacultyPopUp.cshtml")
+                            </th>
+                        }
+                    </tr>
                     </thead>
                     <tbody>
                     @foreach (var faculty in Model.Faculties)
@@ -61,15 +65,17 @@
                 <div class="card-body">
                     <div class="row m-0 p-0">
                         <div class="col-sm m-0 p-0" id="photodiv">
-                            @if (!String.IsNullOrEmpty(Model.CurrentUniversity.Photo))
+                            @if (!string.IsNullOrEmpty(Model.CurrentUniversity.Photo))
                             {
-                                <img class="universityphoto p-0" src="~/universitiesphotos/@Model.CurrentUniversity.Photo" />
-                                <a asp-controller="UniversityAdmin" asp-action="DeleteUniversityPhoto"><img id="deleteicon" src="~/systemphotos/delete.png" /> </a>
+                                <img class="universityphoto p-0" src="~/universitiesphotos/@Model.CurrentUniversity.Photo"/>
+                                <a asp-controller="UniversityAdmin" asp-action="DeleteUniversityPhoto">
+                                    <img id="deleteicon" src="~/systemphotos/delete.png"/>
+                                </a>
                             }
                             else if (User.IsInRole("UniversityAdmin") && ViewBag.iseditable)
                             {
                                 <a onclick="uploadphotoclicked()">
-                                    <img class="uploadphoto" src="~/systemphotos/upload.png" />
+                                    <img class="uploadphoto" src="~/systemphotos/upload.png"/>
                                 </a>
 
                                 <form id="photoform" name="my-form" autocomplete="nope" action="/UniversityAdmin/UploadUniversityPhoto?id=@Model.CurrentUniversity.Id" method="post" enctype="multipart/form-data">
@@ -119,14 +125,14 @@
 
 
 @section Scripts{
-<script>
-  function uploadphotoclicked() {
-    let fileinput = document.getElementById("fileinputid");
+    <script>
+        function uploadphotoclicked() {
+            let fileinput = document.getElementById("fileinputid");
 
-    fileinput.onchange = function (e) {
-    document.getElementById("photoform").submit();
-    }
-    fileinput.click();
-  }
-</script>
+            fileinput.onchange = function(e) {
+                document.getElementById("photoform").submit();
+            };
+            fileinput.click();
+        }
+    </script>
 }

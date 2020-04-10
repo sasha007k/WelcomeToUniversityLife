@@ -1,19 +1,17 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Application.IServices;
 using Application.Models.SiteAdmin;
 using Domain;
 using Domain.Entities;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore.Internal;
 
 namespace Infrastructure.Services
 {
     public class SiteAdminService : ISiteAdminService
     {
-        UserManager<User> _userManager;
-        IUnitOfWork _unitOfWork;
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly UserManager<User> _userManager;
 
         public SiteAdminService(UserManager<User> userManager, IUnitOfWork unitOfWork)
         {
@@ -30,12 +28,9 @@ namespace Infrastructure.Services
             };
 
             var result = await _userManager.CreateAsync(user, model.Password);
-            if (result.Succeeded)
-            {
-                await _userManager.AddToRoleAsync(user, "UniversityAdmin");
-            }
+            if (result.Succeeded) await _userManager.AddToRoleAsync(user, "UniversityAdmin");
 
-            var university = new University()
+            var university = new University
             {
                 Name = model.UniversityName,
                 UserId = user.Id

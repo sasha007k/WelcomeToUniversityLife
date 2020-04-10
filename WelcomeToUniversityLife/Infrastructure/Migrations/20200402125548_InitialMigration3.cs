@@ -7,35 +7,35 @@ namespace Infrastructure.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "Latitude",
-                table: "University");
+                "Latitude",
+                "University");
 
             migrationBuilder.DropColumn(
-                name: "Longitude",
-                table: "University");
+                "Longitude",
+                "University");
 
             migrationBuilder.AddColumn<string>(
-                name: "LocationLink",
-                table: "University",
+                "LocationLink",
+                "University",
                 nullable: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "LocationLink",
-                table: "University");
+                "LocationLink",
+                "University");
 
             migrationBuilder.AddColumn<string>(
-                name: "Latitude",
-                table: "University",
-                type: "nvarchar(max)",
+                "Latitude",
+                "University",
+                "nvarchar(max)",
                 nullable: true);
 
             migrationBuilder.AddColumn<string>(
-                name: "Longitude",
-                table: "University",
-                type: "nvarchar(max)",
+                "Longitude",
+                "University",
+                "nvarchar(max)",
                 nullable: true);
         }
     }

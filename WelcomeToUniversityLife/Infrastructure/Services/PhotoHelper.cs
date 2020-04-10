@@ -1,12 +1,10 @@
-﻿using Application.IServices;
+﻿using System;
+using System.IO;
+using System.Threading.Tasks;
+using Application.IServices;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infrastructure.Services
 {
@@ -15,18 +13,18 @@ namespace Infrastructure.Services
         private readonly IConfiguration _config;
         private readonly IHostingEnvironment _env;
 
-        public PhotoHelper(IConfiguration config,IHostingEnvironment env)
+        public PhotoHelper(IConfiguration config, IHostingEnvironment env)
         {
             _config = config;
 
             _env = env;
         }
 
-        public async Task<string> UploadPhotoAsync(IFormFile file,string folder)
+        public async Task<string> UploadPhotoAsync(IFormFile file, string folder)
         {
             var ext = file.FileName.Substring(file.FileName.LastIndexOf('.'));
 
-            if (this._config[$"PhotoExtensions:{ext}"] != null)
+            if (_config[$"PhotoExtensions:{ext}"] != null)
             {
                 var path = $"{_env.WebRootPath}\\{folder}\\{file.FileName}";
 
@@ -37,20 +35,15 @@ namespace Infrastructure.Services
 
                 return file.FileName;
             }
-            else
-            {
-                throw new Exception("Given extension is incorrect!!");
-            }
+
+            throw new Exception("Given extension is incorrect!!");
         }
 
         public void DeletePhotoAsync(string name, string folder)
         {
             var path = $"{_env.WebRootPath}\\{folder}\\{name}";
 
-            if (File.Exists(path))
-            {
-                File.Delete(path);
-            }
+            if (File.Exists(path)) File.Delete(path);
         }
     }
 }

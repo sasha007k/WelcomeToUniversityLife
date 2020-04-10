@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Application.Models.User;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;

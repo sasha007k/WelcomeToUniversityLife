@@ -8,25 +8,22 @@ namespace WelcomeToUniversityLifeAspServer.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Campaigns",
-                columns: table => new
+                "Campaigns",
+                table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<int>()
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Start = table.Column<DateTime>(nullable: false),
-                    End = table.Column<DateTime>(nullable: false),
-                    Status = table.Column<int>(nullable: false)
+                    Start = table.Column<DateTime>(),
+                    End = table.Column<DateTime>(),
+                    Status = table.Column<int>()
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Campaigns", x => x.Id);
-                });
+                constraints: table => { table.PrimaryKey("PK_Campaigns", x => x.Id); });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Campaigns");
+                "Campaigns");
         }
     }
 }

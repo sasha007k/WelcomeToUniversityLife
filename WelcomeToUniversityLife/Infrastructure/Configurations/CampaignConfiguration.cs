@@ -11,11 +11,11 @@ namespace Infrastructure.Configurations
             builder.ToTable("Campaigns");
             builder.HasKey(u => u.Id);
             builder.Property(u => u.Start)
-                    .IsRequired();
+                .IsRequired();
             builder.Property(u => u.End)
-                    .IsRequired();
+                .IsRequired();
             builder.Property(u => u.Status)
-                    .IsRequired();
+                .IsRequired();
         }
     }
 }

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Domain.Entities;
+﻿using Domain.Entities;
 using Domain.IRepositories;
 
 namespace Infrastructure.Repositories
@@ -10,7 +7,6 @@ namespace Infrastructure.Repositories
     {
         public ZnoRepository(DatabaseContext context) : base(context)
         {
-
         }
     }
 }

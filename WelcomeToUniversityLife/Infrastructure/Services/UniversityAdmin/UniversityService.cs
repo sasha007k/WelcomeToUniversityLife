@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Application.IServices;
-using Application.Models.Enum;
 using Application.Models.UniversityAdmin;
 using Domain;
 using Domain.Entities;
@@ -10,14 +9,15 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Infrastructure.Services
 {
-    public class UniversityAdminService : IUniversityAdminService
+    public class UniversityService : IUniversityService
     {
-        UserManager<User> _userManager;
-        IHttpContextAccessor _httpContext;
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly IHttpContextAccessor _httpContext;
         private readonly IPhotoHelper _photoHelper;
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly UserManager<User> _userManager;
 
-        public UniversityAdminService(UserManager<User> userManager,IUnitOfWork unitOfWork, IHttpContextAccessor httpContext,IPhotoHelper photoHelper)
+        public UniversityService(UserManager<User> userManager, IUnitOfWork unitOfWork,
+            IHttpContextAccessor httpContext, IPhotoHelper photoHelper)
         {
             _userManager = userManager;
             _httpContext = httpContext;
@@ -40,7 +40,7 @@ namespace Infrastructure.Services
                 {
                     university.Name = model.Name;
                     university.City = model.City;
-                    university.Address =  model.Address;
+                    university.Address = model.Address;
                     university.Description = model.Description;
                     university.LocationLink = model.LocationLink;
 
@@ -79,31 +79,6 @@ namespace Infrastructure.Services
             return null;
         }
 
-        public async Task<bool> EditFaculty(Faculty model)
-        {
-            var userName = _httpContext.HttpContext.User.Identity.Name;
-            var user = await _userManager.FindByNameAsync(userName);
-
-            if (user != null)
-            {
-                var faculty = _unitOfWork.FacultyRepository.GetAsync(model.Id).Result;
-
-                var result = 0;
-
-                if (faculty != null)
-                {
-                    faculty.Name = model.Name;
-                    faculty.Address = model.Address;
-                    faculty.Description = model.Description;
-
-                    result = await _unitOfWork.Commit();
-                }
-
-                return result == 1;
-            }
-
-            return false;
-        }
 
         public async Task<CurrentUniversityAndFacultiesModel> GetUniversityAsync(int universityId)
         {
@@ -125,84 +100,6 @@ namespace Infrastructure.Services
             return null;
         }
 
-        public async Task<bool> AddFacultyAsync(AddFacultyModel model)
-        {
-            var userName = _httpContext.HttpContext.User.Identity.Name;
-            var user = await _userManager.FindByNameAsync(userName);
-
-            if (user != null)
-            {
-                var university = _unitOfWork.UniversityRepository.GetUniversityWithUserId(user.Id).Result;
-
-                var faculty = new Faculty()
-                {
-                    Name = model.FacultyName,
-                    Address = model.Address,
-                    Description = model.Description,
-                    UniversityId = university.Id
-                };
-
-                await _unitOfWork.FacultyRepository.CreateAsync(faculty);
-                var result = await _unitOfWork.Commit();
-
-                return result == 1;
-            }
-
-            return false;
-        }
-
-        public async Task<CurrentFacultyAndSpecialitiesModel> GetFacultyAsync(int facultyId)
-        {
-            var faculty = await _unitOfWork.FacultyRepository.GetAsync(facultyId);
-
-            var currentFacultyAndSpecialities = new CurrentFacultyAndSpecialitiesModel();
-
-            if (faculty != null)
-            {
-                currentFacultyAndSpecialities.CurrentFaculty = faculty;
-
-                var specialities = _unitOfWork.SpecialityRepository.GetAllSpecialitiesWithFacultyId(facultyId).Result;
-
-                currentFacultyAndSpecialities.Specialities = specialities;
-
-                var university = await _unitOfWork.UniversityRepository.GetUniversityWithId(faculty.UniversityId);
-
-                currentFacultyAndSpecialities.FacultyAdminId = university.UserId;
-
-                return currentFacultyAndSpecialities;
-            }
-
-            return null;
-        }
-
-        public async Task<bool> AddSpecialityAsync(AddSpecialityModel model)
-        {
-            var speciality = new Speciality()
-            {
-                Description = model.Description,
-                Name = model.SpecialityName,
-                FacultyId = model.FacultyId,
-                FreeSpaces = model.FreeSpaces,
-                PaidSpaces = model.PaidSpaces,
-                RequiredZNO1 = AllZNO.GetZNOName(ZNOs.Ukrainian)
-            };
-
-            switch (model.ZNO.Count)
-            {
-                case 1:
-                    speciality.RequiredZNO2 = model.ZNO[0];
-                    break;
-                case 2:
-                    speciality.RequiredZNO2 = model.ZNO[0];
-                    speciality.RequiredZNO3 = model.ZNO[1];
-                    break;
-            }
-
-            await _unitOfWork.SpecialityRepository.CreateAsync(speciality);
-            var result = await _unitOfWork.Commit();
-
-            return result == 1;
-        }
 
         public async Task UploadUniversityPhotoAsync(UploadPhotoModel requestedData, IFormFileCollection uploads)
         {

@@ -1,37 +1,17 @@
+.fixer-footer { margin-top: 80px; }
 
-.fixer-footer {
-    margin-top: 80px;
-}
-.oneline {
-    display: inline-block;
-}
-.file-field.medium .file-path-wrapper {
-    height: 3rem;
-}
+.oneline { display: inline-block; }
 
-    .file-field.medium .file-path-wrapper .file-path {
-        height: 2.8rem;
-    }
+.file-field.medium .file-path-wrapper { height: 3rem; }
 
-.file-field.big-2 .file-path-wrapper {
-    height: 3.7rem;
-}
+.file-field.medium .file-path-wrapper .file-path { height: 2.8rem; }
 
-    .file-field.big-2 .file-path-wrapper .file-path {
-        height: 3.5rem;
-    }
+.file-field.big-2 .file-path-wrapper { height: 3.7rem; }
 
-.nav-link.active {
-    font-weight: bold; 
-}
+.file-field.big-2 .file-path-wrapper .file-path { height: 3.5rem; }
 
-.chosen-select {
-    width: 350px;
-}
+.nav-link.active { font-weight: bold; }
 
-.chosen-container {
-    width: 350px;
-}
+.chosen-select { width: 350px; }
 
-
-
+.chosen-container { width: 350px; }

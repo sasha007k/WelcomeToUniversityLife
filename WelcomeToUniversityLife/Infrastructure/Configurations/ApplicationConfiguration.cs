@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Infrastructure.Configurations
 {
-    public class ApplicationConfiguration: IEntityTypeConfiguration<Request>
+    public class ApplicationConfiguration : IEntityTypeConfiguration<Request>
     {
         public void Configure(EntityTypeBuilder<Request> builder)
         {

@@ -1,20 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using System.Threading.Tasks;
 using Application.IServices;
 using Application.Models.User;
-using Domain.Entities;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 
 namespace WelcomeToUniversityLifeAspServer.Controllers
 {
     public class UserController : Controller
     {
-        IUserService _userService;
-        IZnoService _znoService;
+        private readonly IUserService _userService;
+        private readonly IZnoService _znoService;
 
         public UserController(IUserService userService, IZnoService znoService)
         {
@@ -40,10 +35,9 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
         [HttpPost]
         public async Task<IActionResult> ChangePassword(UserProfileModel model)
         {
-            if (model.ChangePasswordModel != null && model.ChangePasswordModel.NewPassword == model.ChangePasswordModel.ConfirmNewPassword)
-            {
+            if (model.ChangePasswordModel != null &&
+                model.ChangePasswordModel.NewPassword == model.ChangePasswordModel.ConfirmNewPassword)
                 await _userService.ChangePassword(model.ChangePasswordModel).ConfigureAwait(true);
-            }
 
             return RedirectToAction("Profile", "User");
         }
@@ -51,13 +45,10 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
         [HttpPost]
         public async Task<IActionResult> AddDocs(IFormFileCollection uploads)
         {
-            if(uploads != null)
+            if (uploads != null)
             {
-                var result = await _userService.AddDocs(User.Identity.Name,uploads);
-                if (result.Succeeded)
-                {
-                    return RedirectToAction("Profile", "User");
-                }
+                var result = await _userService.AddDocs(User.Identity.Name, uploads);
+                if (result.Succeeded) return RedirectToAction("Profile", "User");
             }
 
             return BadRequest("Can't save documents");
@@ -65,10 +56,7 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
 
         public async Task<IActionResult> ApplyButtonExecute(int specialityId)
         {
-            if (specialityId != 0)
-            {
-                await _userService.ApplyButtonExecuteAsync(specialityId);
-            }
+            if (specialityId != 0) await _userService.ApplyButtonExecuteAsync(specialityId);
 
             return null;
         }
@@ -77,10 +65,7 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
         public async Task<IActionResult> AddMarks(UserProfileModel model)
         {
             model.MarksModel.FirstZnoModel.Name = "Ukrainian";
-            if (model.MarksModel != null)
-            {
-                 await _znoService.SaveZNOMarks(model.MarksModel);
-            }
+            if (model.MarksModel != null) await _znoService.SaveZNOMarks(model.MarksModel);
 
             return RedirectToAction("Profile", "User");
         }

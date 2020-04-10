@@ -1,31 +1,31 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Domain.Entities;
 using Domain.IRepositories;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Infrastructure.Repositories
 {
-    public class UniversityRepository:Repository<University,int>,IUniversityRepository
+    public class UniversityRepository : Repository<University, int>, IUniversityRepository
     {
-        public UniversityRepository(DatabaseContext context):base(context)
+        public UniversityRepository(DatabaseContext context) : base(context)
         {
         }
 
         public Task<University> GetUniversityWithUser(int universityId)
         {
-            return this._context.Universities
+            return _context.Universities
                 .Where(uni => uni.Id == universityId)
                 .Include(uni => uni.User)
-                .FirstOrDefaultAsync();             
+                .FirstOrDefaultAsync();
         }
 
         public Task<List<University>> GetAllUniversitities()
         {
             return (from university in _context.Universities
-                                    join user in _context.Users on university.UserId equals user.Id
-                select new University()
+                join user in _context.Users on university.UserId equals user.Id
+                select new University
                 {
                     Id = university.Id,
                     Name = university.Name,
@@ -33,13 +33,12 @@ namespace Infrastructure.Repositories
                     City = university.City,
                     Description = university.Description,
                     User = user
-
                 }).ToListAsync();
         }
 
         public Task<University> GetUniversityWithUserId(int userId)
         {
-            return this._context.Universities
+            return _context.Universities
                 .SingleAsync(u => u.UserId == userId);
         }
 
