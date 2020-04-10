@@ -1,9 +1,11 @@
 using System.Reflection;
 using Application.IServices;
+using Application.IServices.UniversityAdmin;
 using Domain;
 using Domain.Entities;
 using Infrastructure;
 using Infrastructure.Services;
+using Infrastructure.Services.UniversityAdmin;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -64,6 +66,8 @@ namespace WelcomeToUniversityLifeAspServer
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ISiteAdminService, SiteAdminService>();
             services.AddScoped<IUniversityService, UniversityService>();
+            services.AddScoped<IFacultyService, FacultyService>();
+            services.AddScoped<ISpecialityService, SpecialityService>();
             services.AddScoped<IZnoService, ZnoService>();
         }
 

@@ -3,6 +3,7 @@ using Application.Models.UniversityAdmin;
 using Domain.Entities;
 using Infrastructure;
 using Infrastructure.Services;
+using Infrastructure.Services.UniversityAdmin;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -56,7 +57,7 @@ namespace ApplicationTest.UniversityAdminServiceTest
                     new Mock<IAuthenticationSchemeProvider>().Object);
 
                 var httpContext = new HttpContextAccessor();
-                var service = new UniversityService(userManager, null, httpContext, null);
+                var service = new FacultyService(userManager, null, httpContext);
                 var addFacultyModel = new AddFacultyModel
                 {
                     FacultyName = facultyName,
