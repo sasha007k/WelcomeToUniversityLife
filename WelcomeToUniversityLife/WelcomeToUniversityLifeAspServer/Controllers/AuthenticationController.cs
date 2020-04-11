@@ -42,7 +42,7 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
             switch (role)
             {
                 case "User":
-                    return RedirectToAction("Profile", "User");
+                    return RedirectToAction("AllUniversities", "SiteAdmin");
                 case "UniversityAdmin":
                     return RedirectToAction("University", "UniversityAdmin");
                 case "SiteAdmin":
