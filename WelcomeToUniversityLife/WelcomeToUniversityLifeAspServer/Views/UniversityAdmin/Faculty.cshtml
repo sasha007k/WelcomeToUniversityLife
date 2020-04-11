@@ -96,6 +96,15 @@
         <div class="col-3 text-center">
             <div class="card">
                 <div class="card-body">
+                    <div class="row m-0 p-0 rowedit">
+                        @if (User.IsInRole("UniversityAdmin") && ViewBag.iseditable)
+                        {
+                            <div class="col-1 m-0 p-0">
+                                @await Html.PartialAsync("/Views/PopUpWindows/EditFacultyPopUp.cshtml", Model.CurrentFaculty)
+                            </div>
+                        }
+                    </div>
+                
                     <p class="h4 text-center py-4">Faculty Info</p>
 
                     <label for="" class="grey-text font-weight-light">Name</label>
@@ -106,15 +115,6 @@
 
                     <label for="" class="grey-text font-weight-light">Description</label>
                     <textarea type="text" id="" class="form-control" style="resize: none" readonly>@Model.CurrentFaculty.Description</textarea>
-
-
-                    @if (User.IsInRole("UniversityAdmin") && ViewBag.iseditable)
-                    {
-                        <div class="col-1 m-0 p-0">
-                            @await Html.PartialAsync("/Views/PopUpWindows/EditFacultyPopUp.cshtml", Model.CurrentFaculty)
-                        </div>
-                    }
-
                 </div>
             </div>
         </div>
