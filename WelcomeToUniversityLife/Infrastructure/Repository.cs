@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using System.Data.Entity;
 using System.Threading.Tasks;
 using Domain;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure
 {

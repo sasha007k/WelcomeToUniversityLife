@@ -9,5 +9,8 @@ namespace Application.IServices
     {
         Task<bool> AddUniversityAsync(AddUniversityModel model);
         List<University> GetAllUniversities();
+
+        Task CreateCampaignAsync(CampaignModel requestData);
+        Task<List<Сampaign>> GetAllCampaigns();
     }
 }

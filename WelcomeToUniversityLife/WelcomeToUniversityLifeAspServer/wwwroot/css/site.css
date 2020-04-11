@@ -179,3 +179,42 @@ body {
 }
 
 #photodiv { position: relative; }
+
+
+.editicon {
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+    position: absolute;
+    top: -30px;
+    left: -28px;
+    height:45px;
+}
+
+.editicon:active {
+    animation: editmove 1.5s;
+}
+
+@keyframes editmove{
+    25% {
+        left: 0px;
+    }
+    60% {
+        left:-10px;
+    }
+    100% {
+        -webkit-transform: rotate(45deg);
+        transform: rotate(45deg);
+    }
+}
+
+.rowedit{
+    position:relative;
+}
+
+#campaigntitle{
+    color:white;
+}
+
+tr{
+   cursor:pointer;
+}

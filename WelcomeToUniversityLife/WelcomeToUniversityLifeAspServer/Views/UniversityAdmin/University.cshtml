@@ -70,15 +70,19 @@
                         <div class="col-sm m-0 p-0" id="photodiv">
                             @if (!string.IsNullOrEmpty(Model.CurrentUniversity.Photo))
                             {
-                                <img class="universityphoto p-0" src="~/universitiesphotos/@Model.CurrentUniversity.Photo"/>
-                                <a asp-controller="UniversityAdmin" asp-action="DeleteUniversityPhoto">
-                                    <img id="deleteicon" src="~/systemphotos/delete.png"/>
-                                </a>
+                                <img class="universityphoto p-0" src="~/universitiesphotos/@Model.CurrentUniversity.Photo" />
+                                if (User.IsInRole("UniversityAdmin") && ViewBag.iseditable)
+                                {
+                                    <a asp-controller="UniversityAdmin" asp-action="DeleteUniversityPhoto">
+                                        <img id="deleteicon" src="~/systemphotos/delete.png" />
+                                    </a>
+                                    @await Html.PartialAsync("/Views/PopUpWindows/EditUniversityPopUp.cshtml", Model.CurrentUniversity)
+                                }
                             }
                             else if (User.IsInRole("UniversityAdmin") && ViewBag.iseditable)
                             {
                                 <a onclick="uploadphotoclicked()">
-                                    <img class="uploadphoto" src="~/systemphotos/upload.png"/>
+                                    <img class="uploadphoto" src="~/systemphotos/upload.png" />
                                 </a>
 
                                 <form id="photoform" name="my-form" autocomplete="nope" action="/UniversityAdmin/UploadUniversityPhoto?id=@Model.CurrentUniversity.Id" method="post" enctype="multipart/form-data">
@@ -112,13 +116,6 @@
                     @if (Model.CurrentUniversity.LocationLink != null)
                     {
                         <iframe src="@Model.CurrentUniversity.LocationLink" frameborder="0" style="border: 0" allowfullscreen></iframe>
-                    }
-
-                    @if (User.IsInRole("UniversityAdmin") && ViewBag.iseditable)
-                    {
-                        <div class="col-1 m-0 p-0">
-                            @await Html.PartialAsync("/Views/PopUpWindows/EditUniversityPopUp.cshtml", Model.CurrentUniversity)
-                        </div>
                     }
                 </div>
             </div>

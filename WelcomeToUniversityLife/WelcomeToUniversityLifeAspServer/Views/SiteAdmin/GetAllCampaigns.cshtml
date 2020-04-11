@@ -1,0 +1,64 @@
+﻿@model List<Domain.Entities.Сampaign>;
+@{
+    ViewData["Title"] = "GetAllCampaigns";
+}
+
+<div class="row m-0 p-0">
+    <div class="col-sm">
+
+    </div>
+    <div class="col-4 m-0 p-0 mr-5">
+            <table class="content-table table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col" style="text-align: center">
+                            <h3>Status</h3>
+                        </th>
+                        <th scope="col" style="text-align: center">
+                            <h3>Starts</h3>
+                        </th>
+                        <th scope="col" style="text-align: center">
+                            <h3>Ends</h3>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var campaing in Model)
+                    {
+                        var startdate = $"{campaing.Start.Day}:{campaing.Start.Month}:{campaing.Start.Year}";
+                        var enddate = $"{campaing.End.Day}:{campaing.End.Month}:{campaing.End.Year}";
+
+                        <tr style="text-align: center">
+                            <td>
+                                <h5>
+                                    @campaing.Status
+                                </h5>
+                            </td>
+                            <td >
+                                <h5>
+                                    @startdate
+                                </h5>
+                            </td>
+                            <td>
+                                <h5>
+                                    @enddate
+                                </h5>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    <div class="col-3 m-0 p-0">
+        <form class="text-center border border-light p-5 #b2dfdb teal lighten-4" id="campaigncreate" method="post" action="/SiteAdmin/CreateCampaign">
+
+            <p class="h4 mb-4" id="campaigntitle">New Campaign</p>
+
+            <input type="date" name="Start" class="form-control mb-4" placeholder="Start date">
+
+            <input type="date" name="End" class="form-control mb-4" placeholder="End date">
+
+            <button class="btn btn-default btn-block" type="submit">Create</button>
+         </form>
+    </div>
+</div>

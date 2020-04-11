@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Application.IServices;
 using Application.Models.SiteAdmin;
@@ -45,6 +47,36 @@ namespace Infrastructure.Services
         public List<University> GetAllUniversities()
         {
             return _unitOfWork.UniversityRepository.GetAllUniversitities().Result;
+        }
+
+        public async Task CreateCampaignAsync(CampaignModel requestData)
+        {
+            var campaign = await this._unitOfWork.CampaignRepository.GetCampaignByYear(requestData.Start.Year);
+
+            if (campaign == null)
+            {
+                var newcampaign = new Сampaign
+                {
+                    Start = requestData.Start,
+                    End = requestData.End,
+                    Status = CampaignStatus.Pending
+                };
+
+                await _unitOfWork.CampaignRepository.CreateAsync(newcampaign);
+
+                await _unitOfWork.Commit();
+            }
+            else
+            {
+                throw new Exception("Campaign already exist!!");
+            }
+        }
+
+        public async Task<List<Сampaign>> GetAllCampaigns()
+        {
+            var campaigns = await _unitOfWork.CampaignRepository.GetAllAsync();
+
+            return campaigns.ToList();
         }
     }
 }

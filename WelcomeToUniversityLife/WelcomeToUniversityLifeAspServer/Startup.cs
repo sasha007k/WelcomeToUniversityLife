@@ -57,7 +57,7 @@ namespace WelcomeToUniversityLifeAspServer
                 options.Password.RequireLowercase = false;
             });
 
-            services.AddLogging(loggingBuilder => { loggingBuilder.AddSeq(Configuration.GetSection("Seq")); });
+            //services.AddLogging(loggingBuilder => { loggingBuilder.AddSeq(Configuration.GetSection("Seq")); });
 
             //---Applying Services
             services.AddScoped<IPhotoHelper, PhotoHelper>();
