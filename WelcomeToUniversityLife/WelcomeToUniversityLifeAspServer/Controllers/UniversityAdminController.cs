@@ -43,6 +43,21 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
             return RedirectToAction("AddSpeciality", "UniversityAdmin");
         }
 
+        [HttpPost]
+        public async Task<IActionResult> DeleteSpeciality(IdModel model)
+        {
+            if (model != null && model.Id != 0 && model.FacultyId != 0)
+            {
+                var result = await _specialityService.DeleteSpecialityAndSaveAsync(model.Id);
+                if (result)
+                {
+                    _log.LogInformation("Speciality was deleted");
+                    return RedirectToAction("GetFaculty", "UniversityAdmin", new { id = model.FacultyId });
+                }
+            }
+            return RedirectToAction("University", "UniversityAdmin");
+        }
+
         #endregion
 
         #region University
@@ -173,6 +188,21 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
             }
 
             return RedirectToAction("GetFaculty", "UniversityAdmin", new {id = model.Id});
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteFaculty(int facultyId)
+        {
+            if (facultyId != 0)
+            {
+                var result = await _facultyService.DeleteFaculty(facultyId);
+                if (result)
+                {
+                    _log.LogInformation("Faculty was deleted");
+                    return RedirectToAction("University", "UniversityAdmin");
+                }
+            }
+            return RedirectToAction("University", "UniversityAdmin");
         }
 
         #endregion

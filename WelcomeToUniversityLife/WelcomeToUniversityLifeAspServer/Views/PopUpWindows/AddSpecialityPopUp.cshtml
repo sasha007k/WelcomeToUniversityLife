@@ -1,7 +1,7 @@
 ﻿@model Application.Models.UniversityAdmin.AddSpecialityModel;
 
 <a id="newitemlink" data-toggle="modal" data-target="#newSpeciality">
-    <img id="newitemphoto" src="~/systemphotos/plus.png"/>
+    <img id="newitemphoto" src="~/systemphotos/plus.png" title="Add Speciality"/>
 </a>
 
 
@@ -39,20 +39,20 @@
                         <div class="form-group row">
                             <div class="col">
                                 <div>
-                                    <input type="number" class="form-control" min="0" step="1" placeholder="Free spaces" name="FreeSpaces"/>
+                                    <input type="number" class="form-control" min="0" step="1" placeholder="Free spaces" name="FreeSpaces" required=""/>
                                 </div>
                             </div>
 
                             <div class="col">
                                 <div>
-                                    <input type="number" class="form-control" min="0" step="1" placeholder="Paid spaces" name="PaidSpaces"/>
+                                    <input type="number" class="form-control" min="0" step="1" placeholder="Paid spaces" name="PaidSpaces" required=""/>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group row">
                             <div class="col-sm">
                                 <label>Required ZNO</label>
-                                <select multiple class="chosen-select" id="znoSelector" asp-for="ZNO">
+                                <select multiple class="chosen-select" id="znoSelector" asp-for="@Model.ZNO">
                                     <option selected disabled>Ukrainian</option>
                                     <option>Math</option>
                                     <option>Geography</option>

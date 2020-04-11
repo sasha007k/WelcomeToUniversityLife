@@ -13,12 +13,14 @@ namespace Infrastructure.Services.UniversityAdmin
         private readonly IHttpContextAccessor _httpContext;
         private readonly IUnitOfWork _unitOfWork;
         private readonly UserManager<User> _userManager;
+        private readonly ISpecialityService _specialityService;
 
-        public FacultyService(UserManager<User> userManager, IUnitOfWork unitOfWork, IHttpContextAccessor httpContext)
+        public FacultyService(UserManager<User> userManager, IUnitOfWork unitOfWork, IHttpContextAccessor httpContext, ISpecialityService specialityService)
         {
             _userManager = userManager;
             _httpContext = httpContext;
             _unitOfWork = unitOfWork;
+            _specialityService = specialityService;
         }
 
         public async Task<bool> AddFacultyAsync(AddFacultyModel model)
@@ -95,6 +97,22 @@ namespace Infrastructure.Services.UniversityAdmin
             }
 
             return null;
+        }
+
+        public async Task<bool> DeleteFaculty(int facultyId)
+        {
+            var faculty = await _unitOfWork.FacultyRepository.GetAsync(facultyId);
+            var specialities = _unitOfWork.SpecialityRepository.GetAllSpecialitiesWithFacultyId(facultyId).Result;
+
+            foreach (var s in specialities)
+            {
+                await _specialityService.DeleteSpecialityAsync(s.Id);
+            }
+
+            await _unitOfWork.FacultyRepository.DeleteAsync(facultyId);
+            var result = await _unitOfWork.Commit();
+
+            return (result == (specialities.Count + 1));
         }
     }
 }

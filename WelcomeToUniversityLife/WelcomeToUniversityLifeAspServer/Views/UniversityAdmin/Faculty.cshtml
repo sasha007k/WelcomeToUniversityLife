@@ -14,23 +14,23 @@
             {
                 <table class="content-table table table-hover">
                     <thead>
-                    <tr>
-                        <th scope="col" style="text-align: center">Speciality</th>
-                        <th scope="col" style="text-align: center">Free Spaces</th>
-                        <th scope="col" style="text-align: center">Paid Spaces</th>
-                        <th scope="col" style="text-align: center">Required ZNO</th>
-                        <th scope="col" style="text-align: center; width: 10%;">
+                        <tr>
+                            <th scope="col" style="text-align: center">Speciality</th>
+                            <th scope="col" style="text-align: center">Free Spaces</th>
+                            <th scope="col" style="text-align: center">Paid Spaces</th>
+                            <th scope="col" style="text-align: center">Required ZNO</th>
                             @if (User.IsInRole("UniversityAdmin") && ViewBag.iseditable)
                             {
-                                @await Html.PartialAsync("/Views/PopUpWindows/AddSpecialityPopUp.cshtml", new AddSpecialityModel {FacultyId = Model.CurrentFaculty.Id})
-                                ;
+                                <th scope="col" style="text-align: center; width: 10%;">
+                                    @await Html.PartialAsync("/Views/PopUpWindows/AddSpecialityPopUp.cshtml", 
+                                        new AddSpecialityModel {FacultyId = Model.CurrentFaculty.Id})
+                                </th>
                             }
-                        </th>
-                        @if (User.IsInRole("User"))
-                        {
-                            <th scope="col" style="text-align: center"></th>
-                        }
-                    </tr>
+                            @if (User.IsInRole("User"))
+                            {
+                                <th scope="col" style="text-align: center; width: 10%;"></th>
+                            }
+                        </tr>
                     </thead>
                     <tbody>
                     @foreach (var speciality in Model.Specialities)
@@ -66,14 +66,20 @@
                                     }
                                 </table>
                             </td>
-                            <td></td>
+                            @if (User.IsInRole("UniversityAdmin") && ViewBag.iseditable)
+                            {
+                                <td>
+                                    @await Html.PartialAsync("/Views/PopUpWindows/ConfirmDeleteSpeciality.cshtml", 
+                                        new IdModel() {Id = speciality.Id, FacultyId = speciality.FacultyId})
+                                </td>
+                            }
                             @if (User.IsInRole("User"))
                             {
                                 <td>
-                                    <button class="btn btn-default btn-block my-4 waves-effect z-depth-0"
-                                            onclick="window.location.href = '@Url.Action("ApplyButtonExecute", "User", new {specialityId = speciality.Id})';return false;">
-                                        <i></i>Apply
-                                    </button>
+                                    <a id="newitemlink" data-toggle="modal" onclick="window.location.href = '@Url.Action("ApplyButtonExecute", "User",
+                                                                                 new {specialityId = speciality.Id})';return false;">
+                                        <img id="newitemphoto" src="~/systemphotos/checkmark_64.png" title="Apply"/>
+                                    </a>
                                 </td>
                             }
                         </tr>

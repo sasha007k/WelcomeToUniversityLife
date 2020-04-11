@@ -9,5 +9,6 @@ namespace Application.IServices.UniversityAdmin
         Task<bool> AddFacultyAsync(AddFacultyModel model);
         Task<bool> EditFaculty(Faculty model);
         Task<CurrentFacultyAndSpecialitiesModel> GetFacultyAsync(int facultyId);
+        Task<bool> DeleteFaculty(int facultyId);
     }
 }

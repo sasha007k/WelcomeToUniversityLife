@@ -1,0 +1,36 @@
+﻿@model Application.Models.UniversityAdmin.IdModel;
+
+@{
+    string id1 = "#deleteFaculty" + Model.Id.ToString();
+    string id2 = "deleteFaculty" + Model.Id.ToString();
+}
+
+<a id="newitemlink" data-toggle="modal" data-target="@id1">
+    <img id="newitemphoto" src="~/systemphotos/delete_64.png" />
+</a>
+
+<div class="modal fade" id="@id2" tabindex="-1" role="dialog" aria-labelledby="deleteFaculty" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header default-color">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="tab-pane fade show active p-3" id="one" role="tabpanel" aria-labelledby="one-tab">
+                    <h5 class="font-weight-bold">Are you sure you want to delete this faculty?</h5>
+                    <form name="my-form" autocomplete="off" action="/UniversityAdmin/DeleteFaculty?facultyId=@Model.Id" method="post">
+                        <div class="form-group row">
+                            <div class="col-sm">
+                                <button type="submit" class="btn btn-default my-4 waves-effect z-depth-0">Delete</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer default-color">
+            </div>
+        </div>
+    </div>
+</div>

@@ -57,7 +57,7 @@ namespace ApplicationTest.UniversityAdminServiceTest
                     new Mock<IAuthenticationSchemeProvider>().Object);
 
                 var httpContext = new HttpContextAccessor();
-                var service = new FacultyService(userManager, null, httpContext);
+                var service = new FacultyService(userManager, null, httpContext, null);
                 var addFacultyModel = new AddFacultyModel
                 {
                     FacultyName = facultyName,

@@ -28,21 +28,42 @@ namespace Infrastructure.Services.UniversityAdmin
                 RequiredZNO1 = AllZNO.GetZNOName(ZNOs.Ukrainian)
             };
 
-            switch (model.ZNO.Count)
+            if (model.ZNO != null)
             {
-                case 1:
-                    speciality.RequiredZNO2 = model.ZNO[0];
-                    break;
-                case 2:
-                    speciality.RequiredZNO2 = model.ZNO[0];
-                    speciality.RequiredZNO3 = model.ZNO[1];
-                    break;
+                switch (model.ZNO.Count)
+                {
+                    case 1:
+                        speciality.RequiredZNO2 = model.ZNO[0];
+                        break;
+                    case 2:
+                        speciality.RequiredZNO2 = model.ZNO[0];
+                        speciality.RequiredZNO3 = model.ZNO[1];
+                        break;
+                    //case 3:
+                    //    speciality.RequiredZNO2 = model.ZNO[0];
+                    //    speciality.RequiredZNO3 = model.ZNO[1];
+                    //    speciality.RequiredZNO4 = model.ZNO[2];
+                    //    break;
+                    default:
+                        break;
+                }
             }
 
             await _unitOfWork.SpecialityRepository.CreateAsync(speciality);
             var result = await _unitOfWork.Commit();
 
             return result == 1;
+        }
+
+        public async Task DeleteSpecialityAsync(int specialityId)
+        {
+            await _unitOfWork.SpecialityRepository.DeleteAsync(specialityId);
+        }
+
+        public async Task<bool> DeleteSpecialityAndSaveAsync(int specialityId)
+        {
+            await _unitOfWork.SpecialityRepository.DeleteAsync(specialityId);
+            return await _unitOfWork.Commit() == 1;
         }
     }
 }
