@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Application.IServices;
 using Application.Models.SiteAdmin;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WelcomeToUniversityLifeAspServer.Controllers
@@ -36,6 +37,24 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
             }
 
             return RedirectToAction("AllUniversities", "SiteAdmin");
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "SiteAdmin")]
+        public async Task<IActionResult> GetAllCampaigns()
+        {
+            var campaings = await _siteAdminService.GetAllCampaigns();
+
+            return View(campaings);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "SiteAdmin")]
+        public async Task<IActionResult> CreateCampaign(CampaignModel request)
+        {
+            await _siteAdminService.CreateCampaignAsync(request);
+
+            return RedirectToAction("GetAllCampaigns");
         }
     }
 }

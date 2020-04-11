@@ -210,3 +210,11 @@ body {
 .rowedit{
     position:relative;
 }
+
+#campaigntitle{
+    color:white;
+}
+
+tr{
+   cursor:pointer;
+}

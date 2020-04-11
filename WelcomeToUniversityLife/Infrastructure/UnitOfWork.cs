@@ -14,6 +14,8 @@ namespace Infrastructure
         private IUniversityRepository universityRepository;
         private IUserRepository userRepository;
         private IZNORepository znoRepository;
+        private ICampaignRepository campaignRepository;
+
 
         public UnitOfWork(DatabaseContext context)
         {
@@ -29,6 +31,16 @@ namespace Infrastructure
                 if (userRepository == null) userRepository = new UserRepository(_context);
 
                 return userRepository;
+            }
+        }
+
+        public ICampaignRepository CampaignRepository
+        {
+            get
+            {
+                if (campaignRepository == null) campaignRepository = new CampaignRepository(_context);
+
+                return campaignRepository;
             }
         }
 
