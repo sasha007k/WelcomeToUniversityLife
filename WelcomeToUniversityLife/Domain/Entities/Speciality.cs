@@ -10,6 +10,7 @@
         public string RequiredZNO1 { get; set; }
         public string RequiredZNO2 { get; set; }
         public string RequiredZNO3 { get; set; }
+        public string RequiredZNO4 { get; set; }
         public int FacultyId { get; set; }
     }
 }

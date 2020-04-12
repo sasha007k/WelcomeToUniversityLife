@@ -23,8 +23,6 @@ namespace Infrastructure.Configurations
                 .IsRequired();
             builder.Property(u => u.RequiredZNO2)
                 .IsRequired();
-            builder.Property(u => u.RequiredZNO3)
-                .IsRequired();
             builder.Property(u => u.FacultyId)
                 .IsRequired();
         }
