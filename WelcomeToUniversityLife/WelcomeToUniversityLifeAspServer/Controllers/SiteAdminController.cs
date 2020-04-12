@@ -2,6 +2,7 @@
 using Application.IServices;
 using Application.Models.SiteAdmin;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WelcomeToUniversityLifeAspServer.Controllers
@@ -19,11 +20,6 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
         {
             var universities = _siteAdminService.GetAllUniversities();
             return View(universities);
-        }
-
-        public IActionResult AddUniversity()
-        {
-            return View();
         }
 
         [HttpPost]
@@ -53,6 +49,18 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
         public async Task<IActionResult> CreateCampaign(CampaignModel request)
         {
             await _siteAdminService.CreateCampaignAsync(request);
+
+            return RedirectToAction("GetAllCampaigns");
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "SiteAdmin")]
+        public async Task<IActionResult> DeleteCampaign(int campaignId)
+        {
+            if (campaignId != 0)
+            {
+                await _siteAdminService.DeleteCampaignAsync(campaignId);
+            }
 
             return RedirectToAction("GetAllCampaigns");
         }

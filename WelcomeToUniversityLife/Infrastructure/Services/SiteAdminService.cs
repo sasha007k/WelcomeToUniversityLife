@@ -6,6 +6,7 @@ using Application.IServices;
 using Application.Models.SiteAdmin;
 using Domain;
 using Domain.Entities;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Identity;
 
 namespace Infrastructure.Services
@@ -53,7 +54,7 @@ namespace Infrastructure.Services
         {
             var campaign = await this._unitOfWork.CampaignRepository.GetCampaignByYear(requestData.Start.Year);
 
-            if (campaign == null)
+            if (/*campaign == null*/true)
             {
                 var newcampaign = new Сampaign
                 {
@@ -77,6 +78,12 @@ namespace Infrastructure.Services
             var campaigns = await _unitOfWork.CampaignRepository.GetAllAsync();
 
             return campaigns.ToList();
+        }
+
+        public async Task<bool> DeleteCampaignAsync(int campaignId)
+        {
+            await _unitOfWork.CampaignRepository.DeleteAsync(campaignId);
+            return (await _unitOfWork.Commit()) == 1;
         }
     }
 }

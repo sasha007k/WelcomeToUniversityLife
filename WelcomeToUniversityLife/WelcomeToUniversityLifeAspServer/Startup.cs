@@ -35,7 +35,7 @@ namespace WelcomeToUniversityLifeAspServer
 
             services.AddDbContext<DatabaseContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),
-                    builder => builder.MigrationsAssembly(typeof(Startup).GetTypeInfo().Assembly.GetName().Name)));
+                    builder => builder.MigrationsAssembly(typeof(Startup).GetTypeInfo().Assembly.GetName().Name).EnableRetryOnFailure()));
 
             services.AddIdentity<User, IdentityRole<int>>()
                 .AddEntityFrameworkStores<DatabaseContext>()

@@ -7,26 +7,38 @@
     <div class="col-sm">
 
     </div>
-    <div class="col-4 m-0 p-0 mr-5">
+    <div class="col-7 m-0 p-0 mr-5">
             <table class="content-table table table-hover">
                 <thead>
                     <tr>
                         <th scope="col" style="text-align: center">
-                            <h3>Status</h3>
+                            <h4>Status</h4>
                         </th>
                         <th scope="col" style="text-align: center">
-                            <h3>Starts</h3>
+                            <h4>Start</h4>
                         </th>
                         <th scope="col" style="text-align: center">
-                            <h3>Ends</h3>
+                            <h4>End</h4>
+                        </th>
+                        <th scope="col" style="text-align: center; width: 10%;">
                         </th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var campaing in Model)
                     {
-                        var startdate = $"{campaing.Start.Day}:{campaing.Start.Month}:{campaing.Start.Year}";
-                        var enddate = $"{campaing.End.Day}:{campaing.End.Month}:{campaing.End.Year}";
+                        var startDay = campaing.Start.Day < 10 ? "0" + campaing.Start.Day.ToString() : campaing.Start.Day.ToString();
+                        var startMonth = campaing.Start.Month < 10 ? "0" + campaing.Start.Month.ToString() : campaing.Start.Month.ToString();
+                        var startHour = campaing.Start.Hour < 10 ? "0" + campaing.Start.Hour.ToString() : campaing.Start.Hour.ToString();
+                        var startMinute = campaing.Start.Minute < 10 ? "0" + campaing.Start.Minute.ToString() : campaing.Start.Minute.ToString();
+
+                        var endDay = campaing.End.Day < 10 ? "0" + campaing.End.Day.ToString() : campaing.End.Day.ToString();
+                        var endMonth = campaing.End.Month < 10 ? "0" + campaing.End.Month.ToString() : campaing.End.Month.ToString();
+                        var endHour = campaing.End.Hour < 10 ? "0" + campaing.End.Hour.ToString() : campaing.End.Hour.ToString();
+                        var endMinute = campaing.End.Minute < 10 ? "0" + campaing.End.Minute.ToString() : campaing.End.Minute.ToString();
+
+                        var startDate = $"{startDay}.{startMonth}.{campaing.Start.Year}  {startHour}:{startMinute}";
+                        var endDate = $"{endDay}.{endMinute}.{campaing.End.Year}  {endHour}:{endMinute}";
 
                         <tr style="text-align: center">
                             <td>
@@ -36,13 +48,19 @@
                             </td>
                             <td >
                                 <h5>
-                                    @startdate
+                                    @startDate
                                 </h5>
                             </td>
                             <td>
                                 <h5>
-                                    @enddate
+                                    @endDate
                                 </h5>
+                            </td>
+                            <td>
+                                <a id="deleteitem" data-toggle="modal" onclick="window.location.href = '@Url.Action("DeleteCampaign", "SiteAdmin",
+                                                                                                             new {campaignId = campaing.Id})';return false;">
+                                    <img id="deleteitem" src="~/systemphotos/delete_64.png" title="Delete"  width="40" height="40"/>
+                                </a>
                             </td>
                         </tr>
                     }
@@ -54,11 +72,29 @@
 
             <p class="h4 mb-4" id="campaigntitle">New Campaign</p>
 
-            <input type="date" name="Start" class="form-control mb-4" placeholder="Start date">
-
-            <input type="date" name="End" class="form-control mb-4" placeholder="End date">
+            <input type="text" name="Start" class="form-control mb-4" id="datetimepickerstart" placeholder="Start date"/>
+            
+            <input type="text" name="End" class="form-control mb-4" id="datetimepickerend" placeholder="End date"/>
 
             <button class="btn btn-default btn-block" type="submit">Create</button>
-         </form>
+        </form>
     </div>
 </div>
+
+@section Scripts{ 
+
+    <script>
+
+        $(function () {
+            $('#datetimepickerstart').datetimepicker({
+                minDate : 0
+            });
+        });
+
+        $(function () {
+            $('#datetimepickerend').datetimepicker();
+        });
+
+    </script>
+
+}

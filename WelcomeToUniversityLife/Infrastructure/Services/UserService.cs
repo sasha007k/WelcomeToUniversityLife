@@ -41,8 +41,6 @@ namespace Infrastructure.Services
                     Phone = user.PhoneNumber,
                     City = user.City,
                     DateOfBirth = user.DateOfBirth
-
-                    // ZNO marks
                 };
 
                 return profile;
