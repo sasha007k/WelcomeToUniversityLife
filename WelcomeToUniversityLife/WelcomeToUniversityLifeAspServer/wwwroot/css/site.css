@@ -118,7 +118,7 @@ body {
 .content-table {
     border-collapse: collapse;
     border-radius: 5px 5px 0 0;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 15);
+    box-shadow: 0 0 7px rgba(0, 0, 0, 15);
     font-size: 0.9em;
     margin: 25px 0;
     min-width: 400px;
