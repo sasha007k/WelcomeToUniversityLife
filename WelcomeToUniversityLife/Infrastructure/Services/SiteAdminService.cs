@@ -8,7 +8,6 @@ using Domain;
 using Domain.Entities;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Infrastructure.Services
 {
@@ -16,11 +15,13 @@ namespace Infrastructure.Services
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly UserManager<User> _userManager;
+        private readonly ICampaignService _campaignService;
 
-        public SiteAdminService(UserManager<User> userManager, IUnitOfWork unitOfWork)
+        public SiteAdminService(UserManager<User> userManager, IUnitOfWork unitOfWork, ICampaignService campaignService)
         {
             _userManager = userManager;
             _unitOfWork = unitOfWork;
+            _campaignService = campaignService;
         }
 
         public async Task<bool> AddUniversityAsync(AddUniversityModel model)
@@ -103,6 +104,7 @@ namespace Infrastructure.Services
 
         public async Task<List<Сampaign>> GetAllCampaigns()
         {
+            await _campaignService.UpdateCampaignsStatus();
             var campaigns = await _unitOfWork.CampaignRepository.GetAllAsync();
 
             return campaigns.ToList();

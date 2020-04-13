@@ -80,9 +80,13 @@
 
             <p class="h4 mb-4" id="campaigntitle">New Campaign</p>
 
-            <input type="text" name="Start" class="form-control mb-4" id="datetimepickerstart" placeholder="Start date"/>
-            
-            <input type="text" name="End" class="form-control mb-4" id="datetimepickerend" placeholder="End date"/>
+            <input type="datetime-local" name="Start" class="form-control mb-4" placeholder="Start date">
+
+            <input type="datetime-local" name="End" class="form-control mb-4" placeholder="End date">
+
+            @*<input type="text" name="Start" class="form-control mb-4" id="datetimepickerstart" placeholder="Start date"/>
+
+        <input type="text" name="End" class="form-control mb-4" id="datetimepickerend" placeholder="End date"/>*@
 
             <button class="btn btn-default btn-block" type="submit">Create</button>
         </form>

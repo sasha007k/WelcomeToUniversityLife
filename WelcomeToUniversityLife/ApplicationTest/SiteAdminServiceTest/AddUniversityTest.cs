@@ -45,7 +45,7 @@ namespace ApplicationTest.SiteAdminServiceTest
                     new Mock<IOptions<IdentityOptions>>().Object,
                     new Mock<ILogger<SignInManager<User>>>().Object,
                     new Mock<IAuthenticationSchemeProvider>().Object);
-                var service = new SiteAdminService(userManager, null);
+                var service = new SiteAdminService(userManager, null, null);
 
                 var addUniversityModel = new AddUniversityModel
                 {
