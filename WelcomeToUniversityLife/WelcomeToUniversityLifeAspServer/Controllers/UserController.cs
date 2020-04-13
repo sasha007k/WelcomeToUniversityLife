@@ -1,8 +1,10 @@
 ﻿using System.Threading.Tasks;
 using Application.IServices;
 using Application.Models.User;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.IO;
 
 namespace WelcomeToUniversityLifeAspServer.Controllers
 {
@@ -10,11 +12,13 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
     {
         private readonly IUserService _userService;
         private readonly IZnoService _znoService;
+        IWebHostEnvironment _appEnvironment;
 
-        public UserController(IUserService userService, IZnoService znoService)
+        public UserController(IUserService userService, IZnoService znoService, IWebHostEnvironment appEnvironment)
         {
             _userService = userService;
             _znoService = znoService;
+            _appEnvironment = appEnvironment;
         }
 
         [HttpGet]
@@ -47,8 +51,21 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
         {
             if (uploads != null)
             {
-                var result = await _userService.AddDocs(User.Identity.Name, uploads);
-                if (result.Succeeded) return RedirectToAction("Profile", "User");
+                int id = await _userService.GetIdByName(User.Identity.Name);
+                if (!Directory.Exists(_appEnvironment.WebRootPath + id)) Directory.CreateDirectory(_appEnvironment.WebRootPath + id);
+                foreach (var item in uploads)
+                {
+                    string path = "/Docs/" + +id+  item.FileName;
+                    using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
+                    {
+                        await item.CopyToAsync(fileStream);
+                   
+
+                    }
+                    await _userService.AddDocs(User.Identity.Name, new Domain.Entities.Document() {Name = item.FileName } );
+                }
+               
+          return RedirectToAction("Profile", "User");
             }
 
             return BadRequest("Can't save documents");

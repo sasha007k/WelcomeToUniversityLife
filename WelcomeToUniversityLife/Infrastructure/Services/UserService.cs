@@ -89,52 +89,16 @@ namespace Infrastructure.Services
             return result.Succeeded;
         }
 
-        public async Task<IdentityResult> AddDocs(string name, IFormFileCollection uploads)
+        public async Task<IdentityResult> AddDocs(string name, Document document)
         {
             var user = await _userManager.FindByNameAsync(name);
-            var path = @"C:\Files";
-            if (!Directory.Exists(path)) Directory.CreateDirectory(path);
+      
+ 
             if (user != null)
             {
-                foreach (var f in uploads)
-                {
-                    var file = path + @"\" + f.FileName;
-                    using (var fileStream = new FileStream(file, FileMode.Create))
-                    {
-                        await f.CopyToAsync(fileStream);
-                    }
-                }
-
-                var passport = new Document
-                {
-                    Name = "passport",
-                    Path = path + @"\" + uploads[0].FileName,
-                    User = user,
-                    UserId = user.Id
-                };
-                var certificate = new Document
-                {
-                    Name = "certificate",
-                    Path = path + @"\" + uploads[1].FileName,
-                    User = user,
-                    UserId = user.Id
-                };
-                var zno = new Document
-                {
-                    Name = "zno",
-                    Path = path + @"\" + uploads[2].FileName,
-                    User = user,
-                    UserId = user.Id
-                };
-
-
-                await _documentService.Create(passport);
-                await _documentService.Create(certificate);
-                await _documentService.Create(zno);
-
-                user.Documents.Add(passport);
-                user.Documents.Add(certificate);
-                user.Documents.Add(zno);
+                await _documentService.Create(document);
+    
+                user.Documents.Add(document);
 
 
                 return await _userManager.UpdateAsync(user);
@@ -170,6 +134,16 @@ namespace Infrastructure.Services
         public Task<User> GetUserByIdAsync(int id)
         {
             return _unitOfWork.UserRepository.GetAsync(id);
+        }
+
+        public async Task<int> GetIdByName(string name)
+        {
+            var user = await _userManager.FindByNameAsync(name);
+            if(user!=null)
+            {
+                return user.Id;
+            }
+            return -1;
         }
     }
 }
