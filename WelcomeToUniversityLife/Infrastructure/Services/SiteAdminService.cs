@@ -8,6 +8,7 @@ using Domain;
 using Domain.Entities;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Infrastructure.Services
 {
@@ -50,27 +51,54 @@ namespace Infrastructure.Services
             return _unitOfWork.UniversityRepository.GetAllUniversitities().Result;
         }
 
-        public async Task CreateCampaignAsync(CampaignModel requestData)
+        private async Task<Tuple<string, bool>> ValidateCampaign(CampaignModel model)
         {
-            var campaign = await this._unitOfWork.CampaignRepository.GetCampaignByYear(requestData.Start.Year);
+            var startDate = model.Start;
+            var endDate = model.End;
+            var message = string.Empty;
 
-            if (/*campaign == null*/true)
+            if (DateTime.Today > startDate || DateTime.Today > endDate)
             {
-                var newcampaign = new Сampaign
-                {
-                    Start = requestData.Start,
-                    End = requestData.End,
-                    Status = CampaignStatus.Pending
-                };
-
-                await _unitOfWork.CampaignRepository.CreateAsync(newcampaign);
-
-                await _unitOfWork.Commit();
+                message = "Start date and end date should be greater than today date.";
+                return new Tuple<string, bool>(message, false);
             }
-            else
+
+            if (startDate > endDate)
             {
-                throw new Exception("Campaign already exist!!");
+                message = "Start date should be less than end date.";
+                return new Tuple<string, bool>(message, false);
             }
+
+            var campaigns = await _unitOfWork.CampaignRepository.GetAllAsync();
+            if (campaigns.Any(campaign => (campaign.Start > startDate && campaign.End < startDate) || (campaign.Start < endDate && campaign.End > endDate)))
+            {
+                message = "Campaigns should not intersect.";
+                return new Tuple<string, bool>(message, false);
+            }
+
+            return new Tuple<string, bool>(message, true);
+        }
+
+        public async Task<string> CreateCampaignAsync(CampaignModel requestData)
+        {
+            var (message, result) = await ValidateCampaign(requestData);
+            if (!result)
+            {
+                return message;
+            }
+
+            var newcampaign = new Сampaign
+            {
+                Start = requestData.Start,
+                End = requestData.End,
+                Status = CampaignStatus.Pending
+            };
+
+            await _unitOfWork.CampaignRepository.CreateAsync(newcampaign);
+
+            await _unitOfWork.Commit();
+
+            return string.Empty;
         }
 
         public async Task<List<Сampaign>> GetAllCampaigns()

@@ -3,6 +3,14 @@
     ViewData["Title"] = "GetAllCampaigns";
 }
 
+@if (!string.IsNullOrEmpty(ViewBag.Message)) 
+{
+<script type="text/javascript">
+    alert('@ViewBag.Message');
+</script>
+} 
+
+
 <div class="row m-0 p-0">
     <div class="col-sm">
 

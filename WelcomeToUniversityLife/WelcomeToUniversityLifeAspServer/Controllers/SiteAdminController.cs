@@ -4,6 +4,7 @@ using Application.Models.SiteAdmin;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities;
 
 namespace WelcomeToUniversityLifeAspServer.Controllers
 {
@@ -37,9 +38,14 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
 
         [HttpGet]
         [Authorize(Roles = "SiteAdmin")]
-        public async Task<IActionResult> GetAllCampaigns()
+        public async Task<IActionResult> GetAllCampaigns(string message = null)
         {
             var campaings = await _siteAdminService.GetAllCampaigns();
+
+            if (!string.IsNullOrWhiteSpace(message))
+            {
+                ViewBag.Message = message;
+            }
 
             return View(campaings);
         }
@@ -48,9 +54,13 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
         [Authorize(Roles = "SiteAdmin")]
         public async Task<IActionResult> CreateCampaign(CampaignModel request)
         {
-            await _siteAdminService.CreateCampaignAsync(request);
+            var message = string.Empty;
+            if (request != null)
+            {
+                message = await _siteAdminService.CreateCampaignAsync(request);
+            }
 
-            return RedirectToAction("GetAllCampaigns");
+            return RedirectToAction("GetAllCampaigns", new {message = message});
         }
 
         [HttpGet]
