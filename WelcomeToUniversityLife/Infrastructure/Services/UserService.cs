@@ -14,7 +14,7 @@ namespace Infrastructure.Services
 {
     public class UserService : IUserService
     {
-        private readonly DocumentService _documentService;
+        private readonly IDocumentService _documentService;
         private readonly IHttpContextAccessor _httpContext;
         private readonly IUnitOfWork _unitOfWork;
         private readonly UserManager<User> _userManager;
@@ -23,11 +23,11 @@ namespace Infrastructure.Services
         private const int _maxApplications = 6;
 
         public UserService(UserManager<User> userManager, IHttpContextAccessor httpContext,
-            DatabaseContext context, IUnitOfWork unitOfWork, ICampaignService campaignService)
+           IUnitOfWork unitOfWork, ICampaignService campaignService,IDocumentService documentService)
         {
             _userManager = userManager;
             _httpContext = httpContext;
-            _documentService = new DocumentService(_unitOfWork);
+            _documentService = documentService;
             _unitOfWork = unitOfWork;
             _campaignService = campaignService;
         }
