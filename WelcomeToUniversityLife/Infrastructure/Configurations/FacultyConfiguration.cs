@@ -16,8 +16,10 @@ namespace Infrastructure.Configurations
                 .IsRequired();
             builder.Property(u => u.DocumentId)
                 .IsRequired();
-            builder.Property(u => u.UniversityId)
-                .IsRequired();
+            builder.HasOne(f => f.University)
+                .WithMany(u => u.Faculties)
+                .HasForeignKey(f => f.UniversityId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

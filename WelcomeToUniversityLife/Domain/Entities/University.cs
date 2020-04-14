@@ -1,4 +1,6 @@
-﻿namespace Domain.Entities
+﻿using System.Collections.Generic;
+
+namespace Domain.Entities
 {
     public class University
     {
@@ -12,5 +14,8 @@
         public string LocationLink { get; set; }
         public int? UserId { get; set; }
         public User User { get; set; }
+
+        public ICollection<Faculty> Faculties { get; set; } =
+                        new List<Faculty>();
     }
 }

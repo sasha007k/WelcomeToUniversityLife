@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using Application.Models.SpecialityModels;
 using Application.Models.UniversityAdmin;
 
 namespace Application.IServices.UniversityAdmin
@@ -8,5 +10,7 @@ namespace Application.IServices.UniversityAdmin
         Task<bool> AddSpecialityAsync(AddSpecialityModel model);
         Task DeleteSpecialityAsync(int specialityId);
         Task<bool> DeleteSpecialityAndSaveAsync(int specialityId);
+
+        Task<List<SpecialityInfoModel>> SearchSpecialityAsync(string filter);
     }
 }

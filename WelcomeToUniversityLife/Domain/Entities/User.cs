@@ -14,6 +14,7 @@ namespace Domain.Entities
         public ZNO ZNO { get; set; }
         public int? ZNOId { get; set; }
         public int NumberOfApplications { get; set; }
+        public ICollection<Request> Requests { get; set; } = new List<Request>();
         public University University { get; set; }
         public ICollection<Document> Documents { get; set; } = new List<Document>();
     }

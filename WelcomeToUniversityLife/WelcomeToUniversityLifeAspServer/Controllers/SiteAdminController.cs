@@ -37,7 +37,6 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "SiteAdmin")]
         public async Task<IActionResult> GetAllCampaigns(string message = null)
         {
             var campaings = await _siteAdminService.GetAllCampaigns();

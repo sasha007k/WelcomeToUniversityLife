@@ -23,8 +23,10 @@ namespace Infrastructure.Configurations
                 .IsRequired();
             builder.Property(u => u.RequiredZNO2)
                 .IsRequired();
-            builder.Property(u => u.FacultyId)
-                .IsRequired();
+            builder.HasOne(s => s.Faculty)
+                .WithMany(f => f.Specialities)
+                .HasForeignKey(s => s.FacultyId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

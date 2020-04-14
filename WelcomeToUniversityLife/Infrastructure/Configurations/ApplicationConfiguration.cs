@@ -10,8 +10,10 @@ namespace Infrastructure.Configurations
         {
             builder.ToTable("Application");
             builder.HasKey(u => u.Id);
-            builder.Property(u => u.UserId)
-                .IsRequired();
+            builder.HasOne(r => r.User)
+                .WithMany(u => u.Requests)
+                .HasForeignKey(r => r.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
             builder.Property(u => u.SpecialityId)
                 .IsRequired();
         }

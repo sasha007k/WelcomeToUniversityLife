@@ -1,6 +1,8 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Application.IServices.UniversityAdmin;
 using Application.Models.Enum;
+using Application.Models.SpecialityModels;
 using Application.Models.UniversityAdmin;
 using Domain;
 using Domain.Entities;
@@ -64,6 +66,26 @@ namespace Infrastructure.Services.UniversityAdmin
         {
             await _unitOfWork.SpecialityRepository.DeleteAsync(specialityId);
             return await _unitOfWork.Commit() == 1;
+        }
+
+        public async Task<List<SpecialityInfoModel>> SearchSpecialityAsync(string filter)
+        {
+            var specialities = await _unitOfWork.SpecialityRepository.SearchSpeciality(filter);
+
+            var specialitiesResponce = new List<SpecialityInfoModel>();
+
+            foreach(var spec in specialities)
+            {
+                specialitiesResponce.Add(new SpecialityInfoModel
+                {
+                    id = spec.Id,
+                    SpecialityName = spec.Name,
+                    FacultyName = spec.Faculty.Name,
+                    UniversityName = spec.Faculty.University.Name
+                });
+            }
+
+            return specialitiesResponce;     
         }
     }
 }
