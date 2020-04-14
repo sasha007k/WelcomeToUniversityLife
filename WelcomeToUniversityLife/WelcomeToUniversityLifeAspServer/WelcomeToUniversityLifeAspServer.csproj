@@ -46,6 +46,7 @@
 
   <ItemGroup>
     <Folder Include="Views\UniversityAdmin\" />
+    <Folder Include="wwwroot\Docs\4\" />
     <Folder Include="wwwroot\Files\" />
     <Folder Include="wwwroot\Docs\" />
   </ItemGroup>

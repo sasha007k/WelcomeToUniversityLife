@@ -102,6 +102,8 @@ namespace Infrastructure.Services
  
             if (user != null)
             {
+                document.User = user;
+                document.UserId = user.Id;
                 await _documentService.Create(document);
     
                 user.Documents.Add(document);
