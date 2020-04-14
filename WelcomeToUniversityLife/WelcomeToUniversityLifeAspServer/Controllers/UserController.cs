@@ -54,11 +54,15 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
             return BadRequest("Can't save documents");
         }
 
-        public async Task<IActionResult> ApplyButtonExecute(int specialityId)
+        public async Task<IActionResult> ApplyButtonExecute(int specialityId, int facultyId)
         {
-            if (specialityId != 0) await _userService.ApplyButtonExecuteAsync(specialityId);
+            var message = string.Empty;
+            if (specialityId != 0)
+            {
+                message = await _userService.ApplyButtonExecuteAsync(specialityId);
+            }
 
-            return null;
+            return RedirectToAction("GetFaculty", "UniversityAdmin", new { id = facultyId, message = message});
         }
 
         [HttpPost]

@@ -1,4 +1,6 @@
-﻿namespace Domain.Entities
+﻿using System.Collections.Generic;
+
+namespace Domain.Entities
 {
     public class Speciality
     {
@@ -12,5 +14,19 @@
         public string RequiredZNO3 { get; set; }
         public string RequiredZNO4 { get; set; }
         public int FacultyId { get; set; }
+
+        public List<string> GetRequiredZNO()
+        {
+            var requiredZNO = new List<string>
+            {
+                RequiredZNO1,
+                RequiredZNO2
+            };
+
+            if (!string.IsNullOrWhiteSpace(RequiredZNO3)) requiredZNO.Add(RequiredZNO3);
+            if (!string.IsNullOrWhiteSpace(RequiredZNO4)) requiredZNO.Add(RequiredZNO4);
+
+            return requiredZNO;
+        }
     }
 }

@@ -4,6 +4,13 @@
     ViewData["Title"] = "University";
 }
 
+@if (!string.IsNullOrEmpty(ViewBag.Message)) 
+{
+    <script type="text/javascript">
+        alert('@ViewBag.Message');
+    </script>
+} 
+
 
 <div class="container-fluid">
     <div class="row">
@@ -77,7 +84,7 @@
                             {
                                 <td>
                                     <a id="newitemlink" data-toggle="modal" onclick="window.location.href = '@Url.Action("ApplyButtonExecute", "User",
-                                                                                 new {specialityId = speciality.Id})';return false;">
+                                                                                 new {specialityId = speciality.Id, facultyId = speciality.FacultyId})';return false;">
                                         <img id="newitemphoto" src="~/systemphotos/checkmark_64.png" title="Apply"/>
                                     </a>
                                 </td>

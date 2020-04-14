@@ -158,7 +158,7 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
             return RedirectToAction("AddFaculty", "UniversityAdmin");
         }
 
-        public async Task<ActionResult> GetFaculty(int id)
+        public async Task<ActionResult> GetFaculty(int id, string message = null)
         {
             var facultyAndSpecialities = await _facultyService.GetFacultyAsync(id);
             if (facultyAndSpecialities == null) return RedirectToAction();
@@ -172,6 +172,8 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
 
                 ViewBag.iseditable = userId == facultyAndSpecialities.FacultyAdminId;
             }
+
+            ViewBag.Message = message;
 
             return View("Faculty", facultyAndSpecialities);
         }

@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Application.Models.User;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -11,6 +12,6 @@ namespace Application.IServices
         Task UpdateUserInfo(UserProfileModel model);
         Task<bool> ChangePassword(ChangePasswordModel model);
         Task<IdentityResult> AddDocs(string name, IFormFileCollection uploads);
-        Task<bool> ApplyButtonExecuteAsync(int specialityId);
+        Task<string> ApplyButtonExecuteAsync(int specialityId);
     }
 }

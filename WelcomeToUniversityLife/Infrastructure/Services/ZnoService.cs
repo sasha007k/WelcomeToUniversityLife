@@ -60,7 +60,7 @@ namespace Infrastructure.Services
             if (model.ThirdZnoModel != null)
                 zno.SetMark(model.ThirdZnoModel.Name, Convert.ToDouble(model.ThirdZnoModel.Mark));
 
-            if (model.FirstZnoModel != null && model.FourZnoModel.Name != "None")
+            if (model.FourZnoModel != null && model.FourZnoModel.Name != "None")
                 zno.SetMark(model.FourZnoModel.Name, Convert.ToDouble(model.FourZnoModel.Mark));
 
             if (isNewZno) await _unitOfWork.ZNORepository.CreateAsync(zno);

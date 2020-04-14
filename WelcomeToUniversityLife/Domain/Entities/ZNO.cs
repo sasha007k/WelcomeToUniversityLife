@@ -1,4 +1,6 @@
-﻿namespace Domain.Entities
+﻿using System.Collections.Generic;
+
+namespace Domain.Entities
 {
     public class ZNO
     {
@@ -54,6 +56,24 @@
                     Chemistry = mark;
                     break;
             }
+        }
+
+        public List<string> GetNotNullMarks()
+        {
+            var notNullSubjects = new List<string>();
+            if (Math != 0) notNullSubjects.Add("Math");
+            if (Geography != 0) notNullSubjects.Add("Geography");
+            if (Ukrainian != 0) notNullSubjects.Add("Ukrainian");
+            if (History != 0) notNullSubjects.Add("History");
+            if (English != 0) notNullSubjects.Add("English");
+            if (Spanish != 0) notNullSubjects.Add("Spanish");
+            if (French != 0) notNullSubjects.Add("French");
+            if (Germany != 0) notNullSubjects.Add("Germany");
+            if (Biology != 0) notNullSubjects.Add("Biology");
+            if (Physics != 0) notNullSubjects.Add("Physics");
+            if (Chemistry != 0) notNullSubjects.Add("Chemistry");
+
+            return notNullSubjects;
         }
     }
 }
