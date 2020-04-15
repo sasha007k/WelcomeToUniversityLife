@@ -14,6 +14,7 @@ namespace Domain.Entities
         public string RequiredZNO3 { get; set; }
         public string RequiredZNO4 { get; set; }
         public int FacultyId { get; set; }
+        public Faculty Faculty { get; set; }
 
         public List<string> GetRequiredZNO()
         {

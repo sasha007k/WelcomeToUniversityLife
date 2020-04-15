@@ -32,21 +32,22 @@
         <nav class="navbar navbar-expand-sm border-bottom box-shadow mb-3">
             <div class="container text-left">
                 <ul class="navbar-nav flex-grow-1">
-
-                    <li class="nav-item">
-                        <a id="welcomelink" class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Welcome</a>
-
+                    <li class="nav-item m-0 p-0 mr-3">
+                        <a id="welcomelink" class="m-0 p-0 navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Welcome</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link @Html.IsSelected(actions: "AllUniversities", controllers: "SiteAdmin", cssClass: "active")" asp-area="" asp-controller="SiteAdmin" asp-action="AllUniversities">All Universities</a>
-
+                    <li class="nav-item m-0 p-0 mr-3">
+                        <a class="m-0 p-0 nav-link @Html.IsSelected(actions: "AllUniversities", controllers: "SiteAdmin", cssClass: "active")" asp-area="" asp-controller="SiteAdmin" asp-action="AllUniversities">All Universities</a>
                     </li>
-                    @if (User.Identity.IsAuthenticated && User.IsInRole("SiteAdmin"))
-                    {
-                        <li class="nav-item">
-                            <a class="navbar-brand" asp-area="" asp-controller="SiteAdmin" asp-action="GetAllCampaigns">Campaigns</a>
-                        </li>
-                    }
+                    <li class="nav-item m-0 p-0 mr-3">
+                        <a class="nav-link m-0 p-0" asp-controller="UniversityAdmin" asp-action="Rating">
+                            <img id="graph" src="~/systemphotos/graph.png"/>
+                        </a>
+                    </li>
+                    <li class="nav-item m-0 p-0 mr-3">
+                        <a class="navbar-brand m-0 p-0" asp-area="" asp-controller="SiteAdmin" asp-action="GetAllCampaigns">
+                            <img id="calendar" src="~/systemphotos/calendar.png"/>
+                        </a>
+                    </li>
                 </ul>
 
             </div>
@@ -54,30 +55,30 @@
                 <ul class="navbar-nav flex-grow-1">
                     @if (!User.Identity.IsAuthenticated)
                     {
-                        <li class="nav-item">
-                            <a class="nav-link @Html.IsSelected(actions: "SignIn", controllers: "Authentication", cssClass: "active")" asp-area="" asp-controller="Authentication" asp-action="SignIn">Sign In</a>
+                        <li class="nav-item m-0 p-0 mr-3">
+                            <a class="m-0 p-0 nav-link @Html.IsSelected(actions: "SignIn", controllers: "Authentication", cssClass: "active")" asp-area="" asp-controller="Authentication" asp-action="SignIn">Sign In</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link @Html.IsSelected(actions: "Register", controllers: "Authentication", cssClass: "active")" asp-area="" asp-controller="Authentication" asp-action="Register">Sign Up</a>
+                        <li class="nav-item m-0 p-0 mr-3">
+                            <a class="m-0 p-0 nav-link @Html.IsSelected(actions: "Register", controllers: "Authentication", cssClass: "active")" asp-area="" asp-controller="Authentication" asp-action="Register">Sign Up</a>
                         </li>
                     }
                     @if (User.Identity.IsAuthenticated && User.IsInRole("UniversityAdmin"))
                     {
-                        <li class="nav-item">
-                            <a class="nav-link @Html.IsSelected(actions: "University", controllers: "UniversityAdmin", cssClass: "active")" asp-area="" asp-controller="UniversityAdmin" asp-action="University">
+                        <li class="nav-item m-0 p-0 mr-3">
+                            <a class="m-0 p-0 nav-link @Html.IsSelected(actions: "University", controllers: "UniversityAdmin", cssClass: "active")" asp-area="" asp-controller="UniversityAdmin" asp-action="University">
                                 <img id="universityphoto" src="~/systemphotos/university.png" title="University" />
                             </a>
                         </li>
                     }
                     @if (User.Identity.IsAuthenticated)
                     {
-                        <li class="nav-item">
-                            <a class="nav-link @Html.IsSelected(actions: "Profile", controllers: "User", cssClass: "active")" asp-area="" asp-controller="User" asp-action="Profile">
+                        <li class="m-0 p-0 nav-item mr-3">
+                            <a class="m-0 p-0 nav-link @Html.IsSelected(actions: "Profile", controllers: "User", cssClass: "active")" asp-area="" asp-controller="User" asp-action="Profile">
                                 <img id="profilephoto" src="~/systemphotos/profile.png" title="Profile" />
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link @Html.IsSelected(actions: "SignOut", controllers: "Authentication", cssClass: "active")" asp-area="" asp-controller="Authentication" asp-action="SignOut">
+                        <li class="nav-item m-0 p-0">
+                            <a class="m-0 p-0 nav-link @Html.IsSelected(actions: "SignOut", controllers: "Authentication", cssClass: "active")" asp-area="" asp-controller="Authentication" asp-action="SignOut">
                                 <img id="exitphoto" src="~/systemphotos/signout.png" title="Sign Out" />
                             </a>
                         </li>

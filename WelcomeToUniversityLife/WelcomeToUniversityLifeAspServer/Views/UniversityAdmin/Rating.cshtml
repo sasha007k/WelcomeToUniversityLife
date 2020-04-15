@@ -1,0 +1,59 @@
+﻿
+@{
+    ViewData["Title"] = "Rating";
+}
+
+<div class="row mt-0">
+    <div class="col-3">
+
+    </div>
+
+    <div class="col-sm">
+
+        <div class="dropdown">
+            <div class="input-group md-form form-sm form-1 pl-0 m-0 p-0">
+                <div class="input-group-prepend">
+                    <span class="input-group-text cyan lighten-2" id="basic-text1">
+                        <i class="fas fa-search text-white"
+                           aria-hidden="true"></i>
+                    </span>
+                </div>
+                <input onchange="inputchanged();" id="searchspec" class="form-control my-0 py-1" type="text" placeholder="Search" aria-label="Search">
+            </div>
+            <div class="dropdown-content w-100 m-0 p-0" id="searchdiv">
+            </div>
+        </div>
+        
+    </div>
+
+    <div class="col-3">
+
+    </div>
+</div>
+
+<div class="row m-0 p-0 mt-1">
+    <div class="col-2">
+
+    </div>
+    <div class="col-sm m-0 p-0" id="ratingdiv">
+        <h4 class="pb-1 pt-1" id="ratingspeciality"></h4>
+
+        <div class="outer">
+            <table class="rating-table table m-0 p-0" id="ratingtable">
+                <thead class="#42a5f5 blue lighten-1">
+                    <tr>
+                        <th scope="col" style="text-align: center">Place</th>
+                        <th scope="col" style="text-align: center">Email</th>
+                        <th scope="col" style="text-align: center">Mark</th>
+                    </tr>
+                </thead>
+                <tbody id="ratingbody">
+                </tbody>
+            </table>
+        </div>
+        
+    </div>
+    <div class="col-2">
+
+    </div>
+</div>

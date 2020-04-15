@@ -1,6 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Application.IServices.UniversityAdmin;
 using Application.Models.Enum;
+using Application.Models.SpecialityModels;
 using Application.Models.UniversityAdmin;
 using Domain;
 using Domain.Entities;
@@ -64,6 +68,47 @@ namespace Infrastructure.Services.UniversityAdmin
         {
             await _unitOfWork.SpecialityRepository.DeleteAsync(specialityId);
             return await _unitOfWork.Commit() == 1;
+        }
+
+        public async Task<List<SpecialityInfoModel>> SearchSpecialityAsync(string filter)
+        {
+            var specialities = await _unitOfWork.SpecialityRepository.SearchSpeciality(filter);
+
+            var specialitiesResponce = new List<SpecialityInfoModel>();
+
+            foreach(var spec in specialities)
+            {
+                specialitiesResponce.Add(new SpecialityInfoModel
+                {
+                    id = spec.Id,
+                    SpecialityName = spec.Name,
+                    FacultyName = spec.Faculty.Name,
+                    UniversityName = spec.Faculty.University.Name
+                });
+            }
+
+            return specialitiesResponce;     
+        }
+
+        public async Task<SpecialityRating> GetSpecialityRatingAsync(int specialityId)
+        {
+            var speciality = await _unitOfWork.SpecialityRepository.GetAsync(specialityId);
+
+            if (speciality == null)
+                throw new Exception("Speciality with the given id not exist!");
+
+            var requests = await _unitOfWork.ApplicationRepository.GetAllRequestsBySpecialityId(specialityId);
+
+            SpecialityRating ratingInfo = new SpecialityRating
+            {
+                Requests = (from i in requests
+                           select new RequestsInfo { UserEmail = i.User.Email , AverageMark = Math.Round(i.User.ZNO.GetAverageMark(),2) })
+                           .OrderByDescending(ri=>ri.AverageMark)
+                           .ToList(),
+                Speciality = speciality
+            };
+
+            return ratingInfo;
         }
     }
 }

@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Application.IServices;
 using Application.IServices.UniversityAdmin;
+using Application.Models.SpecialityModels;
 using Application.Models.UniversityAdmin;
 using Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
@@ -30,6 +32,28 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
         }
 
         #region Speciality
+
+        [HttpGet]
+        public IActionResult Rating()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public async Task<SpecialityRating> GetSpecialityRatingInfo([FromQuery] int id)
+        {
+            var responce = await _specialityService.GetSpecialityRatingAsync(id);
+
+            return responce;
+        }
+
+        [HttpGet]
+        public async Task<List<SpecialityInfoModel>> SearchSpeciality([FromQuery] string filter)
+        {
+            var responce = await _specialityService.SearchSpecialityAsync(filter);
+
+            return responce;
+        }
 
         [HttpPost]
         public async Task<IActionResult> AddSpeciality(AddSpecialityModel model)

@@ -4,14 +4,16 @@ using Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace WelcomeToUniversityLifeAspServer.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20200414173324_NavUser")]
+    partial class NavUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -68,8 +70,6 @@ namespace WelcomeToUniversityLifeAspServer.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("UniversityId");
 
                     b.ToTable("Faculty");
                 });
@@ -134,8 +134,6 @@ namespace WelcomeToUniversityLifeAspServer.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("FacultyId");
 
                     b.ToTable("Speciality");
                 });
@@ -480,29 +478,11 @@ namespace WelcomeToUniversityLifeAspServer.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Domain.Entities.Faculty", b =>
-                {
-                    b.HasOne("Domain.Entities.University", "University")
-                        .WithMany("Faculties")
-                        .HasForeignKey("UniversityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Domain.Entities.Request", b =>
                 {
                     b.HasOne("Domain.Entities.User", "User")
                         .WithMany("Requests")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Domain.Entities.Speciality", b =>
-                {
-                    b.HasOne("Domain.Entities.Faculty", "Faculty")
-                        .WithMany("Specialities")
-                        .HasForeignKey("FacultyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

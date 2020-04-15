@@ -13,10 +13,19 @@ namespace Infrastructure.Repositories
         {
         }
 
-        public Task<List<Request>> GetAllApplicationsByUserId(int userId)
+        public Task<List<Request>> GetAllRequestsByUserId(int userId)
         {
             return _context.Applications
                 .Where(a => a.UserId == userId).ToListAsync();
+        }
+
+        public Task<List<Request>> GetAllRequestsBySpecialityId(int specialityId)
+        {
+            return _context.Applications
+                .Where(app => app.SpecialityId == specialityId)
+                .Include(app => app.User)
+                    .ThenInclude(user => user.ZNO)
+                .ToListAsync();
         }
     }
 }

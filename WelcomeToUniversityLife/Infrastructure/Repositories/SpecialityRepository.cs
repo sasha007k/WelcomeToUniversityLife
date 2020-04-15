@@ -18,5 +18,15 @@ namespace Infrastructure.Repositories
             return _context.Specialities
                 .Where(f => f.FacultyId == facultyId).ToListAsync();
         }
+
+        public Task<List<Speciality>> SearchSpeciality(string filter)
+        {
+            return _context.Specialities
+                .Include(s => s.Faculty)
+                 .ThenInclude(f => f.University)
+                .Where(s => s.Name.Contains(filter) || s.Faculty.Name.Contains(filter)
+                || s.Faculty.University.Name.Contains(filter))
+                .ToListAsync();
+        }
     }
 }
