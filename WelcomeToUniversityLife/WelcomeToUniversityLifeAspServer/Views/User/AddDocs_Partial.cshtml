@@ -1,46 +1,41 @@
 ﻿@model Application.Models.User.UserProfileModel;
 
 
-<form name="my-form" autocomplete="nope" action="/User/AddDocs" method="post"
-      enctype="multipart/form-data">
+    <form name="my-form" autocomplete="nope" action="/User/AddDocs" method="post"
+          enctype="multipart/form-data">
+        <div class="row m-0 p-0">
 
+            <div class="col-sm text-center">
+                <h5 id="passh"><b>Passport</b></h5>
+                <a onclick="invokepassportinput()">
+                    <img src="~/systemphotos/passport.png" width="150" height="150" />
+                </a>
+                <input onchange="inputchanged('passh','Passport')" required="" type="file" name="uploads" class="noneinput" id="passportinput"
+                       aria-describedby="inputGroupFileAddon01">
+            </div>
 
-    <div class="input-group">
-        <div class="input-group-prepend">
-            <span class="input-group-text" id="inputGroupFileAddon01">Upload Passport Copy</span>
-        </div>
-        <div class="custom-file">
-            <input required="" type="file" name="uploads" class="custom-file-input" id="inputGroupFile01"
-                   aria-describedby="inputGroupFileAddon01">
-            <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
-        </div>
-    </div>
+            <div class="col-sm text-center">
+                <h5 id="schoolh"><b>School</b></h5>
+                <a onclick="invokeschoolinput()">
+                    <img src="~/systemphotos/school.png" width="150" height="150" />
+                </a>
+                <input onchange="inputchanged('schoolh','School')" required="" type="file" name="uploads" class="noneinput" id="schoolcertificateinput"
+                       aria-describedby="inputGroupFileAddon01">
+            </div>
 
+            <div class="col-sm text-center">
+                <h5 id="znoh"><b>ZNO</b></h5>
+                <a onclick="invokeznoinput()">
+                    <img src="~/systemphotos/exam.png" width="150" height="150" />
+                </a>
+                <input onchange="inputchanged('znoh','ZNO')" required="" type="file" name="uploads" class="noneinput" id="znoinput"
+                       aria-describedby="inputGroupFileAddon01">
+            </div>
+        </div>
 
-    <br>
-    <div class="input-group">
-        <div class="input-group-prepend">
-            <span class="input-group-text" id="inputGroupFileAddon01">Upload School Certificate</span>
+        <div class="row">
+            <div class="col-sm text-center pt-3">
+                <button type="submit" class="btn btn-default my-4 waves-effect z-depth-0">Update</button>
+            </div>
         </div>
-        <div class="custom-file">
-            <input required="" type="file" name="uploads" class="custom-file-input" id="inputGroupFile01"
-                   aria-describedby="inputGroupFileAddon01">
-            <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
-        </div>
-    </div>
-    <br>
-    <div class="input-group">
-        <div class="input-group-prepend">
-            <span class="input-group-text" id="inputGroupFileAddon01">Upload ZNO Certificate</span>
-        </div>
-        <div class="custom-file">
-            <input  required="" type="file" name="uploads" class="custom-file-input" id="inputGroupFile01"
-                   aria-describedby="inputGroupFileAddon01">
-            <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
-        </div>
-    </div>
-
-    <div>
-        <button type="submit" class="btn btn-default my-4 waves-effect z-depth-0">Update</button>
-    </div>
-</form>
+    </form>

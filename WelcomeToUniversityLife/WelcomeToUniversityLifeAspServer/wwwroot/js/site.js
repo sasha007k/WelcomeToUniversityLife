@@ -197,3 +197,21 @@ function getSpecialityInfo(event) {
         }
     });
 }
+
+function invokepassportinput() {
+    document.getElementById("passportinput").click();
+}
+
+function invokeschoolinput() {
+    document.getElementById("schoolcertificateinput").click();
+}
+
+function invokeznoinput() {
+    document.getElementById("znoinput").click();
+}
+
+function inputchanged(id,doc) {
+    let elem = document.getElementById(id);
+    elem.innerText = `${doc} Loaded`;
+    elem.style.fontWeight = "500";
+}

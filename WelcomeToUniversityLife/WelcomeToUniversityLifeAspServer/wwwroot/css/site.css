@@ -321,3 +321,7 @@ tr{
 .outer::-webkit-scrollbar{
     width:1px;
 }
+
+.noneinput{
+    display:none;
+}
