@@ -52,17 +52,28 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
             if (uploads != null)
             {
                 int id = await _userService.GetIdByName(User.Identity.Name);
-                if (!Directory.Exists(_appEnvironment.WebRootPath + id)) Directory.CreateDirectory(_appEnvironment.WebRootPath + id);
+               
+  
+                if (!Directory.Exists(Path.Combine( _appEnvironment.WebRootPath , "Docs", $"{id}")))
+                {
+                    Directory.CreateDirectory(Path.Combine(_appEnvironment.WebRootPath, "Docs",$"{id}"));
+                }
+                 
                 foreach (var item in uploads)
                 {
-                    string path = "/Docs/" + +id+  item.FileName;
-                    using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
+                    string path =  Path.Combine( "Docs" , $"{id}" ,  item.FileName);
+                    using (var fileStream = new FileStream(Path.Combine( _appEnvironment.WebRootPath , path), FileMode.Create))
                     {
-                        await item.CopyToAsync(fileStream);
+                     var res =    await _userService.AddDocs(User.Identity.Name, new Domain.Entities.Document() { Name = item.FileName });
+                        if(res.Succeeded)
+                        {
+                            await item.CopyToAsync(fileStream);
+                        }
+                      
                    
 
                     }
-                    await _userService.AddDocs(User.Identity.Name, new Domain.Entities.Document() {Name = item.FileName } );
+                  
                 }
                
           return RedirectToAction("Profile", "User");

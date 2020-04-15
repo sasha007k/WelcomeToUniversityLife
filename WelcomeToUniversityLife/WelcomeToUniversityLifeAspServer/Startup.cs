@@ -70,6 +70,7 @@ namespace WelcomeToUniversityLifeAspServer
             services.AddScoped<ISpecialityService, SpecialityService>();
             services.AddScoped<IZnoService, ZnoService>();
             services.AddScoped<ICampaignService, CampaignService>();
+            services.AddScoped<IDocumentService, DocumentService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

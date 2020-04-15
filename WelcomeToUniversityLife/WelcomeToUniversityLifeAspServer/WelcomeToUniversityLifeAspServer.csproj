@@ -45,7 +45,8 @@
 
 
   <ItemGroup>
-    <Folder Include="wwwroot\Docs\" />
+    <Folder Include="Views\UniversityAdmin\" />
+    <Folder Include="wwwroot\Docs\4\" />
     <Folder Include="wwwroot\Files\" />
   </ItemGroup>
 
