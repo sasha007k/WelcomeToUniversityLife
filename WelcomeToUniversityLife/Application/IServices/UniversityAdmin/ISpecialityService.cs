@@ -10,7 +10,8 @@ namespace Application.IServices.UniversityAdmin
         Task<bool> AddSpecialityAsync(AddSpecialityModel model);
         Task DeleteSpecialityAsync(int specialityId);
         Task<bool> DeleteSpecialityAndSaveAsync(int specialityId);
-
         Task<List<SpecialityInfoModel>> SearchSpecialityAsync(string filter);
+        Task<SpecialityRating> GetSpecialityRatingAsync(int specialityId);
+
     }
 }

@@ -40,6 +40,14 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
         }
 
         [HttpGet]
+        public async Task<SpecialityRating> GetSpecialityRatingInfo([FromQuery] int id)
+        {
+            var responce = await _specialityService.GetSpecialityRatingAsync(id);
+
+            return responce;
+        }
+
+        [HttpGet]
         public async Task<List<SpecialityInfoModel>> SearchSpeciality([FromQuery] string filter)
         {
             var responce = await _specialityService.SearchSpecialityAsync(filter);

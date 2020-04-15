@@ -75,5 +75,24 @@ namespace Domain.Entities
 
             return notNullSubjects;
         }
+
+        public double GetAverageMark()
+        {
+            var nouNullSubjects = GetNotNullMarks();
+            double sum = 0;
+            if (Math != 0) sum += Math;
+            if (Geography != 0) sum += Geography;
+            if (Ukrainian != 0) sum += Ukrainian;
+            if (History != 0) sum += History;
+            if (English != 0) sum += English;
+            if (Spanish != 0) sum += Spanish;
+            if (French != 0) sum += French;
+            if (Germany != 0) sum += Germany;
+            if (Biology != 0) sum += Biology;
+            if (Physics != 0) sum += Physics;
+            if (Chemistry != 0) sum += Chemistry;
+
+            return sum / nouNullSubjects.Count;
+        }
     }
 }

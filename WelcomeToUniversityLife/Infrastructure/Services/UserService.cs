@@ -158,7 +158,7 @@ namespace Infrastructure.Services
                 return string.Empty;
             }
 
-            var allUsersApplications = _unitOfWork.ApplicationRepository.GetAllApplicationsByUserId(user.Id).Result;
+            var allUsersApplications = _unitOfWork.ApplicationRepository.GetAllRequestsByUserId(user.Id).Result;
             if (allUsersApplications.Any(app => app.SpecialityId == specialityId))
             {
                 return "You have already applied";
