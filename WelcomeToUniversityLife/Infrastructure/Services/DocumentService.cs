@@ -1,7 +1,7 @@
-﻿using System.Threading.Tasks;
-using Application.IServices;
+﻿using Application.IServices;
 using Domain;
 using Domain.Entities;
+using System.Threading.Tasks;
 
 namespace Infrastructure.Services
 {
@@ -11,12 +11,12 @@ namespace Infrastructure.Services
 
         public DocumentService(IUnitOfWork unitOfWork)
         {
-            _unitOfWork =   unitOfWork;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<bool> Create(Document document)
         {
-      
+
             await _unitOfWork.DocumentRepository.CreateAsync(document);
             var saveResult = await _unitOfWork.Commit();
 

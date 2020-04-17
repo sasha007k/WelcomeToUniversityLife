@@ -1,10 +1,10 @@
-﻿using System.Threading.Tasks;
-using Application.IServices.UniversityAdmin;
+﻿using Application.IServices.UniversityAdmin;
 using Application.Models.UniversityAdmin;
 using Domain;
 using Domain.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using System.Threading.Tasks;
 
 namespace Infrastructure.Services.UniversityAdmin
 {

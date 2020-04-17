@@ -1,7 +1,7 @@
-﻿using System.Threading.Tasks;
-using Application.Models.UniversityAdmin;
+﻿using Application.Models.UniversityAdmin;
 using Domain.Entities;
 using Microsoft.AspNetCore.Http;
+using System.Threading.Tasks;
 
 namespace Application.IServices
 {

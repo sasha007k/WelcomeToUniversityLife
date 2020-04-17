@@ -1,6 +1,6 @@
-﻿using System.Threading.Tasks;
-using Domain.Entities;
+﻿using Domain.Entities;
 using Microsoft.AspNetCore.Identity;
+using System.Threading.Tasks;
 
 namespace Infrastructure
 {
@@ -31,7 +31,7 @@ namespace Infrastructure
 
         public static async Task SeedRoles(RoleManager<IdentityRole<int>> roleManager)
         {
-            string[] roleNames = {"User", "UniversityAdmin", "SiteAdmin"};
+            string[] roleNames = { "User", "UniversityAdmin", "SiteAdmin" };
             IdentityResult roleResult;
             foreach (var role in roleNames)
             {

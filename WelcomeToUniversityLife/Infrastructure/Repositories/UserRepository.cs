@@ -1,8 +1,8 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using Domain.Entities;
+﻿using Domain.Entities;
 using Domain.IRepositories;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Infrastructure.Repositories
 {

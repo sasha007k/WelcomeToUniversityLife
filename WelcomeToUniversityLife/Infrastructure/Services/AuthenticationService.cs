@@ -1,9 +1,9 @@
-﻿using System;
-using System.Threading.Tasks;
-using Application.IServices;
+﻿using Application.IServices;
 using Application.Models.Authentication;
 using Domain.Entities;
 using Microsoft.AspNetCore.Identity;
+using System;
+using System.Threading.Tasks;
 
 namespace Infrastructure.Services
 {
@@ -33,7 +33,7 @@ namespace Infrastructure.Services
 
         public async Task<IdentityResult> Register(RegisterModel model)
         {
-            var user = new User {Email = model.Email, UserName = model.Email};
+            var user = new User { Email = model.Email, UserName = model.Email };
 
             var result = await _userManager.CreateAsync(user, model.Password);
             if (result.Succeeded)

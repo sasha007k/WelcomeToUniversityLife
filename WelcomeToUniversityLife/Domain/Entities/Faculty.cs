@@ -11,7 +11,7 @@ namespace Domain.Entities
         public int DocumentId { get; set; }
         public int UniversityId { get; set; }
         public University University { get; set; }
-        public ICollection<Speciality> Specialities { get; set; } = 
+        public ICollection<Speciality> Specialities { get; set; } =
             new List<Speciality>();
     }
 }

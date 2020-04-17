@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Application.IServices.UniversityAdmin;
+﻿using Application.IServices.UniversityAdmin;
 using Application.Models.Enum;
 using Application.Models.SpecialityModels;
 using Application.Models.UniversityAdmin;
 using Domain;
 using Domain.Entities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Infrastructure.Services.UniversityAdmin
 {
@@ -76,7 +76,7 @@ namespace Infrastructure.Services.UniversityAdmin
 
             var specialitiesResponce = new List<SpecialityInfoModel>();
 
-            foreach(var spec in specialities)
+            foreach (var spec in specialities)
             {
                 specialitiesResponce.Add(new SpecialityInfoModel
                 {
@@ -87,7 +87,7 @@ namespace Infrastructure.Services.UniversityAdmin
                 });
             }
 
-            return specialitiesResponce;     
+            return specialitiesResponce;
         }
 
         public async Task<SpecialityRating> GetSpecialityRatingAsync(int specialityId)
@@ -102,8 +102,8 @@ namespace Infrastructure.Services.UniversityAdmin
             SpecialityRating ratingInfo = new SpecialityRating
             {
                 Requests = (from i in requests
-                           select new RequestsInfo { UserEmail = i.User.Email , AverageMark = Math.Round(i.User.ZNO.GetAverageMark(),2) })
-                           .OrderByDescending(ri=>ri.AverageMark)
+                            select new RequestsInfo { UserEmail = i.User.Email, AverageMark = Math.Round(i.User.ZNO.GetAverageMark(), 2) })
+                           .OrderByDescending(ri => ri.AverageMark)
                            .ToList(),
                 Speciality = speciality
             };

@@ -1,5 +1,5 @@
-﻿using System.Threading.Tasks;
-using Application.Models.User;
+﻿using Application.Models.User;
+using System.Threading.Tasks;
 
 namespace Application.IServices
 {

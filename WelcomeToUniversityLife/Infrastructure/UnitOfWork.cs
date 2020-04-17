@@ -1,7 +1,7 @@
-﻿using System.Threading.Tasks;
-using Domain;
+﻿using Domain;
 using Domain.IRepositories;
 using Infrastructure.Repositories;
+using System.Threading.Tasks;
 
 namespace Infrastructure
 {

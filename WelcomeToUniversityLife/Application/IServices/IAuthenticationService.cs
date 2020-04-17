@@ -1,8 +1,8 @@
-﻿using System;
-using System.Threading.Tasks;
-using Application.Models.Authentication;
+﻿using Application.Models.Authentication;
 using Domain.Entities;
 using Microsoft.AspNetCore.Identity;
+using System;
+using System.Threading.Tasks;
 
 namespace Application.IServices
 {

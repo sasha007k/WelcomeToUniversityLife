@@ -1,10 +1,10 @@
-﻿using System.Threading.Tasks;
-using Application.IServices;
+﻿using Application.IServices;
 using Application.Models.User;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace WelcomeToUniversityLifeAspServer.Controllers
 {
@@ -39,8 +39,7 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
         [HttpPost]
         public async Task<IActionResult> ChangePassword(UserProfileModel model)
         {
-            if (model.ChangePasswordModel != null &&
-                model.ChangePasswordModel.NewPassword == model.ChangePasswordModel.ConfirmNewPassword)
+            if (model?.ChangePasswordModel != null && model.ChangePasswordModel.NewPassword == model.ChangePasswordModel.ConfirmNewPassword)
                 await _userService.ChangePassword(model.ChangePasswordModel).ConfigureAwait(true);
 
             return RedirectToAction("Profile", "User");
@@ -51,32 +50,26 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
         {
             if (uploads != null)
             {
-                int id = await _userService.GetIdByName(User.Identity.Name);
-               
-  
-                if (!Directory.Exists(Path.Combine( _appEnvironment.WebRootPath , "Docs", $"{id}")))
+                var id = await _userService.GetIdByName(User.Identity.Name).ConfigureAwait(true);
+
+
+                if (!Directory.Exists(Path.Combine(_appEnvironment.WebRootPath, "Docs", $"{id}")))
                 {
-                    Directory.CreateDirectory(Path.Combine(_appEnvironment.WebRootPath, "Docs",$"{id}"));
+                    Directory.CreateDirectory(Path.Combine(_appEnvironment.WebRootPath, "Docs", $"{id}"));
                 }
-                 
+
                 foreach (var item in uploads)
                 {
-                    string path =  Path.Combine( "Docs" , $"{id}" ,  item.FileName);
-                    using (var fileStream = new FileStream(Path.Combine( _appEnvironment.WebRootPath , path), FileMode.Create))
+                    var path = Path.Combine("Docs", $"{id}", item.FileName);
+                    await using var fileStream = new FileStream(Path.Combine(_appEnvironment.WebRootPath, path), FileMode.Create);
+                    var res = await _userService.AddDocs(User.Identity.Name, new Domain.Entities.Document() { Name = item.FileName }).ConfigureAwait(true);
+                    if (res.Succeeded)
                     {
-                     var res =    await _userService.AddDocs(User.Identity.Name, new Domain.Entities.Document() { Name = item.FileName });
-                        if(res.Succeeded)
-                        {
-                            await item.CopyToAsync(fileStream);
-                        }
-                      
-                   
-
+                        await item.CopyToAsync(fileStream).ConfigureAwait(true);
                     }
-                  
                 }
-               
-          return RedirectToAction("Profile", "User");
+
+                return RedirectToAction("Profile", "User");
             }
 
             return BadRequest("Can't save documents");
@@ -87,17 +80,20 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
             var message = string.Empty;
             if (specialityId != 0)
             {
-                message = await _userService.ApplyButtonExecuteAsync(specialityId);
+                message = await _userService.ApplyButtonExecuteAsync(specialityId).ConfigureAwait(true);
             }
 
-            return RedirectToAction("GetFaculty", "UniversityAdmin", new { id = facultyId, message = message});
+            return RedirectToAction("GetFaculty", "UniversityAdmin", new { id = facultyId, message = message });
         }
 
         [HttpPost]
         public async Task<IActionResult> AddMarks(UserProfileModel model)
         {
-            model.MarksModel.FirstZnoModel.Name = "Ukrainian";
-            if (model.MarksModel != null) await _znoService.SaveZNOMarks(model.MarksModel);
+            if (model?.MarksModel != null)
+            {
+                model.MarksModel.FirstZnoModel.Name = "Ukrainian";
+                await _znoService.SaveZNOMarks(model.MarksModel).ConfigureAwait(true);
+            } ;
 
             return RedirectToAction("Profile", "User");
         }

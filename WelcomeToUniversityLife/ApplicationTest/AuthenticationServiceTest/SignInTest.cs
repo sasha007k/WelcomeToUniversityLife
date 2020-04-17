@@ -1,5 +1,4 @@
-﻿using System.Threading;
-using Application.Models.Authentication;
+﻿using Application.Models.Authentication;
 using Domain.Entities;
 using Infrastructure;
 using Microsoft.AspNetCore.Authentication;
@@ -9,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Moq;
+using System.Threading;
 using Xunit;
 using AuthenticationService = Infrastructure.Services.AuthenticationService;
 
@@ -33,7 +33,7 @@ namespace ApplicationTest.AuthenticationServiceTest
                 });
 
                 var moq = new Mock<IUserPasswordStore<User>>();
-                moq.Setup(s => s.FindByNameAsync(email, CancellationToken.None)).ReturnsAsync(new User {Email = email});
+                moq.Setup(s => s.FindByNameAsync(email, CancellationToken.None)).ReturnsAsync(new User { Email = email });
 
                 var userManager = new UserManager<User>(moq.Object,
                     null, null, null, null, null, null, null,

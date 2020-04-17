@@ -1,6 +1,4 @@
-﻿using System;
-using System.Threading;
-using Application.Models.Authentication;
+﻿using Application.Models.Authentication;
 using Domain.Entities;
 using Infrastructure;
 using Microsoft.AspNetCore.Authentication;
@@ -10,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Moq;
+using System;
+using System.Threading;
 using Xunit;
 using AuthenticationService = Infrastructure.Services.AuthenticationService;
 

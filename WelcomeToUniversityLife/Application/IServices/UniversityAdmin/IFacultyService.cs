@@ -1,6 +1,6 @@
-﻿using System.Threading.Tasks;
-using Application.Models.UniversityAdmin;
+﻿using Application.Models.UniversityAdmin;
 using Domain.Entities;
+using System.Threading.Tasks;
 
 namespace Application.IServices.UniversityAdmin
 {

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Application.Models.SpecialityModels
+﻿namespace Application.Models.SpecialityModels
 {
     public class RequestsInfo
     {

@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using Application.Models.SiteAdmin;
+﻿using Application.Models.SiteAdmin;
 using Domain.Entities;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Application.IServices
 {

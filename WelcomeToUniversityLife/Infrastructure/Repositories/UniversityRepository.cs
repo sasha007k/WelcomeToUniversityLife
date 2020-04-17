@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Domain.Entities;
+﻿using Domain.Entities;
 using Domain.IRepositories;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Infrastructure.Repositories
 {
@@ -24,16 +24,16 @@ namespace Infrastructure.Repositories
         public Task<List<University>> GetAllUniversitities()
         {
             return (from university in _context.Universities
-                join user in _context.Users on university.UserId equals user.Id
-                select new University
-                {
-                    Id = university.Id,
-                    Name = university.Name,
-                    Photo = university.Photo,
-                    City = university.City,
-                    Description = university.Description,
-                    User = user
-                }).ToListAsync();
+                    join user in _context.Users on university.UserId equals user.Id
+                    select new University
+                    {
+                        Id = university.Id,
+                        Name = university.Name,
+                        Photo = university.Photo,
+                        City = university.City,
+                        Description = university.Description,
+                        User = user
+                    }).ToListAsync();
         }
 
         public Task<University> GetUniversityWithUserId(int userId)

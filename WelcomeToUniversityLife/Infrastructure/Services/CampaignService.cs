@@ -1,8 +1,8 @@
-﻿using System;
-using System.Threading.Tasks;
-using Application.IServices;
+﻿using Application.IServices;
 using Domain;
 using Domain.Entities;
+using System;
+using System.Threading.Tasks;
 
 namespace Infrastructure.Services
 {
@@ -25,25 +25,25 @@ namespace Infrastructure.Services
                     switch (campaign.Status)
                     {
                         case CampaignStatus.Pending:
-                        {
-                            if (campaign.Start < DateTime.Now)
                             {
-                                campaign.Status = CampaignStatus.Active;
-                                await _unitOfWork.Commit();
-                            }
+                                if (campaign.Start < DateTime.Now)
+                                {
+                                    campaign.Status = CampaignStatus.Active;
+                                    await _unitOfWork.Commit();
+                                }
 
-                            break;
-                        }
+                                break;
+                            }
                         case CampaignStatus.Active:
-                        {
-                            if (campaign.End < DateTime.Now)
                             {
-                                campaign.Status = CampaignStatus.Closed;
-                                await _unitOfWork.Commit();
-                            }
+                                if (campaign.End < DateTime.Now)
+                                {
+                                    campaign.Status = CampaignStatus.Closed;
+                                    await _unitOfWork.Commit();
+                                }
 
-                            break;
-                        }
+                                break;
+                            }
                     }
                 }
             }

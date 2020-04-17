@@ -1,10 +1,8 @@
-﻿using System.Threading.Tasks;
-using Application.IServices;
+﻿using Application.IServices;
 using Application.Models.SiteAdmin;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities;
+using System.Threading.Tasks;
 
 namespace WelcomeToUniversityLifeAspServer.Controllers
 {
@@ -39,7 +37,7 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllCampaigns(string message = null)
         {
-            var campaings = await _siteAdminService.GetAllCampaigns();
+            var campaings = await _siteAdminService.GetAllCampaigns().ConfigureAwait(true); ;
 
             if (!string.IsNullOrWhiteSpace(message))
             {
@@ -56,10 +54,10 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
             var message = string.Empty;
             if (request != null)
             {
-                message = await _siteAdminService.CreateCampaignAsync(request);
+                message = await _siteAdminService.CreateCampaignAsync(request).ConfigureAwait(true); ;
             }
 
-            return RedirectToAction("GetAllCampaigns", new {message = message});
+            return RedirectToAction("GetAllCampaigns", new { message = message });
         }
 
         [HttpGet]
@@ -68,7 +66,7 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
         {
             if (campaignId != 0)
             {
-                await _siteAdminService.DeleteCampaignAsync(campaignId);
+                await _siteAdminService.DeleteCampaignAsync(campaignId).ConfigureAwait(true); ;
             }
 
             return RedirectToAction("GetAllCampaigns");

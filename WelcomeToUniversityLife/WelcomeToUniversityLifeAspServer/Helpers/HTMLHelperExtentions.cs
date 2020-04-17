@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Collections.Generic;
 using System.Linq;
-using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace WelcomeToUniversityLifeAspServer.Helpers
 {
@@ -12,12 +12,20 @@ namespace WelcomeToUniversityLifeAspServer.Helpers
             var currentAction = htmlHelper.ViewContext.RouteData.Values["action"] as string;
             var currentController = htmlHelper.ViewContext.RouteData.Values["controller"] as string;
 
-            IEnumerable<string> acceptedActions = (actions ?? currentAction).Split(',');
-            IEnumerable<string> acceptedControllers = (controllers ?? currentController).Split(',');
+            if (!string.IsNullOrWhiteSpace(controllers) && 
+                !string.IsNullOrWhiteSpace(actions) && 
+                !string.IsNullOrWhiteSpace(currentAction) &&
+                !string.IsNullOrWhiteSpace(currentController))
+            {
+                IEnumerable<string> acceptedActions = (actions ?? currentAction).Split(',');
+                IEnumerable<string> acceptedControllers = (controllers ?? currentController).Split(',');
 
-            return acceptedActions.Contains(currentAction) && acceptedControllers.Contains(currentController)
-                ? cssClass
-                : string.Empty;
+                return acceptedActions.Contains(currentAction) && acceptedControllers.Contains(currentController)
+                    ? cssClass
+                    : string.Empty;
+            }
+
+            return string.Empty;
         }
     }
 }

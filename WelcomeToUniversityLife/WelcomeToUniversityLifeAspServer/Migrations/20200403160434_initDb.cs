@@ -1,5 +1,5 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
+using System;
 
 namespace WelcomeToUniversityLifeAspServer.Migrations
 {
@@ -173,7 +173,7 @@ namespace WelcomeToUniversityLifeAspServer.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AspNetUserLogins", x => new {x.LoginProvider, x.ProviderKey});
+                    table.PrimaryKey("PK_AspNetUserLogins", x => new { x.LoginProvider, x.ProviderKey });
                     table.ForeignKey(
                         "FK_AspNetUserLogins_Users_UserId",
                         x => x.UserId,
@@ -191,7 +191,7 @@ namespace WelcomeToUniversityLifeAspServer.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AspNetUserRoles", x => new {x.UserId, x.RoleId});
+                    table.PrimaryKey("PK_AspNetUserRoles", x => new { x.UserId, x.RoleId });
                     table.ForeignKey(
                         "FK_AspNetUserRoles_AspNetRoles_RoleId",
                         x => x.RoleId,
@@ -217,7 +217,7 @@ namespace WelcomeToUniversityLifeAspServer.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AspNetUserTokens", x => new {x.UserId, x.LoginProvider, x.Name});
+                    table.PrimaryKey("PK_AspNetUserTokens", x => new { x.UserId, x.LoginProvider, x.Name });
                     table.ForeignKey(
                         "FK_AspNetUserTokens_Users_UserId",
                         x => x.UserId,

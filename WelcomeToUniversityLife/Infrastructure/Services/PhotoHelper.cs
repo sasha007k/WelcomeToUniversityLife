@@ -1,10 +1,10 @@
-﻿using System;
-using System.IO;
-using System.Threading.Tasks;
-using Application.IServices;
+﻿using Application.IServices;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
+using System;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace Infrastructure.Services
 {

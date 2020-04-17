@@ -1,5 +1,5 @@
-﻿using System.Threading.Tasks;
-using Domain.IRepositories;
+﻿using Domain.IRepositories;
+using System.Threading.Tasks;
 
 namespace Domain
 {
@@ -11,7 +11,7 @@ namespace Domain
         IFacultyRepository FacultyRepository { get; }
         ISpecialityRepository SpecialityRepository { get; }
         IUniversityRepository UniversityRepository { get; }
-        IDocumentRepository DocumentRepository { get; }     
+        IDocumentRepository DocumentRepository { get; }
         ICampaignRepository CampaignRepository { get; }
 
         Task<int> Commit();

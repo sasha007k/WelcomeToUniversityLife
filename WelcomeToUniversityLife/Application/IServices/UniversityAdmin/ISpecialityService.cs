@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using Application.Models.SpecialityModels;
+﻿using Application.Models.SpecialityModels;
 using Application.Models.UniversityAdmin;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Application.IServices.UniversityAdmin
 {

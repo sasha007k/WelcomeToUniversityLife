@@ -1,11 +1,11 @@
-﻿using System;
-using System.Threading.Tasks;
-using Application.IServices;
+﻿using Application.IServices;
 using Application.Models.UniversityAdmin;
 using Domain;
 using Domain.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using System;
+using System.Threading.Tasks;
 
 namespace Infrastructure.Services
 {

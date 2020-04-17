@@ -1,8 +1,8 @@
-﻿using System;
-using System.Threading.Tasks;
-using Application.IServices;
+﻿using Application.IServices;
 using Application.Models.Authentication;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Threading.Tasks;
 
 namespace WelcomeToUniversityLifeAspServer.Controllers
 {
@@ -24,9 +24,9 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(RegisterModel model)
         {
-            if (ModelState.IsValid)
-                if (await _authenticationService.FindByEmailAsync(model.Email) == null)
-                    if ((await _authenticationService.Register(model)).Succeeded)
+            if (ModelState.IsValid && model != null)
+                if (await _authenticationService.FindByEmailAsync(model.Email).ConfigureAwait(true) == null)
+                    if ((await _authenticationService.Register(model).ConfigureAwait(true)).Succeeded)
                         return RedirectToAction("Profile", "User");
             return View();
         }
@@ -57,7 +57,7 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
         {
             if (ModelState.IsValid)
             {
-                var (signInResult, role) = await _authenticationService.SignIn(model);
+                var (signInResult, role) = await _authenticationService.SignIn(model).ConfigureAwait(true);
                 if (signInResult.Succeeded)
                 {
                     var route = ChooseStartPage(role);
@@ -73,7 +73,7 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
         [HttpGet]
         public async Task<IActionResult> SignOut()
         {
-            await _authenticationService.SignOut();
+            await _authenticationService.SignOut().ConfigureAwait(true); ;
 
             return RedirectToAction("SignIn", "Authentication");
         }

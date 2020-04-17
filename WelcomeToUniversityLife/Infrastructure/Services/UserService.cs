@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Application.IServices;
+﻿using Application.IServices;
 using Application.Models.User;
 using Domain;
 using Domain.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Infrastructure.Services
 {
@@ -23,7 +21,7 @@ namespace Infrastructure.Services
         private const int _maxApplications = 6;
 
         public UserService(UserManager<User> userManager, IHttpContextAccessor httpContext,
-           IUnitOfWork unitOfWork, ICampaignService campaignService,IDocumentService documentService)
+           IUnitOfWork unitOfWork, ICampaignService campaignService, IDocumentService documentService)
         {
             _userManager = userManager;
             _httpContext = httpContext;
@@ -98,14 +96,14 @@ namespace Infrastructure.Services
         public async Task<IdentityResult> AddDocs(string name, Document document)
         {
             var user = await _userManager.FindByNameAsync(name);
-      
- 
+
+
             if (user != null)
             {
                 document.User = user;
                 document.UserId = user.Id;
                 await _documentService.Create(document);
-    
+
                 user.Documents.Add(document);
 
 
@@ -212,7 +210,7 @@ namespace Infrastructure.Services
         public async Task<int> GetIdByName(string name)
         {
             var user = await _userManager.FindByNameAsync(name);
-            if(user!=null)
+            if (user != null)
             {
                 return user.Id;
             }

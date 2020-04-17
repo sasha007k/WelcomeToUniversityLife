@@ -1,5 +1,5 @@
-﻿using System.Threading.Tasks;
-using Domain.Entities;
+﻿using Domain.Entities;
+using System.Threading.Tasks;
 
 namespace Application.IServices
 {

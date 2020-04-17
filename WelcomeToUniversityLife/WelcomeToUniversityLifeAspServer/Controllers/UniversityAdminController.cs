@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using Application.IServices;
+﻿using Application.IServices;
 using Application.IServices.UniversityAdmin;
 using Application.Models.SpecialityModels;
 using Application.Models.UniversityAdmin;
@@ -12,6 +7,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace WelcomeToUniversityLifeAspServer.Controllers
 {
@@ -42,7 +42,7 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
         [HttpGet]
         public async Task<SpecialityRating> GetSpecialityRatingInfo([FromQuery] int id)
         {
-            var responce = await _specialityService.GetSpecialityRatingAsync(id);
+            var responce = await _specialityService.GetSpecialityRatingAsync(id).ConfigureAwait(true); ;
 
             return responce;
         }
@@ -50,7 +50,7 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
         [HttpGet]
         public async Task<List<SpecialityInfoModel>> SearchSpeciality([FromQuery] string filter)
         {
-            var responce = await _specialityService.SearchSpecialityAsync(filter);
+            var responce = await _specialityService.SearchSpecialityAsync(filter).ConfigureAwait(true); ;
 
             return responce;
         }
@@ -60,8 +60,8 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
         {
             if (model != null)
             {
-                var result = await _specialityService.AddSpecialityAsync(model);
-                if (result) return RedirectToAction("GetFaculty", "UniversityAdmin", new {id = model.FacultyId});
+                var result = await _specialityService.AddSpecialityAsync(model).ConfigureAwait(true); ;
+                if (result) return RedirectToAction("GetFaculty", "UniversityAdmin", new { id = model.FacultyId });
             }
 
             return RedirectToAction("AddSpeciality", "UniversityAdmin");
@@ -72,7 +72,7 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
         {
             if (model != null && model.Id != 0 && model.FacultyId != 0)
             {
-                var result = await _specialityService.DeleteSpecialityAndSaveAsync(model.Id);
+                var result = await _specialityService.DeleteSpecialityAndSaveAsync(model.Id).ConfigureAwait(true);
                 if (result)
                 {
                     _log.LogInformation("Speciality was deleted");
@@ -88,7 +88,7 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
 
         public async Task<ActionResult> University()
         {
-            var universityAndFaculties = await _universityService.GetUniversity();
+            var universityAndFaculties = await _universityService.GetUniversity().ConfigureAwait(true);
             if (universityAndFaculties == null) return RedirectToAction();
 
             ViewBag.iseditable = false;
@@ -108,7 +108,7 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
 
         public async Task<ActionResult> GetUniversity(int id)
         {
-            var universityAndFaculties = await _universityService.GetUniversityAsync(id);
+            var universityAndFaculties = await _universityService.GetUniversityAsync(id).ConfigureAwait(true);
             if (universityAndFaculties == null) return RedirectToAction();
 
             ViewBag.iseditable = false;
@@ -145,10 +145,13 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
         public async Task<IActionResult> UploadUniversityPhoto([FromQuery] UploadPhotoModel requestData,
             IFormFileCollection uploadedFiles)
         {
-            requestData.requestedUserId =
-                Convert.ToInt32(User.Claims.FirstOrDefault(claim => claim.Type == ClaimTypes.NameIdentifier).Value);
+            if(requestData != null)
+            {
+                requestData.requestedUserId =
+                    Convert.ToInt32(User.Claims.FirstOrDefault(claim => claim.Type == ClaimTypes.NameIdentifier).Value);
+                await _universityService.UploadUniversityPhotoAsync(requestData, uploadedFiles).ConfigureAwait(true);
 
-            await _universityService.UploadUniversityPhotoAsync(requestData, uploadedFiles);
+            }
 
             return RedirectToAction("University", "UniversityAdmin");
         }
@@ -160,7 +163,7 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
             var userId =
                 Convert.ToInt32(User.Claims.FirstOrDefault(claim => claim.Type == ClaimTypes.NameIdentifier).Value);
 
-            await _universityService.DeleteUniversityPhotoAsync(userId);
+            await _universityService.DeleteUniversityPhotoAsync(userId).ConfigureAwait(true);
 
             return RedirectToAction("University", "UniversityAdmin");
         }
@@ -174,7 +177,7 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
         {
             if (model != null)
             {
-                var result = await _facultyService.AddFacultyAsync(model);
+                var result = await _facultyService.AddFacultyAsync(model).ConfigureAwait(true); ;
                 if (result) return RedirectToAction("University", "UniversityAdmin");
             }
 
@@ -184,7 +187,7 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
 
         public async Task<ActionResult> GetFaculty(int id, string message = null)
         {
-            var facultyAndSpecialities = await _facultyService.GetFacultyAsync(id);
+            var facultyAndSpecialities = await _facultyService.GetFacultyAsync(id).ConfigureAwait(true); ;
             if (facultyAndSpecialities == null) return RedirectToAction();
 
             ViewBag.iseditable = false;
@@ -205,15 +208,13 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
         [HttpPost]
         public async Task<IActionResult> EditFacultyInfo(Faculty model)
         {
-            var result = false;
-            if (model != null) result = await _facultyService.EditFaculty(model).ConfigureAwait(true);
-
-            if (!result)
+            if (model != null)
             {
-                // do smth
+                await _facultyService.EditFaculty(model).ConfigureAwait(true);
+                return RedirectToAction("GetFaculty", "UniversityAdmin", new { id = model.Id });
             }
 
-            return RedirectToAction("GetFaculty", "UniversityAdmin", new {id = model.Id});
+            return RedirectToAction("GetFaculty", "UniversityAdmin", new { id = model.Id });
         }
 
         [HttpPost]
@@ -221,7 +222,7 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
         {
             if (facultyId != 0)
             {
-                var result = await _facultyService.DeleteFaculty(facultyId);
+                var result = await _facultyService.DeleteFaculty(facultyId).ConfigureAwait(true); ;
                 if (result)
                 {
                     _log.LogInformation("Faculty was deleted");

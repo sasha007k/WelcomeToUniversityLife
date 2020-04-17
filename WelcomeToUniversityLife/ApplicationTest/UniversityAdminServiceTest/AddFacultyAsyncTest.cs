@@ -1,8 +1,6 @@
-﻿using System.Threading;
-using Application.Models.UniversityAdmin;
+﻿using Application.Models.UniversityAdmin;
 using Domain.Entities;
 using Infrastructure;
-using Infrastructure.Services;
 using Infrastructure.Services.UniversityAdmin;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
@@ -11,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Moq;
+using System.Threading;
 using Xunit;
 
 namespace ApplicationTest.UniversityAdminServiceTest
@@ -43,7 +42,7 @@ namespace ApplicationTest.UniversityAdminServiceTest
                 context.Set<University>().Add(university);
 
                 var moq = new Mock<IUserPasswordStore<User>>();
-                moq.Setup(s => s.FindByNameAsync(email, CancellationToken.None)).ReturnsAsync(new User {Email = email});
+                moq.Setup(s => s.FindByNameAsync(email, CancellationToken.None)).ReturnsAsync(new User { Email = email });
 
                 var userManager = new UserManager<User>(moq.Object,
                     null, null, null, null, null, null, null,

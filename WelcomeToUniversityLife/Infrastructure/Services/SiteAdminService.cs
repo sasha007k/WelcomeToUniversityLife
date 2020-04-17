@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Application.IServices;
+﻿using Application.IServices;
 using Application.Models.SiteAdmin;
 using Domain;
 using Domain.Entities;
-using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Identity;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Infrastructure.Services
 {
