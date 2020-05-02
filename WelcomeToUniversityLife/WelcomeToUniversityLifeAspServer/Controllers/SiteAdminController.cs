@@ -71,5 +71,11 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
 
             return RedirectToAction("GetAllCampaigns");
         }
+
+        public ActionResult News()
+        {
+
+            return View();
+        }
     }
 }

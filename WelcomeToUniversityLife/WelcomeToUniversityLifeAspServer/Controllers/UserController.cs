@@ -97,5 +97,7 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
 
             return RedirectToAction("Profile", "User");
         }
+
+       
     }
 }
