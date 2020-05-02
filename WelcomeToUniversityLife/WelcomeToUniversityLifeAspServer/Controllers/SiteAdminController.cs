@@ -37,7 +37,7 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllCampaigns(string message = null)
         {
-            var campaings = await _siteAdminService.GetAllCampaigns().ConfigureAwait(true); ;
+            var campaings = await _siteAdminService.GetAllCampaigns().ConfigureAwait(true); 
 
             if (!string.IsNullOrWhiteSpace(message))
             {
@@ -72,10 +72,14 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
             return RedirectToAction("GetAllCampaigns");
         }
 
-        public ActionResult News()
+        public async Task<IActionResult> News()
         {
 
-            return View();
+            var campaings = await _siteAdminService.GetAllCampaigns().ConfigureAwait(true);
+
+           
+
+            return View(campaings);
         }
     }
 }

@@ -1,1 +1,23 @@
-﻿<h1>  news</h1>
+﻿@model List<Domain.Entities.Сampaign>;
+@{
+    ViewData["Title"] = "GetAllCampaigns";
+}
+
+<h1>  News:</h1>
+<div class="list-group">
+
+    @foreach (var item in Model)
+    {
+        <a asp-controller="SiteAdmin" asp-action="GetAllCampaigns" class="list-group-item list-group-item-action flex-column align-items-start active">
+            <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">Added new Camping</h5>              
+            </div>
+            <p class="mb-1">
+                Available from  @item.Start to  @item.End
+            </p>
+            <small>Status: @item.Status</small>
+        </a>
+    }
+
+
+</div>
