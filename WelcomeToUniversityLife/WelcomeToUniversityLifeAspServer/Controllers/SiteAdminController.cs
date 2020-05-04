@@ -32,7 +32,7 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
         {
             var result = await _siteAdminService.AddUniversityAsync(model).ConfigureAwait(true);
 
-           
+            await this.HubContext.Clients.All.SendAsync("AddUniversity",model.UniversityName);
 
             return RedirectToAction("AllUniversities", "SiteAdmin");
         }
@@ -59,9 +59,9 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
             {
                 message = await _siteAdminService.CreateCampaignAsync(request).ConfigureAwait(true); 
             }
-
-            await this.HubContext.Clients.All.SendAsync("Send",message.Item2.Start, message.Item2.End, 
-                message.Item2.Status);
+            var enumDisplayStatus = (CampaignStatus)message.Item2.Status;
+            await this.HubContext.Clients.All.SendAsync("CreateCampaign", message.Item2.Start, message.Item2.End, 
+                enumDisplayStatus.ToString(),message.Item2.Id);
             return RedirectToAction("GetAllCampaigns", new { message = message.Empty });
         }
 
@@ -71,7 +71,8 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
         {
             if (campaignId != 0)
             {
-                await _siteAdminService.DeleteCampaignAsync(campaignId).ConfigureAwait(true); ;
+                await _siteAdminService.DeleteCampaignAsync(campaignId).ConfigureAwait(true);
+                await this.HubContext.Clients.All.SendAsync("DeleteCampaign", campaignId);
             }
 
             return RedirectToAction("GetAllCampaigns");
@@ -81,8 +82,9 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
         {
 
             var campaings = await _siteAdminService.GetAllCampaigns().ConfigureAwait(true);
+            var universities = _siteAdminService.GetAllUniversities();
+            ViewBag.universities = universities;
 
-           
 
             return View(campaings);
         }

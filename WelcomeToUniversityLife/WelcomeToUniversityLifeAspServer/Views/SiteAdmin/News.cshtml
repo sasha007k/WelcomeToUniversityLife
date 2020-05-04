@@ -8,7 +8,7 @@
 
     @foreach (var item in Model)
     {
-        <a asp-controller="SiteAdmin" asp-action="GetAllCampaigns" class="list-group-item list-group-item-action flex-column align-items-start active">
+        <a asp-controller="SiteAdmin" asp-action="GetAllCampaigns" class="list-group-item list-group-item-action flex-column align-items-start active" id="camp-@item.Id">
             <div class="d-flex w-100 justify-content-between">
                 <h5 class="mb-1">Added new Camping</h5>
             </div>
@@ -19,7 +19,20 @@
         </a>
     }
 
-    <div id="chatroom"></div>
+    @foreach (var item in ViewBag.universities)
+    {
+        <a asp-controller="SiteAdmin" asp-action="AllUniversities" class="list-group-item list-group-item-action flex-column align-items-start active">
+            <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">Added new University</h5>
+            </div>
+            <p class="mb-1">
+                Name: @item.Name
+            </p>
+            <small>City: @item.City</small>
+        </a>
+    }
+
+
 </div>
 
 @section Scripts{
@@ -28,12 +41,12 @@
         const hubConnection = new signalR.HubConnectionBuilder()
             .withUrl("/siteadmin/newsser")
             .build();
-        hubConnection.on('Send', function (from,to,status) {
+        hubConnection.on('CreateCampaign', function (from,to,status,id) {
 
            
 
             var node = document.createElement("a");         
-            node.className = 'list-group-item list-group-item-action flex-column align-items-start active';
+            node.className = 'list-group-item list-group-item-action flex-column align-items-start active text-white';
             var div = document.createElement("div");
             div.className = 'd-flex w-100 justify-content-between';
             var h = document.createElement("h5");
@@ -49,19 +62,53 @@
             p.appendChild(textnode);
             node.appendChild(p);
             var small = document.createElement("small");     
-            if (status == 0) {
-                status ='Active'
-            }
-            else if (status == 1) {
-                status ='Closed'
-
-            } else if (status == 2) {
-                status ='Pending'
-            }
+         
             textnode = document.createTextNode("Status:"+status);
             small.appendChild(textnode);
             node.appendChild(small);
+            node.id='camp-'+id
             document.getElementById("list").appendChild(node);
+
+        });
+
+         hubConnection.on('DeleteCampaign', function (id) {
+
+           
+
+            var elem = document.getElementById('camp-'+id);
+             elem.parentNode.removeChild(elem);
+         
+
+         });
+
+          hubConnection.on('AddUniversity', function (name) {
+
+           
+              
+            var node = document.createElement("a");         
+            node.className = 'list-group-item list-group-item-action flex-column align-items-start active  text-white';
+            var div = document.createElement("div");
+            div.className = 'd-flex w-100 justify-content-between';
+            var h = document.createElement("h5");
+            h.className = 'mb-1';
+            var textnode = document.createTextNode("Added new University");
+            h.appendChild(textnode);
+            div.appendChild(h);
+            node.appendChild(div);
+
+            var p = document.createElement("p");
+            p.className = 'mb-1';
+            textnode = document.createTextNode("Name: "+name);
+            p.appendChild(textnode);
+            node.appendChild(p);
+            var small = document.createElement("small");     
+         
+            textnode = document.createTextNode("City: unk");
+            small.appendChild(textnode);
+            node.appendChild(small);
+          
+            document.getElementById("list").appendChild(node);
+         
 
         });
 
