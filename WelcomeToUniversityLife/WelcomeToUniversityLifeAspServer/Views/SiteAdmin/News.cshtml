@@ -4,13 +4,13 @@
 }
 
 <h1>  News:</h1>
-<div class="list-group">
+<div class="list-group" id="list">
 
     @foreach (var item in Model)
     {
         <a asp-controller="SiteAdmin" asp-action="GetAllCampaigns" class="list-group-item list-group-item-action flex-column align-items-start active">
             <div class="d-flex w-100 justify-content-between">
-                <h5 class="mb-1">Added new Camping</h5>              
+                <h5 class="mb-1">Added new Camping</h5>
             </div>
             <p class="mb-1">
                 Available from  @item.Start to  @item.End
@@ -19,5 +19,52 @@
         </a>
     }
 
-
+    <div id="chatroom"></div>
 </div>
+
+@section Scripts{
+    <script>
+
+        const hubConnection = new signalR.HubConnectionBuilder()
+            .withUrl("/siteadmin/newsser")
+            .build();
+        hubConnection.on('Send', function (from,to,status) {
+
+           
+
+            var node = document.createElement("a");         
+            node.className = 'list-group-item list-group-item-action flex-column align-items-start active';
+            var div = document.createElement("div");
+            div.className = 'd-flex w-100 justify-content-between';
+            var h = document.createElement("h5");
+            h.className = 'mb-1';
+            var textnode = document.createTextNode("Added new Camping");
+            h.appendChild(textnode);
+            div.appendChild(h);
+            node.appendChild(div);
+
+            var p = document.createElement("p");
+            p.className = 'mb-1';
+            textnode = document.createTextNode("Available from "+from+' to '+to);
+            p.appendChild(textnode);
+            node.appendChild(p);
+            var small = document.createElement("small");     
+            if (status == 0) {
+                status ='Active'
+            }
+            else if (status == 1) {
+                status ='Closed'
+
+            } else if (status == 2) {
+                status ='Pending'
+            }
+            textnode = document.createTextNode("Status:"+status);
+            small.appendChild(textnode);
+            node.appendChild(small);
+            document.getElementById("list").appendChild(node);
+
+        });
+
+        hubConnection.start();
+    </script>
+}

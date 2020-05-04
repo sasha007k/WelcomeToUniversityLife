@@ -3,16 +3,22 @@ using Application.Models.SiteAdmin;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.SignalR;
+using Domain.Entities;
 
 namespace WelcomeToUniversityLifeAspServer.Controllers
 {
     public class SiteAdminController : Controller
     {
         private readonly ISiteAdminService _siteAdminService;
+        private readonly IFucker _newsNub;
 
-        public SiteAdminController(ISiteAdminService siteAdminService)
+        private IHubContext<NewsHub> HubContext { get; set; }
+
+        public SiteAdminController(ISiteAdminService siteAdminService, IHubContext<NewsHub> hubcontext)
         {
             _siteAdminService = siteAdminService;
+            HubContext = hubcontext;
         }
 
         public ActionResult AllUniversities()
@@ -26,10 +32,7 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
         {
             var result = await _siteAdminService.AddUniversityAsync(model).ConfigureAwait(true);
 
-            if (!result)
-            {
-                // do smth
-            }
+           
 
             return RedirectToAction("AllUniversities", "SiteAdmin");
         }
@@ -51,13 +54,15 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
         [Authorize(Roles = "SiteAdmin")]
         public async Task<IActionResult> CreateCampaign(CampaignModel request)
         {
-            var message = string.Empty;
+            var message = (string.Empty,new Сampaign());
             if (request != null)
             {
-                message = await _siteAdminService.CreateCampaignAsync(request).ConfigureAwait(true); ;
+                message = await _siteAdminService.CreateCampaignAsync(request).ConfigureAwait(true); 
             }
 
-            return RedirectToAction("GetAllCampaigns", new { message = message });
+            await this.HubContext.Clients.All.SendAsync("Send",message.Item2.Start, message.Item2.End, 
+                message.Item2.Status);
+            return RedirectToAction("GetAllCampaigns", new { message = message.Empty });
         }
 
         [HttpGet]

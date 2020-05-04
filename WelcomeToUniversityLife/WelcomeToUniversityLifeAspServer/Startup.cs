@@ -16,6 +16,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System.Reflection;
+using WelcomeToUniversityLifeAspServer.Controllers;
 
 namespace WelcomeToUniversityLifeAspServer
 {
@@ -24,6 +25,7 @@ namespace WelcomeToUniversityLifeAspServer
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+
         }
 
         public IConfiguration Configuration { get; }
@@ -31,7 +33,9 @@ namespace WelcomeToUniversityLifeAspServer
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
             services.AddControllersWithViews();
+
 
             services.AddDbContext<DatabaseContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),
@@ -71,6 +75,8 @@ namespace WelcomeToUniversityLifeAspServer
             services.AddScoped<IZnoService, ZnoService>();
             services.AddScoped<ICampaignService, CampaignService>();
             services.AddScoped<IDocumentService, DocumentService>();
+        
+            services.AddSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -104,6 +110,8 @@ namespace WelcomeToUniversityLifeAspServer
                 endpoints.MapControllerRoute(
                     "default",
                     "{controller=Authentication}/{action=SignIn}/{id?}");
+                endpoints.MapHub<WelcomeToUniversityLifeAspServer.
+                    Controllers.NewsHub>("/siteadmin/newsser");
             });
         }
     }
