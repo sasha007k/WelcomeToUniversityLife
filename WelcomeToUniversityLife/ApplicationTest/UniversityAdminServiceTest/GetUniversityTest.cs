@@ -1,77 +1,80 @@
-﻿using Application.Models.UniversityAdmin;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Principal;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using Application.IServices;
+using AutoFixture;
+using AutoFixture.AutoMoq;
+using Domain;
 using Domain.Entities;
-using Infrastructure;
 using Infrastructure.Services;
-using Microsoft.AspNetCore.Authentication;
+using Infrastructure.Services.UniversityAdmin;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Moq;
-using System.Collections.Generic;
-using System.Threading;
 using Xunit;
 
 namespace ApplicationTest.UniversityAdminServiceTest
 {
     public class GetUniversityTest
     {
-        [Theory]
-        [InlineData("test@gmail.com", "LNU", "Faculty of Applied Mathematics")]
-        public async void ShouldGetUniversity(string email, string universityName, string facultyName)
+        [Fact]
+        public async void GetUniversity_ShouldReturnValidValues()
         {
-            var options = new DbContextOptionsBuilder<DatabaseContext>()
-                .UseInMemoryDatabase("Database")
-                .Options;
+            //arrange
 
-            using (var context = new DatabaseContext(options))
+            var university = new University()
             {
-                var user = new User
-                {
-                    UserName = email,
-                    Email = email
-                };
-                context.Set<User>().Add(user);
-                var university = new University
-                {
-                    Name = universityName,
-                    User = user,
-                    UserId = user.Id
-                };
-                context.Set<University>().Add(university);
-                var faculty = new Faculty
-                {
-                    Name = facultyName,
-                    UniversityId = university.Id
-                };
-                context.Set<Faculty>().Add(faculty);
-                var moq = new Mock<IUserPasswordStore<User>>();
-                moq.Setup(s => s.FindByNameAsync(email, CancellationToken.None)).ReturnsAsync(new User { Email = email });
+                Id = 1,
+                Name = "LNU",
+                UserId = 1
+            };
 
-                var userManager = new UserManager<User>(moq.Object,
-                    null, null, null, null, null, null, null,
-                    new Mock<ILogger<UserManager<User>>>().Object);
+            var user = new User()
+            {
+                Id = 1,
+                UserName = "username"
+            };
 
-                var signInManager = new SignInManager<User>(userManager,
-                    new Mock<IHttpContextAccessor>().Object,
-                    new Mock<IUserClaimsPrincipalFactory<User>>().Object,
-                    new Mock<IOptions<IdentityOptions>>().Object,
-                    new Mock<ILogger<SignInManager<User>>>().Object,
-                    new Mock<IAuthenticationSchemeProvider>().Object);
+            var users = new List<User>
+            {
+                new User() {Id = 1, UserName = "username"}
+            };
 
-                var httpContext = new HttpContextAccessor();
-                var service = new UniversityService(userManager, null, httpContext, null);
-                var faculties = new List<Faculty> { faculty };
-                var currentUniversity = new CurrentUniversityAndFacultiesModel
-                {
-                    CurrentUniversity = university,
-                    Faculties = faculties
-                };
-                var result = await service.GetUniversity();
+            var faculties = new List<Faculty>
+            {
+                new Faculty() {Id = 1, Name = "Law", UniversityId = 1},
+                new Faculty() {Id = 2, Name = "Applied Math", UniversityId = 1}
+            };
 
-                Assert.Equal(currentUniversity, result);
-            }
+
+            var fixture = new Fixture().Customize(new AutoMoqCustomization());
+            var mockUnitOfWork = fixture.Freeze<Mock<IUnitOfWork>>();
+            var mockHttpContext = fixture.Freeze<Mock<IHttpContextAccessor>>();
+            var mockUserManager = fixture.Freeze<Mock<IUserManager>>();
+
+            mockHttpContext.Setup(p => p.HttpContext.User.Identity).Returns(fixture.Create<IIdentity>());
+            mockHttpContext.Setup(p => p.HttpContext.User.Identity.Name).Returns("username");
+
+            mockUnitOfWork.Setup(u => u.UniversityRepository.GetUniversityWithUserId(user.Id)).ReturnsAsync(university);
+            mockUnitOfWork.Setup(u => u.FacultyRepository.GetAllFacultiesWithUniversityId(university.Id)).ReturnsAsync(faculties);
+
+            mockUserManager.Setup(u => u.FindByNameAsync(user.UserName)).ReturnsAsync(user);
+
+
+            var universityService = fixture.Create<UniversityService>();
+
+            //Act
+            var result = await universityService.GetUniversity();
+
+            //Assert
+
+            Assert.True(result.Faculties == faculties);
         }
     }
 }

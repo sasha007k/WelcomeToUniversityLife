@@ -101,7 +101,6 @@ namespace Infrastructure.Services.UniversityAdmin
 
         public async Task<bool> DeleteFaculty(int facultyId)
         {
-            var faculty = await _unitOfWork.FacultyRepository.GetAsync(facultyId);
             var specialities = _unitOfWork.SpecialityRepository.GetAllSpecialitiesWithFacultyId(facultyId).Result;
 
             foreach (var s in specialities)

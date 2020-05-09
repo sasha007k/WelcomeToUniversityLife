@@ -12,17 +12,17 @@ namespace Infrastructure.Services
     public class UniversityService : IUniversityService
     {
         private readonly IHttpContextAccessor _httpContext;
-        private readonly IPhotoHelper _photoHelper;
+        private readonly IPhotoHelperService _photoHelperService;
         private readonly IUnitOfWork _unitOfWork;
-        private readonly UserManager<User> _userManager;
+        private readonly IUserManager _userManager;
 
-        public UniversityService(UserManager<User> userManager, IUnitOfWork unitOfWork,
-            IHttpContextAccessor httpContext, IPhotoHelper photoHelper)
+        public UniversityService(IUserManager userManager, IUnitOfWork unitOfWork,
+            IHttpContextAccessor httpContext, IPhotoHelperService photoHelperService)
         {
             _userManager = userManager;
             _httpContext = httpContext;
             _unitOfWork = unitOfWork;
-            _photoHelper = photoHelper;
+            _photoHelperService = photoHelperService;
         }
 
         public async Task<bool> EditUniversity(University model)
@@ -79,7 +79,6 @@ namespace Infrastructure.Services
             return null;
         }
 
-
         public async Task<CurrentUniversityAndFacultiesModel> GetUniversityAsync(int universityId)
         {
             var university = await _unitOfWork.UniversityRepository.GetAsync(universityId);
@@ -100,7 +99,6 @@ namespace Infrastructure.Services
             return null;
         }
 
-
         public async Task UploadUniversityPhotoAsync(UploadPhotoModel requestedData, IFormFileCollection uploads)
         {
             if (uploads.Count == 0)
@@ -111,7 +109,7 @@ namespace Infrastructure.Services
             if (university == null || university.UserId != requestedData.requestedUserId)
                 throw new Exception("Invalid Data!!");
 
-            var photoName = await _photoHelper.UploadPhotoAsync(uploads[0], "universitiesphotos");
+            var photoName = await _photoHelperService.UploadPhotoAsync(uploads[0], "universitiesphotos");
 
             university.Photo = photoName;
 
@@ -125,7 +123,7 @@ namespace Infrastructure.Services
             if (user.University == null)
                 throw new Exception("User is not university admin!!");
 
-            _photoHelper.DeletePhotoAsync(user.University.Photo, "universitiesphotos");
+            _photoHelperService.DeletePhotoAsync(user.University.Photo, "universitiesphotos");
 
             user.University.Photo = string.Empty;
 

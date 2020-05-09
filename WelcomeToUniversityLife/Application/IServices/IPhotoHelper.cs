@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace Application.IServices
 {
-    public interface IPhotoHelper
+    public interface IPhotoHelperService
     {
         Task<string> UploadPhotoAsync(IFormFile file, string folder);
 

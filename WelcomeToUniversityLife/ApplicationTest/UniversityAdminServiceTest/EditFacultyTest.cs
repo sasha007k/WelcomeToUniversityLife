@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Security.Principal;
 using System.Text;
+using Application.Models.UniversityAdmin;
 using AutoFixture;
 using AutoFixture.AutoMoq;
 using Domain;
 using Domain.Entities;
-using Infrastructure.Services;
 using Infrastructure.Services.UniversityAdmin;
 using Microsoft.AspNetCore.Http;
 using Moq;
@@ -14,17 +14,17 @@ using Xunit;
 
 namespace ApplicationTest.UniversityAdminServiceTest
 {
-    public class EditUniversityTest
+    public class EditFacultyTest
     {
-        [Fact]
-        public async void ShouldEditUniversity()
+        [Fact] 
+        public async void ShouldEditFaculty()
         {
             // arrange   
 
-            var university = new University()
+            var faculty = new Faculty()
             {
-                Name = "LNU",
-                Id = 7
+                Name = "Law Faculty",
+                UniversityId = 7
             };
 
             var fixture = new Fixture().Customize(new AutoMoqCustomization());
@@ -34,11 +34,11 @@ namespace ApplicationTest.UniversityAdminServiceTest
                 .Returns(fixture.Create<IIdentity>());
             mockHttpContext.Setup(p => p.HttpContext.User.Identity.Name)
                 .Returns("username");
-            var universityService = fixture.Create<UniversityService>();
+            var facultyService = fixture.Create<FacultyService>();
 
             // act
 
-            await universityService.EditUniversity(university);
+            await facultyService.EditFaculty(faculty);
 
             // assert
 

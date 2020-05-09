@@ -15,12 +15,12 @@ namespace Infrastructure.Services
         private readonly IDocumentService _documentService;
         private readonly IHttpContextAccessor _httpContext;
         private readonly IUnitOfWork _unitOfWork;
-        private readonly UserManager<User> _userManager;
+        private readonly IUserManager _userManager;
         private readonly ICampaignService _campaignService;
 
         private const int _maxApplications = 6;
 
-        public UserService(UserManager<User> userManager, IHttpContextAccessor httpContext,
+        public UserService(IUserManager userManager, IHttpContextAccessor httpContext,
            IUnitOfWork unitOfWork, ICampaignService campaignService, IDocumentService documentService)
         {
             _userManager = userManager;
@@ -82,11 +82,11 @@ namespace Infrastructure.Services
             if (user == null) return false;
 
             var isOldPasswordCorrect =
-                _userManager.PasswordHasher.VerifyHashedPassword(user, user.PasswordHash, model.OldPassword);
+                _userManager.VerifyHashedPassword(user, user.PasswordHash, model.OldPassword);
 
             if (isOldPasswordCorrect != PasswordVerificationResult.Success) return false;
 
-            var newPassword = _userManager.PasswordHasher.HashPassword(user, model.NewPassword);
+            var newPassword = _userManager.HashPassword(user, model.NewPassword);
             user.PasswordHash = newPassword;
             var result = await _userManager.UpdateAsync(user);
 
@@ -96,7 +96,6 @@ namespace Infrastructure.Services
         public async Task<IdentityResult> AddDocs(string name, Document document)
         {
             var user = await _userManager.FindByNameAsync(name);
-
 
             if (user != null)
             {
@@ -200,11 +199,6 @@ namespace Infrastructure.Services
             var word = applicationsLeft == 1 ? "application" : "applications";
 
             return $"You are successfully applied. {applicationsLeft} {word} left.";
-        }
-
-        public Task<User> GetUserByIdAsync(int id)
-        {
-            return _unitOfWork.UserRepository.GetAsync(id);
         }
 
         public async Task<int> GetIdByName(string name)

@@ -1,19 +1,19 @@
-﻿using System.Threading;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
 using Application.IServices;
 using Application.Models.User;
 using AutoFixture;
 using AutoFixture.AutoMoq;
+using Domain;
 using Domain.Entities;
-using Infrastructure;
 using Infrastructure.Services;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Moq;
 using Xunit;
 
 namespace ApplicationTest.UserServiceTests
 {
-    public class GetUserInfoTest
+    public class UpdateUserInfoTest
     {
         [Fact]
         public async void GetUserInfo_ShouldReturnValidValues()
@@ -23,7 +23,8 @@ namespace ApplicationTest.UserServiceTests
             var user = new User()
             {
                 Id = 1,
-                UserName = "username"
+                UserName = "username",
+                Email = "test@gmail.com"
             };
 
             var model = new UserProfileModel()
@@ -33,17 +34,18 @@ namespace ApplicationTest.UserServiceTests
 
             var fixture = new Fixture().Customize(new AutoMoqCustomization());
             var mockUserManager = fixture.Freeze<Mock<IUserManager>>();
-            mockUserManager.Setup(u => u.FindByNameAsync(user.UserName)).ReturnsAsync(user);
+            var mockUnitOfWork = fixture.Freeze<Mock<IUnitOfWork>>();
+            mockUserManager.Setup(u => u.FindByEmailAsync(user.Email)).ReturnsAsync(user);
 
             var userService = fixture.Create<UserService>();
 
 
             //Act
-            var result = await userService.GetUserInfo(user.UserName);
+            await userService.UpdateUserInfo(model);
 
             //Assert
 
-            Assert.Equal(model.Email, result.Email);
+            mockUserManager.Verify(x => x.UpdateAsync(It.IsAny<User>()));
         }
     }
 }

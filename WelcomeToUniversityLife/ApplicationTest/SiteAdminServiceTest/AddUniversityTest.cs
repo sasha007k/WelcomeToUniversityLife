@@ -1,63 +1,58 @@
-﻿using Application.Models.SiteAdmin;
+﻿using Application.IServices;
+using Application.Models.SiteAdmin;
 using Domain.Entities;
-using Infrastructure;
-using Infrastructure.Services;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Moq;
-using System.Threading;
+using Domain;
 using Xunit;
+using AutoFixture;
+using AutoFixture.AutoMoq;
+using Infrastructure.Services;
 
 namespace ApplicationTest.SiteAdminServiceTest
 {
     public class AddUniversityTest
     {
-        [Theory]
-        [InlineData("test@gmail.com", "12345", "LNU")]
-        public async void ShouldAddUniversity(string email, string password, string universityName)
+        [Fact]
+        public async void ShouldAddUniversity()
         {
-            var options = new DbContextOptionsBuilder<DatabaseContext>()
-                .UseInMemoryDatabase("Database")
-                .Options;
-
-            using (var context = new DatabaseContext(options))
+            //arrange
+            var addUniModel = new AddUniversityModel()
             {
-                //context.Set<User>().Add(new User
-                //{
-                //    UserName = email,
-                //    Email = email
-                //});
+                UniversityName = "LNU",
+                Email = "test@gmail.com",
+                Password = "12345"
+            };
 
-                var moq = new Mock<IUserPasswordStore<User>>();
-                moq.Setup(s => s.FindByNameAsync(email, CancellationToken.None)).ReturnsAsync(new User { Email = email });
+            var user = new User
+            {
+                Id = 1,
+                Email = addUniModel.Email,
+                UserName = addUniModel.Email
+            };
 
-                var userManager = new UserManager<User>(moq.Object,
-                    null, null, null, null, null, null, null,
-                    new Mock<ILogger<UserManager<User>>>().Object);
+            var university = new University
+            {
+                Name = addUniModel.UniversityName,
+                UserId = user.Id
+            };
 
-                var signInManager = new SignInManager<User>(userManager,
-                    new Mock<IHttpContextAccessor>().Object,
-                    new Mock<IUserClaimsPrincipalFactory<User>>().Object,
-                    new Mock<IOptions<IdentityOptions>>().Object,
-                    new Mock<ILogger<SignInManager<User>>>().Object,
-                    new Mock<IAuthenticationSchemeProvider>().Object);
-                var service = new SiteAdminService(userManager, null, null);
+            var fixture = new Fixture().Customize(new AutoMoqCustomization());
+            var mockUnitOfWork = fixture.Freeze<Mock<IUnitOfWork>>();
+            var mockUserManager = fixture.Freeze<Mock<IUserManager>>();
+            var siteAdminService = fixture.Create<SiteAdminService>();
 
-                var addUniversityModel = new AddUniversityModel
-                {
-                    UniversityName = universityName,
-                    Email = email,
-                    Password = password
-                };
-                var result = await service.AddUniversityAsync(addUniversityModel);
+            var identityResult = fixture.Freeze<IdentityResult>();
+            mockUserManager.Setup(u => u.CreateAsync(user, addUniModel.Password))
+                .ReturnsAsync(identityResult);
 
-                const bool expected = true;
-                Assert.Equal(expected, result);
-            }
+            //act
+
+            await siteAdminService.AddUniversityAsync(addUniModel);
+
+            //assert
+
+            mockUnitOfWork.Verify(unit => unit.UniversityRepository.CreateAsync(It.IsAny<University>()), Times.Once);
         }
     }
 }

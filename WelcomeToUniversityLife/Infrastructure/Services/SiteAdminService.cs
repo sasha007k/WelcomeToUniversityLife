@@ -2,7 +2,6 @@
 using Application.Models.SiteAdmin;
 using Domain;
 using Domain.Entities;
-using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,10 +12,10 @@ namespace Infrastructure.Services
     public class SiteAdminService : ISiteAdminService
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly UserManager<User> _userManager;
+        private readonly IUserManager _userManager;
         private readonly ICampaignService _campaignService;
 
-        public SiteAdminService(UserManager<User> userManager, IUnitOfWork unitOfWork, ICampaignService campaignService)
+        public SiteAdminService(IUserManager userManager, IUnitOfWork unitOfWork, ICampaignService campaignService)
         {
             _userManager = userManager;
             _unitOfWork = unitOfWork;

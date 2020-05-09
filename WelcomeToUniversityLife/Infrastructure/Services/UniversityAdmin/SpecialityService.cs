@@ -43,12 +43,10 @@ namespace Infrastructure.Services.UniversityAdmin
                         speciality.RequiredZNO2 = model.ZNO[0];
                         speciality.RequiredZNO3 = model.ZNO[1];
                         break;
-                    //case 3:
-                    //    speciality.RequiredZNO2 = model.ZNO[0];
-                    //    speciality.RequiredZNO3 = model.ZNO[1];
-                    //    speciality.RequiredZNO4 = model.ZNO[2];
-                    //    break;
-                    default:
+                    case 3:
+                        speciality.RequiredZNO2 = model.ZNO[0];
+                        speciality.RequiredZNO3 = model.ZNO[1];
+                        speciality.RequiredZNO4 = model.ZNO[2];
                         break;
                 }
             }
@@ -99,7 +97,7 @@ namespace Infrastructure.Services.UniversityAdmin
 
             var requests = await _unitOfWork.ApplicationRepository.GetAllRequestsBySpecialityId(specialityId);
 
-            SpecialityRating ratingInfo = new SpecialityRating
+            var ratingInfo = new SpecialityRating
             {
                 Requests = (from i in requests
                             select new RequestsInfo { UserEmail = i.User.Email, AverageMark = Math.Round(i.User.ZNO.GetAverageMark(), 2) })

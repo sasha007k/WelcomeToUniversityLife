@@ -13,9 +13,9 @@ namespace Infrastructure.Services
     {
         private readonly IHttpContextAccessor _httpContext;
         private readonly IUnitOfWork _unitOfWork;
-        private readonly UserManager<User> _userManager;
+        private readonly IUserManager _userManager;
 
-        public ZnoService(UserManager<User> userManager, IHttpContextAccessor httpContext, IUnitOfWork unitOfWork)
+        public ZnoService(IUserManager userManager, IHttpContextAccessor httpContext, IUnitOfWork unitOfWork)
         {
             _userManager = userManager;
             _httpContext = httpContext;

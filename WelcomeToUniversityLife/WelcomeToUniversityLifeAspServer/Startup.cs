@@ -60,7 +60,7 @@ namespace WelcomeToUniversityLifeAspServer
             services.AddLogging(loggingBuilder => { loggingBuilder.AddSeq(Configuration.GetSection("Seq")); });
 
             //---Applying Services
-            services.AddScoped<IPhotoHelper, PhotoHelper>();
+            services.AddScoped<IPhotoHelperService, PhotoHelperServiceService>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IAuthenticationService, AuthenticationService>();
             services.AddScoped<IUserService, UserService>();

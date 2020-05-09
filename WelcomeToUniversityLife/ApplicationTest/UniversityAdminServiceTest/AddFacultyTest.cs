@@ -2,47 +2,49 @@
 using System.Collections.Generic;
 using System.Security.Principal;
 using System.Text;
+using Application.Models.UniversityAdmin;
 using AutoFixture;
 using AutoFixture.AutoMoq;
 using Domain;
 using Domain.Entities;
-using Infrastructure.Services;
+using Domain.IRepositories;
 using Infrastructure.Services.UniversityAdmin;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Xunit;
 
 namespace ApplicationTest.UniversityAdminServiceTest
 {
-    public class EditUniversityTest
+    public class AddFacultyTest
     {
         [Fact]
-        public async void ShouldEditUniversity()
+        public async void CreateFaculty_ShouldInvokesOnce()
         {
             // arrange   
 
-            var university = new University()
+            var faculty = new AddFacultyModel
             {
-                Name = "LNU",
-                Id = 7
+                FacultyName = "Law Faculty",
+                UniversityId = 7
             };
 
             var fixture = new Fixture().Customize(new AutoMoqCustomization());
             var mockUnitOfWork = fixture.Freeze<Mock<IUnitOfWork>>();
             var mockHttpContext = fixture.Freeze<Mock<IHttpContextAccessor>>();
             mockHttpContext.Setup(p => p.HttpContext.User.Identity)
-                .Returns(fixture.Create<IIdentity>());
+                    .Returns(fixture.Create<IIdentity>());
             mockHttpContext.Setup(p => p.HttpContext.User.Identity.Name)
                 .Returns("username");
-            var universityService = fixture.Create<UniversityService>();
+            var facultyService = fixture.Create<FacultyService>();
 
             // act
 
-            await universityService.EditUniversity(university);
+            await facultyService.AddFacultyAsync(faculty);
 
             // assert
 
-            mockUnitOfWork.Verify(unit => unit.Commit(), Times.Once);
+            mockUnitOfWork.Verify(x => x.FacultyRepository.CreateAsync(It.IsAny<Faculty>()), Times.Once);
         }
     }
 }

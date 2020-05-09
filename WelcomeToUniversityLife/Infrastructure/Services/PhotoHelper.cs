@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Services
 {
-    public class PhotoHelper : IPhotoHelper
+    public class PhotoHelperServiceService : IPhotoHelperService
     {
         private readonly IConfiguration _config;
         private readonly IHostingEnvironment _env;
 
-        public PhotoHelper(IConfiguration config, IHostingEnvironment env)
+        public PhotoHelperServiceService(IConfiguration config, IHostingEnvironment env)
         {
             _config = config;
 
