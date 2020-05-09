@@ -24,7 +24,9 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
         [HttpGet]
         public async Task<IActionResult> Profile()
         {
+            var docs = await _userService.GetDocsAsync(User.Identity.Name).ConfigureAwait(true);
             var profile = await _userService.GetUserInfo(User.Identity.Name).ConfigureAwait(true);
+            profile.Docs = docs;
             return View(profile);
         }
 
@@ -52,20 +54,37 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
             {
                 var id = await _userService.GetIdByName(User.Identity.Name).ConfigureAwait(true);
 
-
                 if (!Directory.Exists(Path.Combine(_appEnvironment.WebRootPath, "Docs", $"{id}")))
                 {
                     Directory.CreateDirectory(Path.Combine(_appEnvironment.WebRootPath, "Docs", $"{id}"));
                 }
 
-                foreach (var item in uploads)
+                for (var i =0;i< uploads.Count;++i)
                 {
-                    var path = Path.Combine("Docs", $"{id}", item.FileName);
+                    var path = string.Empty;
+                    var fileName = string.Empty;
+                    if (i == 0)
+                    {
+                        fileName = $"passport{Path.GetExtension(uploads[i].FileName)}";
+                        path = Path.Combine("Docs", $"{id}",fileName);
+                    }
+                    else if (i == 1)
+                    {
+                        fileName = $"certificate{Path.GetExtension(uploads[i].FileName)}";
+                        path = Path.Combine("Docs", $"{id}", fileName);
+                    }
+                    else
+                    {
+                        fileName = $"zno{Path.GetExtension(uploads[i].FileName)}";
+                        path = Path.Combine("Docs", $"{id}", fileName);
+                    }
+
+
                     await using var fileStream = new FileStream(Path.Combine(_appEnvironment.WebRootPath, path), FileMode.Create);
-                    var res = await _userService.AddDocs(User.Identity.Name, new Domain.Entities.Document() { Name = item.FileName }).ConfigureAwait(true);
+                    var res = await _userService.AddDocs(User.Identity.Name, new Domain.Entities.Document() { Name = fileName  }).ConfigureAwait(true);
                     if (res.Succeeded)
                     {
-                        await item.CopyToAsync(fileStream).ConfigureAwait(true);
+                        await uploads[i].CopyToAsync(fileStream).ConfigureAwait(true);
                     }
                 }
 

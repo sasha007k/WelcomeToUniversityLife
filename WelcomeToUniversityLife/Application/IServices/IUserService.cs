@@ -13,5 +13,6 @@ namespace Application.IServices
         Task<string> ApplyButtonExecuteAsync(int specialityId);
         Task<IdentityResult> AddDocs(string name, Document document);
         Task<int> GetIdByName(string name);
+        Task<DocsModel> GetDocsAsync(string name);
     }
 }

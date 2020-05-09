@@ -9,7 +9,7 @@ namespace Application.IServices
     {
         Task<bool> AddUniversityAsync(AddUniversityModel model);
         List<University> GetAllUniversities();
-        Task<string> CreateCampaignAsync(CampaignModel requestData);
+        Task<(string,Сampaign)> CreateCampaignAsync(CampaignModel requestData);
         Task<List<Сampaign>> GetAllCampaigns();
         Task<bool> DeleteCampaignAsync(int campaignId);
     }

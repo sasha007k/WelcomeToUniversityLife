@@ -78,12 +78,12 @@ namespace Infrastructure.Services
             return new Tuple<string, bool>(message, true);
         }
 
-        public async Task<string> CreateCampaignAsync(CampaignModel requestData)
+        public async Task<(string,Сampaign)> CreateCampaignAsync(CampaignModel requestData)
         {
             var (message, result) = await ValidateCampaign(requestData);
             if (!result)
             {
-                return message;
+                return (message,null);
             }
 
             var newcampaign = new Сampaign
@@ -92,12 +92,13 @@ namespace Infrastructure.Services
                 End = requestData.End,
                 Status = CampaignStatus.Pending
             };
+            
 
             await _unitOfWork.CampaignRepository.CreateAsync(newcampaign);
 
             await _unitOfWork.Commit();
 
-            return string.Empty;
+            return (string.Empty, newcampaign);
         }
 
         public async Task<List<Сampaign>> GetAllCampaigns()
