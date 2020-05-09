@@ -1,12 +1,17 @@
 ﻿@model Application.Models.User.UserProfileModel;
 
 
-    <form name="my-form" autocomplete="nope" action="/User/AddDocs" method="post"
+    <form id="docsupload" name="my-form" autocomplete="nope" action="/User/AddDocs" method="post"
           enctype="multipart/form-data">
         <div class="row m-0 p-0">
-
             <div class="col-sm text-center">
-                <h5 id="passh"><b>Passport</b></h5>
+                <div class="d-inline-flex">
+                    <h5 id="passh" class="mr-1"><b>Passport</b></h5>
+                    @if (Model.Docs.Passport != null)
+                    {
+                        <a href="~/Docs/@Model.id/@Model.Docs.Passport">Open</a>
+                    }
+                </div>
                 <a onclick="invokepassportinput()">
                     <img src="~/systemphotos/passport.png" width="150" height="150" />
                 </a>
@@ -15,7 +20,13 @@
             </div>
 
             <div class="col-sm text-center">
-                <h5 id="schoolh"><b>School</b></h5>
+                <div class="d-inline-flex">
+                    <h5 id="schoolh" class="mr-1"><b>School</b></h5>
+                    @if (Model.Docs.Certificate != null)
+                    {
+                        <a href="~/Docs/@Model.id/@Model.Docs.Certificate">Open</a>
+                    }
+                </div>
                 <a onclick="invokeschoolinput()">
                     <img src="~/systemphotos/school.png" width="150" height="150" />
                 </a>
@@ -24,7 +35,13 @@
             </div>
 
             <div class="col-sm text-center">
-                <h5 id="znoh"><b>ZNO</b></h5>
+                <div class="d-inline-flex">
+                    <h5 id="znoh" class="mr-1"><b>ZNO</b></h5>
+                    @if (Model.Docs.Zno != null)
+                    {
+                        <a href="~/Docs/@Model.id/@Model.Docs.Zno">Open</a>
+                    }
+                </div>
                 <a onclick="invokeznoinput()">
                     <img src="~/systemphotos/exam.png" width="150" height="150" />
                 </a>
@@ -32,10 +49,18 @@
                        aria-describedby="inputGroupFileAddon01">
             </div>
         </div>
-
         <div class="row">
-            <div class="col-sm text-center pt-3">
-                <button type="submit" class="btn btn-default my-4 waves-effect z-depth-0">Update</button>
-            </div>
+            @if (Model.Docs.Passport != null)
+            {
+                <div class="col-sm text-center pt-3">
+                    <button type="submit" style="display:none" class="btn btn-default my-4 waves-effect z-depth-0">Update</button>
+                </div>
+            }
+            else
+            {
+                <div class="col-sm text-center pt-3">
+                    <button type="submit" class="btn btn-default my-4 waves-effect z-depth-0">Update</button>
+                </div>
+            }
         </div>
     </form>

@@ -19,5 +19,13 @@ namespace Infrastructure.Repositories
                 .Include(user => user.University)
                 .FirstOrDefaultAsync();
         }
+
+        public async Task<User> GetUserWithDocsAsync(string userName)
+        {
+            return await _context.Users
+                .Where(u => u.UserName == userName)
+                .Include(u => u.Documents)
+                .FirstOrDefaultAsync();
+        }
     }
 }

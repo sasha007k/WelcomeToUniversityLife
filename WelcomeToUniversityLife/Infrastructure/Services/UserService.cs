@@ -38,6 +38,7 @@ namespace Infrastructure.Services
             {
                 var profile = new UserProfileModel
                 {
+                    id = user.Id,
                     Email = user.Email,
                     FirstName = user.FirstName,
                     LastName = user.LastName,
@@ -111,6 +112,20 @@ namespace Infrastructure.Services
             }
 
             return null;
+        }
+
+        public async Task<DocsModel> GetDocsAsync(string name)
+        {
+            var user = await _unitOfWork.UserRepository.GetUserWithDocsAsync(name);
+
+            DocsModel docs = new DocsModel
+            {
+                Passport = user.Documents.ElementAt(0).Name,
+                Certificate = user.Documents.ElementAt(1).Name,
+                Zno = user.Documents.ElementAt(2).Name,
+            };
+
+            return docs;
         }
 
         private async Task<Tuple<string, bool>> CheckCampaign()
