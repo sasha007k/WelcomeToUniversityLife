@@ -66,6 +66,7 @@ namespace WelcomeToUniversityLifeAspServer
             //---Applying Services
             services.AddScoped<IPhotoHelperService, PhotoHelperServiceService>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IUserManager, ApplicationUserManager>();
             services.AddScoped<IAuthenticationService, AuthenticationService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ISiteAdminService, SiteAdminService>();
