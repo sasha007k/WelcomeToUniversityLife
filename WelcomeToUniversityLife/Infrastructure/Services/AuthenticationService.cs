@@ -9,10 +9,10 @@ namespace Infrastructure.Services
 {
     public class AuthenticationService : IAuthenticationService
     {
-        private readonly SignInManager<User> _signInManager;
+        private readonly ISignInManager _signInManager;
         private readonly IUserManager _userManager;
 
-        public AuthenticationService(IUserManager userManager, SignInManager<User> signInManager)
+        public AuthenticationService(IUserManager userManager, ISignInManager signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -26,6 +26,10 @@ namespace Infrastructure.Services
         public async Task<Tuple<SignInResult, string>> SignIn(SignInModel model)
         {
             var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, false, false);
+            if (!result.Succeeded)
+            {
+                return new Tuple<SignInResult, string>(result, null);
+            }
             var user = await _userManager.FindByNameAsync(model.Email);
             var role = await _userManager.GetRolesAsync(user);
             return new Tuple<SignInResult, string>(result, role[0]);

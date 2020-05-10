@@ -1,35 +1,27 @@
-﻿using System.Collections.Generic;
-using System.Threading;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
 using Application.IServices;
 using Application.Models.User;
 using AutoFixture;
 using AutoFixture.AutoMoq;
 using Domain.Entities;
-using Infrastructure;
 using Infrastructure.Services;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Moq;
 using Xunit;
 
 namespace ApplicationTest.UserServiceTests
 {
-    public class GetUserInfoTest
+    public class AddDocsTest
     {
         [Fact]
-        public async void GetUserInfo_ShouldReturnValidValues()
+        public async void ShouldAddDocs()
         {
-            //arrange
-
             var user = new User()
             {
                 Id = 1,
-                UserName = "username"
-            };
-
-            var model = new UserProfileModel()
-            {
-                Email = user.Email
+                UserName = "username",
+                Documents = new List<Document>()
             };
 
             var fixture = new Fixture().Customize(new AutoMoqCustomization());
@@ -38,13 +30,14 @@ namespace ApplicationTest.UserServiceTests
 
             var userService = fixture.Create<UserService>();
 
-            //Act
+            var doc = new Document();
 
-            var result = await userService.GetUserInfo(user.UserName);
+            //Act
+            await userService.AddDocs("somename", doc);
 
             //Assert
 
-            Assert.Equal(model.Email, result.Email);
+            mockUserManager.Verify(u => u.UpdateAsync(It.IsAny<User>()));
         }
     }
 }

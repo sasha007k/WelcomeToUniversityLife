@@ -89,6 +89,8 @@
                                     <input type="file" name="uploadedFiles" class="photoupload" id="fileinputid"
                                            aria-describedby="inputGroupFileAddon01" accept="image/*">
                                 </form>
+
+                                @await Html.PartialAsync("/Views/PopUpWindows/EditUniversityPopUp.cshtml", Model.CurrentUniversity)
                             }
                             else
                             {

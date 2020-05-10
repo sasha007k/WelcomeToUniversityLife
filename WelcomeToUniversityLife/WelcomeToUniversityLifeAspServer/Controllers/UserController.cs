@@ -24,9 +24,16 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
         [HttpGet]
         public async Task<IActionResult> Profile()
         {
-            var docs = await _userService.GetDocsAsync(User.Identity.Name).ConfigureAwait(true);
             var profile = await _userService.GetUserInfo(User.Identity.Name).ConfigureAwait(true);
-            profile.Docs = docs;
+            if (User.IsInRole("User"))
+            {
+                var docs = await _userService.GetDocsAsync(User.Identity.Name).ConfigureAwait(true);
+                if (docs != null)
+                {
+                    profile.Docs = docs;
+                }
+            }
+            
             return View(profile);
         }
 

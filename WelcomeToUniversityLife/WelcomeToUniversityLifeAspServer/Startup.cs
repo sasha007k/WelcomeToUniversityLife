@@ -67,6 +67,7 @@ namespace WelcomeToUniversityLifeAspServer
             services.AddScoped<IPhotoHelperService, PhotoHelperServiceService>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IUserManager, ApplicationUserManager>();
+            services.AddScoped<ISignInManager, ApplicationSignInManager>();
             services.AddScoped<IAuthenticationService, AuthenticationService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ISiteAdminService, SiteAdminService>();
@@ -95,7 +96,7 @@ namespace WelcomeToUniversityLifeAspServer
                 app.UseHsts();
             }
 
-            //DataInitializer.SeedData(userManager, roleManager, context).Wait();
+            DataInitializer.SeedData(userManager, roleManager, context).Wait();
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

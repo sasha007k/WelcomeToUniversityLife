@@ -40,7 +40,7 @@
     <div class="form-group row">
         <label for="DateOfBirth" class="col-sm-2 col-form-label">Date of birth</label>
         <div class="col-sm-10">
-            <input type="date" class="form-control" placeholder="Date of birth" name="DateOfBirth" value="@Model.DateOfBirth"/>
+            <input type="date" class="form-control" placeholder="Date of birth" name="DateOfBirth" asp-format="{0:yyyy-MM-dd}" asp-for="@Model.DateOfBirth" />
         </div>
     </div>
 

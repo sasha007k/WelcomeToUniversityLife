@@ -5,9 +5,9 @@
           enctype="multipart/form-data">
         <div class="row m-0 p-0">
             <div class="col-sm text-center">
-                <div class="d-inline-flex">
+                <div>
                     <h5 id="passh" class="mr-1"><b>Passport</b></h5>
-                    @if (Model.Docs.Passport != null)
+                    @if (Model.Docs?.Passport != null)
                     {
                         <a href="~/Docs/@Model.id/@Model.Docs.Passport">Open</a>
                     }
@@ -20,9 +20,9 @@
             </div>
 
             <div class="col-sm text-center">
-                <div class="d-inline-flex">
+                <div>
                     <h5 id="schoolh" class="mr-1"><b>School</b></h5>
-                    @if (Model.Docs.Certificate != null)
+                    @if (Model.Docs?.Certificate != null)
                     {
                         <a href="~/Docs/@Model.id/@Model.Docs.Certificate">Open</a>
                     }
@@ -35,9 +35,9 @@
             </div>
 
             <div class="col-sm text-center">
-                <div class="d-inline-flex">
+                <div>
                     <h5 id="znoh" class="mr-1"><b>ZNO</b></h5>
-                    @if (Model.Docs.Zno != null)
+                    @if (Model.Docs?.Zno != null)
                     {
                         <a href="~/Docs/@Model.id/@Model.Docs.Zno">Open</a>
                     }
@@ -50,7 +50,7 @@
             </div>
         </div>
         <div class="row">
-            @if (Model.Docs.Passport != null)
+            @if (Model.Docs?.Passport != null)
             {
                 <div class="col-sm text-center pt-3">
                     <button type="submit" style="display:none" class="btn btn-default my-4 waves-effect z-depth-0">Update</button>

@@ -106,7 +106,6 @@ namespace Infrastructure.Services
 
                 user.Documents.Add(document);
 
-
                 return await _userManager.UpdateAsync(user);
             }
 
@@ -117,14 +116,19 @@ namespace Infrastructure.Services
         {
             var user = await _unitOfWork.UserRepository.GetUserWithDocsAsync(name);
 
-            DocsModel docs = new DocsModel
+            if (user.Documents != null && user.Documents.Count == 3)
             {
-                Passport = user.Documents.ElementAt(0).Name,
-                Certificate = user.Documents.ElementAt(1).Name,
-                Zno = user.Documents.ElementAt(2).Name,
-            };
+                var docs = new DocsModel
+                {
+                    Passport = user.Documents.ElementAt(0).Name,
+                    Certificate = user.Documents.ElementAt(1).Name,
+                    Zno = user.Documents.ElementAt(2).Name,
+                };
 
-            return docs;
+                return docs;
+            }
+
+            return null;
         }
 
         private async Task<Tuple<string, bool>> CheckCampaign()

@@ -54,14 +54,19 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
         [Authorize(Roles = "SiteAdmin")]
         public async Task<IActionResult> CreateCampaign(CampaignModel request)
         {
-            var message = (string.Empty,new Сampaign());
+            var message = (string.Empty, new Сampaign());
             if (request != null)
             {
                 message = await _siteAdminService.CreateCampaignAsync(request).ConfigureAwait(true); 
             }
-            var enumDisplayStatus = (CampaignStatus)message.Item2.Status;
-            await this.HubContext.Clients.All.SendAsync("CreateCampaign", message.Item2.Start, message.Item2.End, 
-                enumDisplayStatus.ToString(),message.Item2.Id);
+
+            if (message.Item2 != null)
+            {
+                var enumDisplayStatus = (CampaignStatus)message.Item2.Status;
+                await this.HubContext.Clients.All.SendAsync("CreateCampaign", message.Item2.Start, message.Item2.End,
+                    enumDisplayStatus.ToString(), message.Item2.Id);
+            }
+            
             return RedirectToAction("GetAllCampaigns", new { message = message.Empty });
         }
 

@@ -58,7 +58,7 @@ namespace WelcomeToUniversityLifeAspServer.Controllers
             if (ModelState.IsValid)
             {
                 var (signInResult, role) = await _authenticationService.SignIn(model).ConfigureAwait(true);
-                if (signInResult.Succeeded)
+                if (signInResult.Succeeded && role != null)
                 {
                     var route = ChooseStartPage(role);
                     return route;
