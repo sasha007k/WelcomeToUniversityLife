@@ -184,7 +184,7 @@ namespace Infrastructure.Services
 
             if (user.ZNOId == null)
             {
-                return "Please, set you marks.";
+                return "Please, set your marks.";
             }
 
             var usersZno = await _unitOfWork.ZNORepository.GetAsync(user.ZNOId.Value);

@@ -55,7 +55,7 @@ function inputchanged() {
                 let htag = createHTag();
                 htag.id = `${res[i].id}`;
 
-                htag.innerHTML = `${res[i].universityName}:${res[i].facultyName}:${res[i].specialityName}`;
+                htag.innerHTML = `${res[i].universityName}: ${res[i].facultyName}: ${res[i].specialityName}`;
                 contentdiv.appendChild(htag);
                 divtag.appendChild(contentdiv);
                 atag.appendChild(divtag);
