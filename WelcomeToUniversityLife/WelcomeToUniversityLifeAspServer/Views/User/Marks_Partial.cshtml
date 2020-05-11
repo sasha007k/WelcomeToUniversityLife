@@ -5,15 +5,18 @@
 
     <div class="form-group row">
         <label for="ZnoModels" class="col-3 col-form-label">First zno</label>
-        <div class="col-4 oneline">
-            <select id="firstsub" asp-for="MarksModel.FirstZnoModel.Name" name="MarksModel.FirstZnoModel.Name">
-                <option disabled selected="selected">Ukrainian</option>
-            </select>
+        <div class="col-8">
+            <div class="col-4 oneline">
+                <select id="firstsub" asp-for="MarksModel.FirstZnoModel.Name" name="MarksModel.FirstZnoModel.Name">
+                    <option disabled selected="selected">Ukrainian</option>
+                </select>
+            </div>
+            <div class="col-4 oneline">
+                <input type="number" max="200" min="0" step="0.1" class="form-control" placeholder="Mark" name="MarksModel.FirstZnoModel.Mark" required="" asp-for="MarksModel.FirstZnoModel.Mark" />
+            </div>
         </div>
 
-        <div class="col-4 oneline">
-            <input type="number" max="200" min="0" step="0.1" class="form-control" placeholder="Mark" name="MarksModel.FirstZnoModel.Mark" required=""/>
-        </div>
+
     </div>
 
     <div class="form-group row">
@@ -36,7 +39,7 @@
             </div>
 
             <div class="col-4 oneline">
-                <input type="number" max="200" min="0" step="0.1" class="form-control elem" placeholder="Mark" name="MarksModel.SecondZnoModel.Mark" required=""/>
+                <input type="number" max="200" min="0" step="0.1" class="form-control elem" placeholder="Mark" name="MarksModel.SecondZnoModel.Mark" asp-for="MarksModel.SecondZnoModel.Mark" required="">
             </div>
         </div>
     </div>
@@ -61,7 +64,7 @@
             </div>
 
             <div class="col-4 oneline">
-                <input type="number" max="200" min="0" step="0.1" class="form-control elem" placeholder="Mark" name="MarksModel.ThirdZnoModel.Mark" required=""/>
+                <input type="number" max="200" min="0" step="0.1" class="form-control elem" placeholder="Mark" name="MarksModel.ThirdZnoModel.Mark" asp-for="MarksModel.ThirdZnoModel.Mark" required="" />
 
             </div>
         </div>
@@ -86,7 +89,7 @@
                 </select>
             </div>
             <div class="col-4 oneline">
-                <input type="number" max="200" min="0" step="0.1" value="0" class="form-control" placeholder="Mark" name="MarksModel.FourZnoModel.Mark" required=""/>
+                <input type="number" max="200" min="0" step="0.1" value="0" class="form-control" asp-for="MarksModel.FourZnoModel.Mark" placeholder="Mark" name="MarksModel.FourZnoModel.Mark" required="" />
             </div>
         </div>
     </div>

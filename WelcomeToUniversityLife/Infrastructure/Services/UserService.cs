@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace Infrastructure.Services
@@ -33,9 +34,11 @@ namespace Infrastructure.Services
         public async Task<UserProfileModel> GetUserInfo(string name)
         {
             var user = await _userManager.FindByNameAsync(name);
+            
 
             if (user != null)
             {
+
                 var profile = new UserProfileModel
                 {
                     id = user.Id,
@@ -47,6 +50,51 @@ namespace Infrastructure.Services
                     City = user.City,
                     DateOfBirth = user.DateOfBirth
                 };
+
+                var zno = await _unitOfWork.ZNORepository.GetAsync(Convert.ToInt32(user.ZNOId));
+                if(zno!=null)
+                {
+                    profile.MarksModel = new AddMarksModel();
+                    int i = 0;
+
+                    PropertyInfo[] properties = typeof(ZNO).GetProperties();
+                    foreach (PropertyInfo property in properties)
+                    {
+                        var p = property.GetValue(zno);
+                        if (p != null)
+                        {
+                            var n = property.Name;
+                            switch (i)
+                            {
+                                case 0:
+                                    profile.MarksModel.FirstZnoModel = new ZnoModel();
+                                    profile.MarksModel.FirstZnoModel.Name = n;
+                                    profile.MarksModel.FirstZnoModel.Mark = Convert.ToString(p);
+                                    i++;
+                                    break;
+                                case 1:
+                                    profile.MarksModel.SecondZnoModel = new ZnoModel();
+                                    profile.MarksModel.SecondZnoModel.Name = n;
+                                    profile.MarksModel.SecondZnoModel.Mark = Convert.ToString(p);
+                                    i++;
+                                    break;
+                                case 2:
+                                    profile.MarksModel.ThirdZnoModel  = new ZnoModel();
+                                    profile.MarksModel.ThirdZnoModel.Name = n;
+                                    profile.MarksModel.ThirdZnoModel.Mark = Convert.ToString(p);
+                                    i++;
+                                    break;
+                                case 3:
+                                    profile.MarksModel.FourZnoModel = new ZnoModel();
+                                    profile.MarksModel.FourZnoModel.Name = n;
+                                    profile.MarksModel.FourZnoModel.Mark = Convert.ToString(p);
+                                    i++;
+                                    break;
+                            }
+                        }
+
+                    }
+                }
 
                 return profile;
             }
