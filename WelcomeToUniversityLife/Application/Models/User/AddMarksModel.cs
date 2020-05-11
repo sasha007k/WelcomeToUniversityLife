@@ -4,6 +4,17 @@
     {
         public string Name { get; set; }
         public string Mark { get; set; }
+
+        public ZnoModel()
+        {
+            
+        }
+
+        public ZnoModel(string name, string mark)
+        {
+            Name = name;
+            Mark = mark;
+        }
     }
 
     public class AddMarksModel

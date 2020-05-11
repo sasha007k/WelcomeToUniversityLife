@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Domain.Entities
 {
@@ -93,6 +94,52 @@ namespace Domain.Entities
             if (Chemistry != 0) sum += Chemistry;
 
             return sum / nouNullSubjects.Count;
+        }
+
+        public double GetMark(string subject)
+        {
+            switch (subject)
+            {
+                case "Math":
+                    return Math;
+                case "Geography":
+                    return Geography;
+                case "Ukrainian":
+                    return Ukrainian;
+                case "History":
+                    return History;
+                case "English":
+                    return English;
+                case "Spanish":
+                    return Spanish;
+                case "French":
+                    return French;
+                case "Germany":
+                    return Germany;
+                case "Biology":
+                    return Biology;
+                case "Physics":
+                    return Physics;
+                case "Chemistry":
+                    return Chemistry;
+            }
+
+            return 0.0;
+        }
+
+        public void ClearMarks()
+        {
+            Math = 0.0;
+            Geography = 0.0;
+            Ukrainian = 0.0;
+            History = 0.0;
+            English = 0.0;
+            Spanish = 0.0;
+            French = 0.0;
+            Germany = 0.0;
+            Biology = 0.0;
+            Physics = 0.0;
+            Chemistry = 0.0;
         }
     }
 }

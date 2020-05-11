@@ -51,6 +51,8 @@ namespace Infrastructure.Services
                 zno = await _unitOfWork.ZNORepository.GetAsync(user.ZNOId.Value);
             }
 
+            zno.ClearMarks();
+
             if (model.FirstZnoModel != null)
                 zno.SetMark(model.FirstZnoModel.Name, Convert.ToDouble(model.FirstZnoModel.Mark));
 
@@ -67,7 +69,7 @@ namespace Infrastructure.Services
 
             var result = await _unitOfWork.Commit();
 
-            return result == 1;
+            return result >= 1;
         }
     }
 }

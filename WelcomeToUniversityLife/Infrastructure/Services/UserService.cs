@@ -52,47 +52,46 @@ namespace Infrastructure.Services
                 };
 
                 var zno = await _unitOfWork.ZNORepository.GetAsync(Convert.ToInt32(user.ZNOId));
-                if(zno!=null)
+                if(zno != null)
                 {
                     profile.MarksModel = new AddMarksModel();
-                    int i = 0;
 
-                    PropertyInfo[] properties = typeof(ZNO).GetProperties();
-                    foreach (PropertyInfo property in properties)
+                    var notNullMarks = zno.GetNotNullMarks();
+
+                    if (notNullMarks.Contains("Ukrainian"))
                     {
-                        var p = property.GetValue(zno);
-                        if (p != null)
-                        {
-                            var n = property.Name;
-                            switch (i)
-                            {
-                                case 0:
-                                    profile.MarksModel.FirstZnoModel = new ZnoModel();
-                                    profile.MarksModel.FirstZnoModel.Name = n;
-                                    profile.MarksModel.FirstZnoModel.Mark = Convert.ToString(p);
-                                    i++;
-                                    break;
-                                case 1:
-                                    profile.MarksModel.SecondZnoModel = new ZnoModel();
-                                    profile.MarksModel.SecondZnoModel.Name = n;
-                                    profile.MarksModel.SecondZnoModel.Mark = Convert.ToString(p);
-                                    i++;
-                                    break;
-                                case 2:
-                                    profile.MarksModel.ThirdZnoModel  = new ZnoModel();
-                                    profile.MarksModel.ThirdZnoModel.Name = n;
-                                    profile.MarksModel.ThirdZnoModel.Mark = Convert.ToString(p);
-                                    i++;
-                                    break;
-                                case 3:
-                                    profile.MarksModel.FourZnoModel = new ZnoModel();
-                                    profile.MarksModel.FourZnoModel.Name = n;
-                                    profile.MarksModel.FourZnoModel.Mark = Convert.ToString(p);
-                                    i++;
-                                    break;
-                            }
-                        }
+                        profile.MarksModel.FirstZnoModel = new ZnoModel("Ukrainian", zno.GetMark("Ukrainian").ToString());
+                    }
 
+                    notNullMarks.Remove("Ukrainian");
+
+                    var secondZno = string.Empty;
+                    var thirdZno = string.Empty;
+                    var fourthZno = string.Empty;
+
+                    switch (notNullMarks.Count)
+                    {
+                        case 1:
+                            secondZno = notNullMarks.ElementAt(0);
+                            profile.MarksModel.SecondZnoModel = new ZnoModel(secondZno, zno.GetMark(secondZno).ToString());
+                            break;
+                        case 2:
+                            secondZno = notNullMarks.ElementAt(0);
+                            profile.MarksModel.SecondZnoModel = new ZnoModel(secondZno, zno.GetMark(secondZno).ToString());
+
+                            thirdZno = notNullMarks.ElementAt(1);
+                            profile.MarksModel.ThirdZnoModel = new ZnoModel(thirdZno, zno.GetMark(thirdZno).ToString());
+                            break;
+                        case 3:
+                            secondZno = notNullMarks.ElementAt(0);
+                            profile.MarksModel.SecondZnoModel = new ZnoModel(secondZno, zno.GetMark(secondZno).ToString());
+
+                            thirdZno = notNullMarks.ElementAt(1);
+                            profile.MarksModel.ThirdZnoModel = new ZnoModel(thirdZno, zno.GetMark(thirdZno).ToString());
+
+                            fourthZno = notNullMarks.ElementAt(2);
+                            profile.MarksModel.FourZnoModel = new ZnoModel(fourthZno, zno.GetMark(fourthZno).ToString());
+                            break;
                     }
                 }
 

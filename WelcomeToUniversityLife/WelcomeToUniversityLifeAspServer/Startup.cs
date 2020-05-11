@@ -96,7 +96,7 @@ namespace WelcomeToUniversityLifeAspServer
                 app.UseHsts();
             }
 
-            DataInitializer.SeedData(userManager, roleManager, context).Wait();
+            //DataInitializer.SeedData(userManager, roleManager, context).Wait();
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

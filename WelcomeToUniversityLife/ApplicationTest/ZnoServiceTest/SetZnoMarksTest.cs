@@ -31,9 +31,9 @@ namespace ApplicationTest.ZnoServiceTest
 
             var model = new AddMarksModel()
             {
-                FirstZnoModel = new ZnoModel() {Name = "English", Mark = "200"},
-                SecondZnoModel = new ZnoModel() {Name = "Math", Mark = "190"},
-                ThirdZnoModel = new ZnoModel() {Name = "Ukrainian", Mark = "195"},
+                FirstZnoModel = new ZnoModel("English", "200"),
+                SecondZnoModel = new ZnoModel("Math", "190"),
+                ThirdZnoModel = new ZnoModel("Ukrainian", "195")
             };
 
             var fixture = new Fixture().Customize(new AutoMoqCustomization());
